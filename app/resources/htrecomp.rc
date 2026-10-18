@@ -1,0 +1,8 @@
+// Windows resources for the release executable.
+//
+// The first icon in the resource table, by ordinal, is the one Explorer and
+// the taskbar use, so IDI_ICON1 has to be the lowest ID present.
+
+#define IDI_ICON1 101
+
+IDI_ICON1 ICON "icon.ico"

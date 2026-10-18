@@ -1,0 +1,382 @@
+{
+  "app": {
+    "url": "https://github.com/visibou/htrecomp.git",
+    "revision": "ecae518f5f53f4bd57005f91466824ecdcaf89b9",
+    "upstreamLicenseFileFound": false
+  },
+  "sdk": {
+    "url": "https://github.com/rexglue/rexglue-sdk.git",
+    "revision": "c94f5ebdcb3c9d1a460ca48e04f9758448f8d518"
+  },
+  "xextool": {
+    "url": "https://github.com/mrtitanic777/XexTool-RE.git",
+    "revision": "c421d3772ff9b6d5cd4798edbc01f7d0570f1081"
+  },
+  "referenceXeniaEdge": "b2741d1baf00a4d7a7d6248c4f0a3da2c14a6982",
+  "gameVersion": "0.0.2.1",
+  "buildStatus": "Revision 9.1.0 packaged (9.0.0 + ht_async_submit). Final Windows exact proofs (scales 1/2, direct resolve and RTT runs, Vulkan validation incl. threading), positive controls and Linux llvmpipe smoke passed with the final binaries. Cais-scene A/B recorded. Real AMD/Ally, watts, audio/finish/keyboard pending.",
+  "localPreview": "revision-9.1.0",
+  "validation893": {
+    "status": "candidate tested; not a packaged release",
+    "windows_binaries": {
+      "hydrothunder.exe": "39dd8405babb0499ba6cd2c22f542f2514cd3cf967f4e6933aa8e52cf53357b2",
+      "librexruntime.dll": "dc1fbde6304a607e1aff20a27c8672ea94ba621fa14a897ebfdcc75f92156dbe",
+      "rexgpu-xenos.dll": "4269017ba74c9c602c988309c90cd74e45f52015e61bea538249dabe33cc2f40"
+    },
+    "sdk_patch_sha256": "28dea7d7a99a127b15c0dc810d96188d3017f9e9c463246ecb7a4ba8288376f1",
+    "proofs": {
+      "proof-scale1": {
+        "ht-fconst-verify": {
+          "copies": 1732608,
+          "bytes": 1861657168,
+          "mismatches": 0
+        },
+        "ht-direct-verify": {
+          "loads": 11404,
+          "texels": 7672419840,
+          "groups": 119803208,
+          "mismatches": 0
+        },
+        "ht-rrfast-verify": {
+          "fast_hits": 1310720,
+          "original_uploads": 0
+        },
+        "ht-zpd-pair-verify": {
+          "compared": 10240,
+          "nonzero": 3636,
+          "mismatches": 0
+        },
+        "ht-dynamic-constants": {
+          "calls": 1310720,
+          "requests": 1157815,
+          "hits": 1107784,
+          "compared": 5789070,
+          "mismatches": 0
+        },
+        "ht-dres-verify": {
+          "direct": 12140,
+          "verified": 12140,
+          "words": 8098611200,
+          "groups": 126531840,
+          "skipped_large": 0,
+          "mismatches": 0
+        }
+      },
+      "proof-scale2": {
+        "ht-fconst-verify": {
+          "copies": 933888,
+          "bytes": 993617088,
+          "mismatches": 0
+        },
+        "ht-direct-verify": {
+          "loads": 7372,
+          "texels": 20101758464,
+          "groups": 314020344,
+          "mismatches": 0
+        },
+        "ht-rrfast-verify": {
+          "fast_hits": 786432,
+          "original_uploads": 0
+        },
+        "ht-zpd-pair-verify": {
+          "compared": 5760,
+          "nonzero": 2170,
+          "mismatches": 0
+        },
+        "ht-dynamic-constants": {
+          "calls": 786432,
+          "requests": 680181,
+          "hits": 649900,
+          "compared": 3400900,
+          "mismatches": 0
+        },
+        "ht-dres-verify": {
+          "direct": 7799,
+          "verified": 7799,
+          "words": 21138735104,
+          "groups": 330221056,
+          "skipped_large": 0,
+          "mismatches": 0
+        }
+      },
+      "rtt-proof-scale1": {
+        "ht-fconst-verify": {
+          "copies": 1806336,
+          "bytes": 1939408016,
+          "mismatches": 0
+        },
+        "ht-direct-verify": {
+          "loads": 12931,
+          "texels": 8631363072,
+          "groups": 134855832,
+          "mismatches": 0
+        },
+        "ht-rrfast-verify": {
+          "fast_hits": 1572864,
+          "original_uploads": 0
+        },
+        "ht-zpd-pair-verify": {
+          "compared": 10752,
+          "nonzero": 3745,
+          "mismatches": 0
+        },
+        "ht-dynamic-constants": {
+          "calls": 1572864,
+          "requests": 1399706,
+          "hits": 1341578,
+          "compared": 6998525,
+          "mismatches": 0
+        },
+        "ht-rtt": {
+          "to_texture": 12893,
+          "no_texture": 12,
+          "verified": 12892
+        }
+      },
+      "rtt-proof-scale2": {
+        "ht-fconst-verify": {
+          "copies": 1536000,
+          "bytes": 1647671440,
+          "mismatches": 0
+        },
+        "ht-direct-verify": {
+          "loads": 10564,
+          "texels": 28323503616,
+          "groups": 442517880,
+          "mismatches": 0
+        },
+        "ht-rrfast-verify": {
+          "fast_hits": 1310720,
+          "original_uploads": 0
+        },
+        "ht-zpd-pair-verify": {
+          "compared": 8960,
+          "nonzero": 3186,
+          "mismatches": 0
+        },
+        "ht-dynamic-constants": {
+          "calls": 1310720,
+          "requests": 1163103,
+          "hits": 1114202,
+          "compared": 5815510,
+          "mismatches": 0
+        },
+        "ht-rtt": {
+          "to_texture": 10634,
+          "no_texture": 12,
+          "verified": 10633
+        }
+      },
+      "positive-scale1": {
+        "ht-fconst-verify": {
+          "copies": 3395584,
+          "bytes": 3628492320,
+          "mismatches": 3391268
+        },
+        "ht-direct-verify": {
+          "loads": 23203,
+          "texels": 15431245312,
+          "groups": 241067064,
+          "mismatches": 0
+        },
+        "ht-rrfast-verify": {
+          "fast_hits": 3000148,
+          "original_uploads": 15852
+        },
+        "ht-zpd-pair-verify": {
+          "compared": 22528,
+          "nonzero": 8057,
+          "mismatches": 22528
+        },
+        "ht-dynamic-constants": {
+          "calls": 2883584,
+          "requests": 2583708,
+          "hits": 2479384,
+          "compared": 12918535,
+          "mismatches": 12918535
+        },
+        "ht-dres-verify": {
+          "direct": 24722,
+          "verified": 24722,
+          "words": 16281362432,
+          "groups": 254378391,
+          "skipped_large": 0,
+          "mismatches": 4099489550
+        }
+      },
+      "rtt-positive-scale1": {
+        "ht-fconst-verify": {
+          "copies": 3129344,
+          "bytes": 3366236352,
+          "mismatches": 3125256
+        },
+        "ht-direct-verify": {
+          "loads": 21269,
+          "texels": 14080194048,
+          "groups": 219975384,
+          "mismatches": 3387325261
+        },
+        "ht-rrfast-verify": {
+          "fast_hits": 2761525,
+          "original_uploads": 15266
+        },
+        "ht-zpd-pair-verify": {
+          "compared": 18944,
+          "nonzero": 6649,
+          "mismatches": 18944
+        },
+        "ht-dynamic-constants": {
+          "calls": 2621440,
+          "requests": 2350712,
+          "hits": 2255764,
+          "compared": 11753555,
+          "mismatches": 11753555
+        },
+        "ht-rtt": {
+          "to_texture": 21231,
+          "no_texture": 12,
+          "verified": 21230
+        }
+      }
+    },
+    "linux_llvmpipe_proofs": {
+      "ht-fconst-verify": {
+        "copies": 413696,
+        "bytes": 446425808,
+        "mismatches": 0
+      },
+      "ht-direct-verify": {
+        "loads": 3835,
+        "texels": 2655505408,
+        "groups": 41475888,
+        "mismatches": 0
+      },
+      "ht-dres-verify": {
+        "direct": 4102,
+        "verified": 4102,
+        "words": 2816745472,
+        "groups": 44002688,
+        "skipped_large": 0,
+        "mismatches": 0
+      },
+      "ht-dynamic-constants": {
+        "calls": 262144,
+        "requests": 211534,
+        "hits": 203571,
+        "compared": 1057665,
+        "mismatches": 0
+      }
+    },
+    "performance": [
+      {
+        "run": "ab-scale1-false",
+        "window_start": "2026-10-16 20:53:01.151000",
+        "window_end": "2026-10-16 20:53:20.890000",
+        "window_basis": "first GPU CSV timestamp +15s through last GPU CSV timestamp; excludes shutdown",
+        "gpu_ms": 2.182,
+        "passes": 59.0,
+        "draws": 2495.0,
+        "submissions": 3.0,
+        "cpu_command_ms": 5.615,
+        "fps": 178.16,
+        "cpu_draw_ms": 3.442,
+        "cpu_bindings_ms": 1.008,
+        "cpu_primitive_ms": 0.677,
+        "worst_logged_frame_ms": 9.4,
+        "present_samples": 10,
+        "performance_run": true,
+        "cpu_command_us_per_draw": 2.2505,
+        "zpd_stats_last": "[2026-10-16 20:53:20.069] [warning] [gpu] [t14524] [ht-zpd-batch-stats] intervals=316000 leak=81 miss=82 parts=0"
+      },
+      {
+        "run": "ab-scale1-true",
+        "window_start": "2026-10-16 20:54:16.779000",
+        "window_end": "2026-10-16 20:54:36.611000",
+        "window_basis": "first GPU CSV timestamp +15s through last GPU CSV timestamp; excludes shutdown",
+        "gpu_ms": 1.9967,
+        "passes": 48.1,
+        "draws": 2491.5556,
+        "submissions": 3.0,
+        "cpu_command_ms": 5.2333,
+        "fps": 191.1111,
+        "cpu_draw_ms": 3.2233,
+        "cpu_bindings_ms": 0.7611,
+        "cpu_primitive_ms": 0.6556,
+        "worst_logged_frame_ms": 9.7,
+        "present_samples": 9,
+        "performance_run": true,
+        "cpu_command_us_per_draw": 2.1004,
+        "zpd_stats_last": "[2026-10-16 20:54:36.081] [warning] [gpu] [t21220] [ht-zpd-batch-stats] intervals=412000 leak=122 miss=117 parts=411780"
+      },
+      {
+        "run": "cap-ab-scale1-false",
+        "window_start": "2026-10-16 20:55:36.658000",
+        "window_end": "2026-10-16 20:55:56.424000",
+        "window_basis": "first GPU CSV timestamp +15s through last GPU CSV timestamp; excludes shutdown",
+        "gpu_ms": 2.4133,
+        "passes": 57.7667,
+        "draws": 2451.6667,
+        "submissions": 3.0,
+        "cpu_command_ms": 5.8611,
+        "fps": 60.0,
+        "cpu_draw_ms": 3.6011,
+        "cpu_bindings_ms": 1.1189,
+        "cpu_primitive_ms": 0.6889,
+        "worst_logged_frame_ms": 17.3,
+        "present_samples": 10,
+        "performance_run": true,
+        "cpu_command_us_per_draw": 2.3907,
+        "zpd_stats_last": "[2026-10-16 20:55:55.980] [warning] [gpu] [t24432] [ht-zpd-batch-stats] intervals=84000 leak=99 miss=101 parts=0"
+      },
+      {
+        "run": "cap-ab-scale1-true",
+        "window_start": "2026-10-16 20:56:54.782000",
+        "window_end": "2026-10-16 20:57:15.059000",
+        "window_basis": "first GPU CSV timestamp +15s through last GPU CSV timestamp; excludes shutdown",
+        "gpu_ms": 2.193,
+        "passes": 47.09,
+        "draws": 2459.8,
+        "submissions": 3.0,
+        "cpu_command_ms": 5.505,
+        "fps": 60.0,
+        "cpu_draw_ms": 3.387,
+        "cpu_bindings_ms": 0.837,
+        "cpu_primitive_ms": 0.7,
+        "worst_logged_frame_ms": 17.3,
+        "present_samples": 10,
+        "performance_run": true,
+        "cpu_command_us_per_draw": 2.238,
+        "zpd_stats_last": "[2026-10-16 20:57:14.429] [warning] [gpu] [t16048] [ht-zpd-batch-stats] intervals=84000 leak=94 miss=95 parts=83960"
+      }
+    ],
+    "representative_driven_race_and_ally_pending": true,
+    "linux_binaries": {
+      "hydrothunder": "33d2a326425d264f5784dc31b130d1bac227916d3bd0f53dfacd3440a7638258",
+      "librexruntime.so": "b0987a2604af6d0d7d5537a74ca2b4a43a1450b152dc96c6bb27fb137804677d",
+      "librexgpu-xenos.so": "25c69b20e8f058671d22d2b63b0c1dd884f8cc0804a456d13454a91b88bf1497",
+      "libamd_fidelityfx_vk.so": "32afa46735a64111a952a7f00eb4b1d40990617ca96d1b7024f563995925d160"
+    }
+  },
+  "validation900": {
+    "status": "packaged",
+    "windows_binaries": {
+      "hydrothunder.exe": "f7a999c694e97c6e898f60ea534785972fd075dccdbc2bbe5e97ee879bfff309",
+      "librexruntime.dll": "dc1fbde6304a607e1aff20a27c8672ea94ba621fa14a897ebfdcc75f92156dbe",
+      "rexgpu-xenos.dll": "a185909ab754bd42c343dbbb43a10a41f24b98eae3756b1b35643e377b4033ed"
+    },
+    "sdk_patch_sha256": "6029ab1bc010fb12ff40b5fb6efc209ecb07094912c4e12d3b8a84d4414a7aa9",
+    "new_optimization": "ht_cp_fast_registers (tools/wsl/patch_cp_fast_registers.py)",
+    "details": "continue-o-projeto-hydro-thunder-hurricane/outputs/validacao-9.0.0/artifact-validation.json"
+  },
+  "validation910": {
+    "status": "packaged",
+    "windows_binaries": {
+      "hydrothunder.exe": "bf421dfc41c01a4af56a849120c4539177a27b4b41e1ca534eb5bfc71b6018ce",
+      "librexruntime.dll": "dc1fbde6304a607e1aff20a27c8672ea94ba621fa14a897ebfdcc75f92156dbe",
+      "rexgpu-xenos.dll": "c5e82b93160e14a9fd74c60873ee91850effb78e46f042f861ab4084ccdd679b"
+    },
+    "sdk_patch_sha256": "b9a73fce12769ec1452c6b30c63154f5b8e389fe23855717824b84798bacc7ea",
+    "new_optimization": "ht_async_submit (tools/wsl/patch_async_submit.py)",
+    "details": "continue-o-projeto-hydro-thunder-hurricane/outputs/validacao-9.0.0/artifact-validation-910.json"
+  }
+}

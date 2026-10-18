@@ -1,0 +1,2 @@
+export HT_LLVM_MINGW_ROOT=/home/claude/ht/llvm-mingw-20261006-ucrt-ubuntu-22.04-x86_64
+cmake -G Ninja /home/claude/ht/src/Hydro-Thunder-fontes-revisao-5/app -DCMAKE_TOOLCHAIN_FILE=/home/claude/ht/src/Hydro-Thunder-fontes-revisao-5/windows-toolchain.cmake -DCMAKE_BUILD_TYPE=Release -DHT_CPU_ARCH=x86-64-v3 -DHT_CPU_TUNE=znver4 -DREXGLUE_USE_VULKAN=ON -DREXGLUE_USE_D3D12=OFF -DREXGLUE_ENABLE_FIDELITYFX=OFF -DREXGLUE_BUILD_TESTS=OFF -DREXSDK_DIR=/home/claude/ht/sdk -DHT_GENERATED_DIR=/home/claude/ht/src/Hydro-Thunder-fontes-revisao-5/app/generated-updated

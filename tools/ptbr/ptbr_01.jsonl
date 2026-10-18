@@ -1,0 +1,109 @@
+{"k": "Common_Next", "v": "PRÓXIMO"}
+{"k": "Common_ChangeTrack", "v": "MUDAR A PISTA"}
+{"k": "Common_Select", "v": "SELECIONAR"}
+{"k": "Common_InviteParty", "v": "CONVIDAR PARA XBOX LIVE PARTY"}
+{"k": "Common_Loading", "v": "Carregando o conteúdo...\nPor favor, não desligue o console."}
+{"k": "Common_Saving", "v": "Salvando..."}
+{"k": "Common_Ready", "v": "PRONTO"}
+{"k": "Common_NotReady", "v": "NÃO ESTÁ PRONTO"}
+{"k": "Common_Waiting", "v": "AGUARDANDO"}
+{"k": "Common_Playing", "v": "JOGANDO"}
+{"k": "Common_Unknown_Track", "v": "PISTA DLC"}
+{"k": "Common_LeaderboardWrite", "v": "Enviando para as classificações..."}
+{"k": "Common_LeaderboardWriteDisconnected", "v": "Não foi possível publicar nas classificações porque você foi desconectado do Xbox LIVE."}
+{"k": "Common_ContactingLeaderboard", "v": "Conectando às classificações..."}
+{"k": "Common_LeaderboardConnect", "v": "Conecte-se ao Xbox LIVE para publicar suas pontuações nas classificações."}
+{"k": "Common_SellWithAchievements", "v": "Uma ou mais conquistas esperam por você. Desbloqueie o jogo completo agora para recebê-las!"}
+{"k": "Common_Refresh", "v": "ATUALIZAR"}
+{"k": "Common_SignInChange", "v": "Houve uma mudança de login. Você voltará agora para a tela inicial."}
+{"k": "Common_Restart", "v": "Tem certeza de que quer reiniciar o jogo? Todo o progresso não salvo será perdido."}
+{"k": "Common_Quit", "v": "Tem certeza de que quer sair do jogo? Todo o progresso não salvo será perdido."}
+{"k": "Common_NoResults", "v": "Nenhum jogo corresponde aos seus critérios."}
+{"k": "Common_PageUp", "v": "PRÓXIMA PÁGINA"}
+{"k": "Common_BackToStart", "v": "Tem certeza de que quer voltar à Tela Inicial? Todo o seu progresso será perdido."}
+{"k": "Common_DeviceNotAvailable", "v": "O dispositivo de armazenamento selecionado não está disponível. Escolher outro dispositivo de armazenamento?"}
+{"k": "Common_DeviceNotSelected", "v": "Você não selecionou um dispositivo de armazenamento. Para salvar seu progresso no jogo, é necessário selecionar um dispositivo de armazenamento. Quer selecionar um agora?"}
+{"k": "Common_DeviceFull", "v": "O dispositivo de armazenamento selecionado não tem espaço livre suficiente. Quer liberar espaço ou escolher outro dispositivo de armazenamento?"}
+{"k": "Common_SaveOverwrite", "v": "Tem certeza de que quer substituir este jogo? Os dados salvos anteriormente serão perdidos."}
+{"k": "Common_SaveGameLoadFail", "v": "Não foi possível carregar o jogo salvo."}
+{"k": "Common_SaveGameStoreFail", "v": "Não foi possível salvar o jogo. Quer tentar novamente?"}
+{"k": "Common_SaveGameCorrupt", "v": "O arquivo de jogo salvo parece estar danificado e não pode ser carregado. Quer substituí-lo por um novo arquivo de jogo salvo?"}
+{"k": "Common_SaveGameLoadNoFiles", "v": "Não há arquivos de jogo salvos no dispositivo escolhido. Quer criar um novo?"}
+{"k": "Common_CorruptDLC", "v": "O conteúdo para download está danificado e não pode ser carregado. Para usar este conteúdo, baixe-o novamente."}
+{"k": "Common_AchievementDeviceNotAvailable", "v": "Não foi possível salvar a conquista no perfil de jogador porque o dispositivo de armazenamento não está disponível."}
+{"k": "Common_AwardDeviceNotAvailable", "v": "Não foi possível salvar a conquista no perfil de jogador porque o dispositivo de armazenamento não está disponível."}
+{"k": "Common_PurchaseInfo", "v": "Este conteúdo só está disponível se você desbloquear o jogo completo."}
+{"k": "Common_RequiredDLC", "v": "Para jogar com este anfitrião você precisa de conteúdo para download. Quer baixar este conteúdo agora? (Há uma versão gratuita disponível!)"}
+{"k": "Common_HostDoesNotHaveDLC", "v": "O anfitrião não possui este conteúdo. Para jogar este conteúdo, jogue com um anfitrião que o possua ou crie seu próprio jogo."}
+{"k": "Common_ReadError", "v": "O dispositivo de armazenamento com o conteúdo necessário foi removido. Conecte o dispositivo de armazenamento novamente."}
+{"k": "Heading_Saving", "v": "SALVANDO"}
+{"k": "Heading_Loading", "v": "CARREGANDO"}
+{"k": "Heading_Confirm", "v": "CONFIRMAR"}
+{"k": "Heading_SignedOut", "v": "DESCONECTADO"}
+{"k": "Start_000", "v": "APERTE START"}
+{"k": "MainMenu_013", "v": "Conquistas"}
+{"k": "MainMenu_014b", "v": "Baixar Conteúdo"}
+{"k": "MainMenu_InfoSP", "v": "Bem-vindo à Liga de Corridas do Hydro Thunder! Dispute séries de Corridas e Campeonatos. Faça os melhores tempos nos modos Desafio e Mestre dos Anéis."}
+{"k": "MainMenu_InfoMP", "v": "Dispute online contra outros jogadores do Xbox LIVE ou jogue lado a lado com até quatro amigos em tela dividida. Ou os dois!"}
+{"k": "MainMenu_InfoLeader", "v": "Compare o seu melhor com o de todos os outros."}
+{"k": "MainMenu_InfoAchievements", "v": "Desbloqueie Conquistas. Ganhe Gamerscore. Faça cara de quem não liga quando seus amigos perguntarem como você conseguiu."}
+{"k": "MainMenu_InfoPurchase", "v": "Toda jornada rumo à fama e à glória começa com um único passo. Apertar este botão é esse passo."}
+{"k": "MainMenu_InfoDLC", "v": "Baixe conteúdo adicional do Marketplace do Xbox LIVE."}
+{"k": "MainMenu_InfoHO", "v": "Mude as configurações do jogo, veja os controles e aprenda estratégias e dicas em Como Jogar."}
+{"k": "MainMenu_InfoReturn", "v": "Saia do furacão e volte para terra firme."}
+{"k": "SinglePlayer_InfoRace", "v": "Corte as ondas em corridas únicas pelo mundo afora."}
+{"k": "SinglePlayer_InfoChamp", "v": "Mergulhe mais fundo nestes Campeonatos de vários eventos."}
+{"k": "SinglePlayer_InfoSlalom", "v": "Serpenteie e salte por circuitos de slalom cada vez mais difíceis. Passe por vários portões seguidos para ganhar Impulso. Cada portão perdido soma tempo. E vergonha."}
+{"k": "SinglePlayer_InfoTT", "v": "O teste mais puro de habilidade. Só você, as ondas e um cronômetro. Ah, e um monte de barris explosivos."}
+{"k": "SinglePlayer_190", "v": "Seu Campeonato anterior ainda está em andamento. Quer continuar de onde parou?"}
+{"k": "SinglePlayer_191", "v": "Você está prestes a começar um novo Campeonato. Seu campeonato salvo anteriormente será substituído."}
+{"k": "SinglePlayer_192", "v": "Para jogar em tela dividida, pelo menos dois jogadores precisam participar."}
+{"k": "Staging_000", "v": "ENTRAR"}
+{"k": "Staging_002", "v": "Cada jogador local deve apertar o botão A no controle para entrar."}
+{"k": "Staging_003", "v": "Cada jogador local deve apertar o botão A no controle para entrar."}
+{"k": "Staging_004", "v": "Jogue online com jogadores locais: entre com até 4 jogadores locais antes de continuar."}
+{"k": "Local_000", "v": "TELA DIVIDIDA"}
+{"k": "MPTrial_000", "v": "Jogue Xbox LIVE\nMultijogador na Demonstração!"}
+{"k": "MultiPlayer_010", "v": "Partida Rápida"}
+{"k": "MultiPlayer_011", "v": "Procurar Partida"}
+{"k": "MultiPlayer_012", "v": "Criar Partida"}
+{"k": "MultiPlayer_013", "v": "Tela Dividida Local"}
+{"k": "MultiPlayer_030", "v": "Seu perfil de jogador não tem as permissões necessárias para acessar jogos no Xbox LIVE."}
+{"k": "MultiPlayer_031", "v": "Para usar o Xbox LIVE Party, você precisa estar conectado ao Xbox LIVE."}
+{"k": "MultiPlayer_InfoQuick", "v": "Caia nas águas online do Xbox LIVE."}
+{"k": "MultiPlayer_InfoCustom", "v": "Está exigente? Procure uma partida de Corrida ou Patinho de Borracha no Xbox LIVE com configurações personalizadas."}
+{"k": "MultiPlayer_InfoCreate", "v": "Organize sua partida de Corrida ou Patinho de Borracha no Xbox LIVE com as suas próprias configurações."}
+{"k": "MultiPlayer_InfoLocal", "v": "Corra com até 4 jogadores no seu console Xbox 360."}
+{"k": "MultiPlayer_InfoParty", "v": "Hydro Thunder Hurricane é ainda mais divertido em grupo! Use esta opção para criar uma Xbox LIVE Party ou ajustar as configurações da sua Party."}
+{"k": "Leaderboard_Disconnected", "v": "Para ver as classificações online, você precisa estar conectado ao Xbox LIVE."}
+{"k": "HelpOptions_010", "v": "Como Jogar"}
+{"k": "HelpOptions_011", "v": "Controles"}
+{"k": "HelpOptions_012", "v": "Configurações"}
+{"k": "HelpOptions_013", "v": "Créditos"}
+{"k": "HelpOptions_InfoHow", "v": "Aprenda a pilotar um superbarco de alta tecnologia em velocidades insanas em pistas de corrida ilegais pelo mundo todo."}
+{"k": "HelpOptions_InfoControls", "v": "Ver ou alterar o esquema do controle e as configurações de vibração."}
+{"k": "HelpOptions_InfoSettings", "v": "Ajustar as configurações de som e do velocímetro."}
+{"k": "HelpOptions_InfoCredits", "v": "A lista surpreendentemente curta de pessoas que fizeram este jogo."}
+{"k": "HowToPlay_000", "v": "COMO JOGAR"}
+{"k": "HowToPlay_Info011", "v": "Droga! Não desbloqueei barcos suficientes. Droga! Agora fique quieto e leia."}
+{"k": "HowToPlay_Info012", "v": "Aprender a pilotar uma lancha no Hydro Thunder não lhe dá uma Carteira de Arrais. Mas talvez você consiga falsificar uma. (Na verdade, não... nosso advogado mandou avisar que não, você não pode falsificá-la.)"}
+{"k": "HowToPlay_Info013", "v": "Hydro Thunder é muito mais do que espirrar água até o 1º lugar no modo Corrida."}
+{"k": "HowToPlay_Info014", "v": "Gente na internet, gente no seu sofá... se ao menos houvesse um jeito de juntar todos numa competição selvagem de fogo, água e velocidade. Ah, espera, há sim!"}
+{"k": "HowToPlay_Info015", "v": "Informações muito importantes que não couberam nas outras telas de Como Jogar."}
+{"k": "HowToPlayBasics_001", "v": "IMPULSO. Passe por cima dos power-ups de Impulso para encher o seu indicador e transformar os motores do barco. Quando o barco se transformar, segure o botão de Impulso para ganhar velocidade ou mudar de direção no meio de um salto.\n\t\nSALTO DE IMPULSO. Com o barco no modo Impulso, você pode dar um Salto de Impulso apertando X. Isso permite pular obstáculos baixos e outros barcos.\n\t\nVÁCUO. Não subestime o poder do vácuo. Para pegar vácuo, entre no rastro do barco à sua frente. Quanto mais perto, mais rápido você vai.\n\t\nATALHOS. Todas as pistas têm atalhos e caminhos alternativos. Algumas entradas são escondidas e outras só podem ser alcançadas com saltos de Impulso."}
+{"k": "HowToPlayUnlocking_001", "v": "CRÉDITOS E CONQUISTAS. Desbloqueie novos barcos e eventos ganhando créditos; seus créditos aparecem no canto inferior esquerdo da tela. Certos itens, como skins de barcos, só podem ser desbloqueados completando conquistas especiais do jogo. Cada item bloqueado mostra uma mensagem na parte de baixo da tela explicando como desbloqueá-lo. \n\t\nGANHAR CRÉDITOS. Ganhe créditos conquistando troféus nos eventos de Jogador Individual e Multijogador. Você ganha créditos extras mesmo que já tenha concluído o evento, então pode jogar do jeito que quiser, na ordem que quiser.\n\t\nMAIS RISCO, MAIS RECOMPENSA. Você ganha mais créditos correndo com classes de barcos mais rápidas. Mas é mais difícil. Então, você sabe, faça suas escolhas.\n\t"}
+{"k": "HowToPlayBoats_001", "v": "CLASSES DE BARCOS. Os barcos de novato não são tão rápidos, mas são mais fáceis de controlar. Os barcos profissionais têm um bom equilíbrio entre velocidade e dirigibilidade. Os barcos de especialista são muito rápidos, mas, se você não quer acabar destroçado, é bom ter mão firme no volante.\n\t\nDIFICULDADE. A dificuldade do Jogador Individual aumenta conforme a classe de barco escolhida. Está com dificuldade para terminar uma Corrida? Experimente um barco de uma classe inferior.\n\t\nTIPOS DE BARCOS. Barcos de fundo chato, como o Banshee, derrapam nas curvas, enquanto barcos de vários cascos, como o Thresher, grudam na água, e os cascos em V, como o Razorback, equilibram potência e controle. Experimente todos. Como disse um sábio, cada barco tem o seu evento e cada evento tem o seu barco."}
+{"k": "HowToPlaySP_001", "v": "CORRIDA. Acelere contra outros 15 barcos. Taças e créditos são dados por terminar em 3º lugar ou melhor.\n\t\nMESTRE DOS ANÉIS. Cada portão que você atravessa enche o seu indicador de impulso. Cada portão perdido esvazia o indicador e soma uma penalidade de tempo. Taças e créditos são dados conforme o tempo que você levou para terminar.\n\t\nDESAFIO. Um contra-relógio básico... com barris explosivos. Taças e créditos são dados conforme o tempo que você levou para terminar.\n\t\nCAMPEONATO. Dispute com outros 15 pilotos uma série de eventos variados. Você ganha pontos conforme a sua colocação em cada evento, e a pontuação final define o que você ganha. "}
+{"k": "HowToPlayMP_001", "v": "CORRIDA. Uma série de corridas livres com até 8 jogadores. Ganhe pontos (e o direito de se gabar) conforme a sua colocação. Ganhe créditos em cada corrida que terminar em 3º lugar ou melhor.\n\t\nPATINHO DE BORRACHA. Os jogadores se dividem nas equipes Azul e Vermelha. Cada equipe escolhe um jogador para controlar o Patinho de Borracha. O mais importante é fazer o seu pato cruzar a linha de chegada antes do pato adversário. Por todos os meios possíveis.\n\t\nTELA DIVIDIDA. Jogue localmente com até 4 jogadores em um único console Xbox 360 no modo Tela Dividida Local. Você também pode jogar partidas do Xbox LIVE com até 4 jogadores no seu console. Basta que todos entrem na tela de Login antes de entrar no jogo."}
+{"k": "HowToPlayExtras_001", "v": "PACOTES ESCONDIDOS. Cada ambiente tem 10 logotipos do Hydro Thunder escondidos fora do circuito normal. Pegue os 10 em uma fase para desbloquear algo especial. Pegue 80 no jogo todo para ganhar uma Conquista e o Gamerscore fantástico que vem com ela.\n\t\nRIVAIS DA CLASSIFICAÇÃO. Corra contra os melhores tempos dos seus Amigos (ou do mundo) nas Corridas de Jogador Individual. Os tempos parciais no topo da tela mostram quanto você está atrás ou à frente do tempo-alvo. Você não ganha nada por vencê-los, mas, no fundo, sabe que é o tipo de coisa que faz você melhor do que eles.\n\t\nPRÊMIOS. Hydro Thunder Hurricane inclui duas Imagens de Jogador e dois Prêmios de Avatar. Ganhe créditos para desbloqueá-los!"}
+{"k": "Controls_000", "v": "CONTROLES"}
+{"k": "Controls_001", "v": "Frear"}
+{"k": "Controls_003", "v": "Mudar a Câmera"}
+{"k": "Controls_011", "v": "Não Usado"}
+{"k": "Controls_Info", "v": "Mude as preferências dos controles de acelerar e frear na tela de Configurações."}
+{"k": "Settings_000", "v": "CONFIGURAÇÕES"}
+{"k": "Settings_011", "v": "Volume dos Efeitos"}
+{"k": "Settings_015", "v": "Freio"}
+{"k": "Settings_Default", "v": "RESTAURAR PADRÃO"}
+{"k": "Settings_On", "v": "ATIVADO"}
+{"k": "Settings_Off", "v": "DESATIVADO"}

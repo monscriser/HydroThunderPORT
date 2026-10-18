@@ -1,0 +1,789 @@
+# Hydro Thunder Hurricane: pt-BR overrides for the base game (applied over pt-pt.resx at launch)
+Common_Next	PRÓXIMO
+Common_ChangeTrack	MUDAR A PISTA
+Common_Select	SELECIONAR
+Common_InviteParty	CONVIDAR PARA XBOX LIVE PARTY
+Common_Loading	Carregando o conteúdo...\nPor favor, não desligue o console.
+Common_Saving	Salvando...
+Common_Ready	PRONTO
+Common_NotReady	NÃO ESTÁ PRONTO
+Common_Waiting	AGUARDANDO
+Common_Playing	JOGANDO
+Common_Unknown_Track	PISTA DLC
+Common_LeaderboardWrite	Enviando para as classificações...
+Common_LeaderboardWriteDisconnected	Não foi possível publicar nas classificações porque você foi desconectado do Xbox LIVE.
+Common_ContactingLeaderboard	Conectando às classificações...
+Common_LeaderboardConnect	Conecte-se ao Xbox LIVE para publicar suas pontuações nas classificações.
+Common_SellWithAchievements	Uma ou mais conquistas esperam por você. Desbloqueie o jogo completo agora para recebê-las!
+Common_Refresh	ATUALIZAR
+Common_SignInChange	Houve uma mudança de login. Você voltará agora para a tela inicial.
+Common_Restart	Tem certeza de que quer reiniciar o jogo? Todo o progresso não salvo será perdido.
+Common_Quit	Tem certeza de que quer sair do jogo? Todo o progresso não salvo será perdido.
+Common_NoResults	Nenhum jogo corresponde aos seus critérios.
+Common_PageUp	PRÓXIMA PÁGINA
+Common_BackToStart	Tem certeza de que quer voltar à Tela Inicial? Todo o seu progresso será perdido.
+Common_DeviceNotAvailable	O dispositivo de armazenamento selecionado não está disponível. Escolher outro dispositivo de armazenamento?
+Common_DeviceNotSelected	Você não selecionou um dispositivo de armazenamento. Para salvar seu progresso no jogo, é necessário selecionar um dispositivo de armazenamento. Quer selecionar um agora?
+Common_DeviceFull	O dispositivo de armazenamento selecionado não tem espaço livre suficiente. Quer liberar espaço ou escolher outro dispositivo de armazenamento?
+Common_SaveOverwrite	Tem certeza de que quer substituir este jogo? Os dados salvos anteriormente serão perdidos.
+Common_SaveGameLoadFail	Não foi possível carregar o jogo salvo.
+Common_SaveGameStoreFail	Não foi possível salvar o jogo. Quer tentar novamente?
+Common_SaveGameCorrupt	O arquivo de jogo salvo parece estar danificado e não pode ser carregado. Quer substituí-lo por um novo arquivo de jogo salvo?
+Common_SaveGameLoadNoFiles	Não há arquivos de jogo salvos no dispositivo escolhido. Quer criar um novo?
+Common_CorruptDLC	O conteúdo para download está danificado e não pode ser carregado. Para usar este conteúdo, baixe-o novamente.
+Common_AchievementDeviceNotAvailable	Não foi possível salvar a conquista no perfil de jogador porque o dispositivo de armazenamento não está disponível.
+Common_AwardDeviceNotAvailable	Não foi possível salvar a conquista no perfil de jogador porque o dispositivo de armazenamento não está disponível.
+Common_PurchaseInfo	Este conteúdo só está disponível se você desbloquear o jogo completo.
+Common_RequiredDLC	Para jogar com este anfitrião você precisa de conteúdo para download. Quer baixar este conteúdo agora? (Há uma versão gratuita disponível!)
+Common_HostDoesNotHaveDLC	O anfitrião não possui este conteúdo. Para jogar este conteúdo, jogue com um anfitrião que o possua ou crie seu próprio jogo.
+Common_ReadError	O dispositivo de armazenamento com o conteúdo necessário foi removido. Conecte o dispositivo de armazenamento novamente.
+Heading_Saving	SALVANDO
+Heading_Loading	CARREGANDO
+Heading_Confirm	CONFIRMAR
+Heading_SignedOut	DESCONECTADO
+Start_000	APERTE START
+MainMenu_013	Conquistas
+MainMenu_014b	Baixar Conteúdo
+MainMenu_InfoSP	Bem-vindo à Liga de Corridas do Hydro Thunder! Dispute séries de Corridas e Campeonatos. Faça os melhores tempos nos modos Desafio e Mestre dos Anéis.
+MainMenu_InfoMP	Dispute online contra outros jogadores do Xbox LIVE ou jogue lado a lado com até quatro amigos em tela dividida. Ou os dois!
+MainMenu_InfoLeader	Compare o seu melhor com o de todos os outros.
+MainMenu_InfoAchievements	Desbloqueie Conquistas. Ganhe Gamerscore. Faça cara de quem não liga quando seus amigos perguntarem como você conseguiu.
+MainMenu_InfoPurchase	Toda jornada rumo à fama e à glória começa com um único passo. Apertar este botão é esse passo.
+MainMenu_InfoDLC	Baixe conteúdo adicional do Marketplace do Xbox LIVE.
+MainMenu_InfoHO	Mude as configurações do jogo, veja os controles e aprenda estratégias e dicas em Como Jogar.
+MainMenu_InfoReturn	Saia do furacão e volte para terra firme.
+SinglePlayer_InfoRace	Corte as ondas em corridas únicas pelo mundo afora.
+SinglePlayer_InfoChamp	Mergulhe mais fundo nestes Campeonatos de vários eventos.
+SinglePlayer_InfoSlalom	Serpenteie e salte por circuitos de slalom cada vez mais difíceis. Passe por vários portões seguidos para ganhar Impulso. Cada portão perdido soma tempo. E vergonha.
+SinglePlayer_InfoTT	O teste mais puro de habilidade. Só você, as ondas e um cronômetro. Ah, e um monte de barris explosivos.
+SinglePlayer_190	Seu Campeonato anterior ainda está em andamento. Quer continuar de onde parou?
+SinglePlayer_191	Você está prestes a começar um novo Campeonato. Seu campeonato salvo anteriormente será substituído.
+SinglePlayer_192	Para jogar em tela dividida, pelo menos dois jogadores precisam participar.
+Staging_000	ENTRAR
+Staging_002	Cada jogador local deve apertar o botão A no controle para entrar.
+Staging_003	Cada jogador local deve apertar o botão A no controle para entrar.
+Staging_004	Jogue online com jogadores locais: entre com até 4 jogadores locais antes de continuar.
+Local_000	TELA DIVIDIDA
+MPTrial_000	Jogue Xbox LIVE\nMultijogador na Demonstração!
+MultiPlayer_010	Partida Rápida
+MultiPlayer_011	Procurar Partida
+MultiPlayer_012	Criar Partida
+MultiPlayer_013	Tela Dividida Local
+MultiPlayer_030	Seu perfil de jogador não tem as permissões necessárias para acessar jogos no Xbox LIVE.
+MultiPlayer_031	Para usar o Xbox LIVE Party, você precisa estar conectado ao Xbox LIVE.
+MultiPlayer_InfoQuick	Caia nas águas online do Xbox LIVE.
+MultiPlayer_InfoCustom	Está exigente? Procure uma partida de Corrida ou Patinho de Borracha no Xbox LIVE com configurações personalizadas.
+MultiPlayer_InfoCreate	Organize sua partida de Corrida ou Patinho de Borracha no Xbox LIVE com as suas próprias configurações.
+MultiPlayer_InfoLocal	Corra com até 4 jogadores no seu console Xbox 360.
+MultiPlayer_InfoParty	Hydro Thunder Hurricane é ainda mais divertido em grupo! Use esta opção para criar uma Xbox LIVE Party ou ajustar as configurações da sua Party.
+Leaderboard_Disconnected	Para ver as classificações online, você precisa estar conectado ao Xbox LIVE.
+HelpOptions_010	Como Jogar
+HelpOptions_011	Controles
+HelpOptions_012	Configurações
+HelpOptions_013	Créditos
+HelpOptions_InfoHow	Aprenda a pilotar um superbarco de alta tecnologia em velocidades insanas em pistas de corrida ilegais pelo mundo todo.
+HelpOptions_InfoControls	Ver ou alterar o esquema do controle e as configurações de vibração.
+HelpOptions_InfoSettings	Ajustar as configurações de som e do velocímetro.
+HelpOptions_InfoCredits	A lista surpreendentemente curta de pessoas que fizeram este jogo.
+HowToPlay_000	COMO JOGAR
+HowToPlay_Info011	Droga! Não desbloqueei barcos suficientes. Droga! Agora fique quieto e leia.
+HowToPlay_Info012	Aprender a pilotar uma lancha no Hydro Thunder não lhe dá uma Carteira de Arrais. Mas talvez você consiga falsificar uma. (Na verdade, não... nosso advogado mandou avisar que não, você não pode falsificá-la.)
+HowToPlay_Info013	Hydro Thunder é muito mais do que espirrar água até o 1º lugar no modo Corrida.
+HowToPlay_Info014	Gente na internet, gente no seu sofá... se ao menos houvesse um jeito de juntar todos numa competição selvagem de fogo, água e velocidade. Ah, espera, há sim!
+HowToPlay_Info015	Informações muito importantes que não couberam nas outras telas de Como Jogar.
+HowToPlayBasics_001	IMPULSO. Passe por cima dos power-ups de Impulso para encher o seu indicador e transformar os motores do barco. Quando o barco se transformar, segure o botão de Impulso para ganhar velocidade ou mudar de direção no meio de um salto.\n\t\nSALTO DE IMPULSO. Com o barco no modo Impulso, você pode dar um Salto de Impulso apertando X. Isso permite pular obstáculos baixos e outros barcos.\n\t\nVÁCUO. Não subestime o poder do vácuo. Para pegar vácuo, entre no rastro do barco à sua frente. Quanto mais perto, mais rápido você vai.\n\t\nATALHOS. Todas as pistas têm atalhos e caminhos alternativos. Algumas entradas são escondidas e outras só podem ser alcançadas com saltos de Impulso.
+HowToPlayUnlocking_001	CRÉDITOS E CONQUISTAS. Desbloqueie novos barcos e eventos ganhando créditos; seus créditos aparecem no canto inferior esquerdo da tela. Certos itens, como skins de barcos, só podem ser desbloqueados completando conquistas especiais do jogo. Cada item bloqueado mostra uma mensagem na parte de baixo da tela explicando como desbloqueá-lo. \n\t\nGANHAR CRÉDITOS. Ganhe créditos conquistando troféus nos eventos de Jogador Individual e Multijogador. Você ganha créditos extras mesmo que já tenha concluído o evento, então pode jogar do jeito que quiser, na ordem que quiser.\n\t\nMAIS RISCO, MAIS RECOMPENSA. Você ganha mais créditos correndo com classes de barcos mais rápidas. Mas é mais difícil. Então, você sabe, faça suas escolhas.\n\t
+HowToPlayBoats_001	CLASSES DE BARCOS. Os barcos de novato não são tão rápidos, mas são mais fáceis de controlar. Os barcos profissionais têm um bom equilíbrio entre velocidade e dirigibilidade. Os barcos de especialista são muito rápidos, mas, se você não quer acabar destroçado, é bom ter mão firme no volante.\n\t\nDIFICULDADE. A dificuldade do Jogador Individual aumenta conforme a classe de barco escolhida. Está com dificuldade para terminar uma Corrida? Experimente um barco de uma classe inferior.\n\t\nTIPOS DE BARCOS. Barcos de fundo chato, como o Banshee, derrapam nas curvas, enquanto barcos de vários cascos, como o Thresher, grudam na água, e os cascos em V, como o Razorback, equilibram potência e controle. Experimente todos. Como disse um sábio, cada barco tem o seu evento e cada evento tem o seu barco.
+HowToPlaySP_001	CORRIDA. Acelere contra outros 15 barcos. Taças e créditos são dados por terminar em 3º lugar ou melhor.\n\t\nMESTRE DOS ANÉIS. Cada portão que você atravessa enche o seu indicador de impulso. Cada portão perdido esvazia o indicador e soma uma penalidade de tempo. Taças e créditos são dados conforme o tempo que você levou para terminar.\n\t\nDESAFIO. Um contra-relógio básico... com barris explosivos. Taças e créditos são dados conforme o tempo que você levou para terminar.\n\t\nCAMPEONATO. Dispute com outros 15 pilotos uma série de eventos variados. Você ganha pontos conforme a sua colocação em cada evento, e a pontuação final define o que você ganha. 
+HowToPlayMP_001	CORRIDA. Uma série de corridas livres com até 8 jogadores. Ganhe pontos (e o direito de se gabar) conforme a sua colocação. Ganhe créditos em cada corrida que terminar em 3º lugar ou melhor.\n\t\nPATINHO DE BORRACHA. Os jogadores se dividem nas equipes Azul e Vermelha. Cada equipe escolhe um jogador para controlar o Patinho de Borracha. O mais importante é fazer o seu pato cruzar a linha de chegada antes do pato adversário. Por todos os meios possíveis.\n\t\nTELA DIVIDIDA. Jogue localmente com até 4 jogadores em um único console Xbox 360 no modo Tela Dividida Local. Você também pode jogar partidas do Xbox LIVE com até 4 jogadores no seu console. Basta que todos entrem na tela de Login antes de entrar no jogo.
+HowToPlayExtras_001	PACOTES ESCONDIDOS. Cada ambiente tem 10 logotipos do Hydro Thunder escondidos fora do circuito normal. Pegue os 10 em uma fase para desbloquear algo especial. Pegue 80 no jogo todo para ganhar uma Conquista e o Gamerscore fantástico que vem com ela.\n\t\nRIVAIS DA CLASSIFICAÇÃO. Corra contra os melhores tempos dos seus Amigos (ou do mundo) nas Corridas de Jogador Individual. Os tempos parciais no topo da tela mostram quanto você está atrás ou à frente do tempo-alvo. Você não ganha nada por vencê-los, mas, no fundo, sabe que é o tipo de coisa que faz você melhor do que eles.\n\t\nPRÊMIOS. Hydro Thunder Hurricane inclui duas Imagens de Jogador e dois Prêmios de Avatar. Ganhe créditos para desbloqueá-los!
+Controls_000	CONTROLES
+Controls_001	Frear
+Controls_003	Mudar a Câmera
+Controls_011	Não Usado
+Controls_Info	Mude as preferências dos controles de acelerar e frear na tela de Configurações.
+Settings_000	CONFIGURAÇÕES
+Settings_011	Volume dos Efeitos
+Settings_015	Freio
+Settings_Default	RESTAURAR PADRÃO
+Settings_On	ATIVADO
+Settings_Off	DESATIVADO
+Credits_000	CRÉDITOS
+BoatConfig_000	SELECIONE O BARCO
+BoatConfig_020	DIRIGIBILIDADE
+BoatConfig_023	CONTROLE NO AR
+GameConfigRace_000	SELECIONE A PISTA
+GameConfigChampionship_000	Selecione
+GameConfigSlalom_000	SELECIONE O CIRCUITO
+GameConfigTimeTrial_000	SELECIONE A PISTA
+GameConfigLiveQuick_000	PARTIDA RÁPIDA
+GameConfigLiveQuick_InfoTypePlayer	A partida de jogadores coloca você no primeiro jogo disponível, com jogadores de qualquer nível de habilidade.
+GameConfigLiveQuick_InfoTypeRanked	A partida ranqueada coloca você com jogadores de nível de habilidade parecido com o seu.
+GameConfigLiveCustom_InfoTypePlayer	A partida de jogadores coloca você no primeiro jogo disponível, com jogadores de qualquer nível de habilidade.
+GameConfigLiveCustom_InfoTypeRanked	A partida ranqueada coloca você com jogadores de nível de habilidade parecido com o seu.
+GameConfigLiveCustom_InfoModeRace	Uma série de Corridas personalizada. Cada jogador ganha pontos no estilo Campeonato conforme a posição em que termina e é classificado no saguão pela pontuação total.
+GameConfigLiveCustom_InfoModeDuck	No modo Patinho de Borracha, os jogadores se dividem nas equipes Vermelha e Azul. Cada equipe escolhe um jogador para pilotar o barco Patinho de Borracha e faz de tudo para que ele cruze a linha de chegada primeiro.
+GameConfigLiveCreate_000	CRIAR PARTIDA
+GameConfigLiveCreate_InfoTypePlayer	A partida de jogadores abre o seu jogo para jogadores de todos os níveis de habilidade.
+GameConfigLiveCreate_InfoTypeRanked	A partida ranqueada vai encontrar jogadores com nível de habilidade parecido com o seu.
+GameConfigLiveCreate_InfoTypePrivate	A partida privada só deixa entrar no seu jogo os jogadores que você convidou.
+GameConfigLiveCreate_InfoModeRace	Uma série de Corridas personalizada. Cada jogador ganha pontos no estilo Campeonato conforme a posição em que termina e é classificado no saguão pela pontuação total.
+GameConfigLiveCreate_InfoModeDuck	No modo Patinho de Borracha, os jogadores se dividem nas equipes Vermelha e Azul. Cada equipe escolhe um jogador para pilotar o barco Patinho de Borracha e faz de tudo para que ele cruze a linha de chegada primeiro.
+GameConfigLiveCreate_InfoTrack	Escolha o primeiro ambiente em que quer jogar. Depois você pode mudar isso no saguão.
+Sell_001	PARTICIPE HOJE!
+Sell_Point000	Este não é o Hydro Thunder do seu pai!
+Sell_Point010	Hydro Thunder Hurricane oferece ação de lanchas totalmente original:
+Sell_Point030	9 lanchas superpotentes, dezenas de skins desbloqueáveis.
+Sell_Point040	24 eventos de slalom de Mestre dos Anéis para pôr suas habilidades à prova.
+Sell_Point050	Corridas e partidas de Patinho de Borracha para 8 jogadores no Xbox LIVE.
+Sell_Point060	Dispute com ação em tela dividida para 4 jogadores.
+Sell_Point070	Desbloqueie o jogo completo agora e fique com os créditos e Conquistas que já ganhou!
+Sell_Point080	O quê, ainda está lendo? Faça isso agora!
+SellLIVE_001	JOGUE NO LIVE HOJE MESMO!
+SellLIVE_Point000	O jogo online está disponível exclusivamente no Xbox LIVE quando você desbloqueia o Hydro Thunder Hurricane completo.
+SellLIVE_Point010	Mostre do que você é capaz em partidas online para 8 jogadores no Xbox LIVE.
+SellLIVE_Point020	Jogue no Xbox LIVE com até 4 jogadores no seu console.
+SellLIVE_Point030	Corra em 8 ambientes emocionantes.
+SellLIVE_Point040	Jogue em equipe com seus companheiros no novo modo Patinho de Borracha.
+SellLIVE_Point050	Dispute os tempos parciais dos seus Amigos nas partidas de Jogador Individual com Rivais da Classificação.
+SellLIVE_Point060	Desbloqueie o jogo completo agora e mergulhe no Hydro Thunder Hurricane no Xbox LIVE!
+SellLIVE_Point070	Esta é a primeira experiência online da história das corridas Hydro Thunder!
+SellLIVE_Point080	Jogue hoje mesmo!
+SellLocked_001	FIQUE COM SUAS COISAS!
+SellLocked_Point000	Você selecionou um recurso que só fica disponível ao desbloquear o Hydro Thunder Hurricane completo.
+SellLocked_Point020	Se desbloquear o jogo completo agora, você poderá jogar com este item e com quaisquer outros barcos, pistas e modos de jogo que já tenha desbloqueado.
+SellLocked_Point040	Você também mantém os créditos e as Conquistas que já ganhou!
+SellLocked_Point060	O quê, ficou maluco? Faça isso agora!
+JoinGame_000	ENTRAR NO JOGO
+Lobby_000	SAGUÃO
+Lobby_003	STATUS
+Lobby_190	Tem certeza de que quer encerrar a série?
+Lobby_191	Só resta um jogador na série. Voltando ao menu Multijogador.
+Loading_000	Carregando...
+Loading_Slalom	PENALIDADE POR PORTÃO PERDIDO
+Place_000	1º
+Place_001	2º
+Place_002	3º
+Place_003	4º
+Place_004	5º
+Place_005	6º
+Place_006	7º
+Place_007	8º
+Place_008	9º
+Place_009	10º
+Place_010	11º
+Place_011	12º
+Place_012	13º
+Place_013	14º
+Place_014	15º
+Place_015	16º
+Team_000	Equipe Azul
+Team_001	Equipe Vermelha
+WinningTeam	Equipe Vencedora
+TeamLoad	Ajude o Patinho de Borracha da sua equipe a cruzar a linha de chegada primeiro, por todos os meios necessários!
+Win_000	Vitória
+Lose_000	Derrota
+RaceResults_005	CHEGADA
+TeamResults_000	RESULTADO DA EQUIPE
+PauseMenu_014	Conquistas
+ProTip_000	DICA DE PROFISSIONAL
+ProTip_001	Dica de Profissional:\nOs power-ups de Impulso Azuis e Vermelhos enchem o indicador de Impulso ao lado do seu velocímetro.
+ProTip_002	Dica de Profissional:\nOs power-ups de Impulso transformam os motores do seu barco. Depois que os motores se transformarem, segure o botão de Impulso para ganhar velocidade rapidamente.
+ProTip_003	Dica de Profissional:\nUse o impulso enquanto estiver no ar para mudar a direção do seu barco.
+ProTip_004	Dica de Profissional:\nCom o barco no modo Impulso, você pode dar um Salto de Impulso apertando X.
+ProTip_005	Dica de Profissional:\nEntre no rastro dos outros barcos para pegar vácuo e ganhar velocidade. Quanto mais perto, mais rápido você vai.
+ProTip_006	Dica de Profissional:\nTodas as pistas têm atalhos e caminhos alternativos. Fique de olho em aberturas e barreiras que dá para pular com Saltos de Impulso.
+ProTip_007	Dica de Profissional:\nEstá com dificuldade para terminar uma Corrida ou um Desafio? Experimente um barco Novato. Você ganha menos créditos, mas fica mais fácil vencer.
+ProTip_008	Dica de Profissional:\nJogando com barcos Profissional e Especialista você ganha mais créditos, mas a competição fica mais difícil.
+ProTip_009	Dica de Profissional:\nCada barco tem suas vantagens e desvantagens. Experimente todos para encontrar o que combina com o seu estilo em cada evento.
+ProTip_010	Dica de Profissional:\nAndando em círculos? Encalhou? Explodiu? Aperte o botão BACK para colocar seu barco de volta na direção certa.
+ProTip_011	Dica de Profissional:\nGanhe créditos de desbloqueio conquistando troféus nos eventos de Jogador Individual e Multijogador, mesmo nos eventos que você já venceu.
+ProTip_012	Dica de Profissional:\nEstá com pressa? Experimente acelerar exatamente no JÁ! depois da contagem regressiva. Tem um presentinho esperando por você. 
+ProTip_013	Dica de Profissional:\nHydro Thunder não é mais só corrida. Teste sua habilidade nos eventos Mestre dos Anéis e Desafio, ou encare os Campeonatos para um desafio de vários eventos.
+ProTip_014	Dica de Profissional:\nHydro Thunder tem 10 medalhões escondidos em cada circuito. Colete-os para desbloquear novas skins de barcos e ganhar uma Conquista.
+ProTip_015	Dica de Profissional:\nQuer bater o pé no ritmo de outras músicas? Aperte esquerda ou direita no direcional para mudar a música durante o jogo.
+Tutorial_Boost	Pegue power-ups de Impulso para encher o indicador de Impulso ao lado do velocímetro e transformar seus motores.
+Tutorial_BoostButton	Depois de transformar seus motores, segure o botão A para usar o Impulso e ganhar uma explosão de velocidade.
+Tutorial_BoostTrigger	Depois de transformar seus motores, segure o Gatilho Direito para usar o Impulso e ganhar uma explosão de velocidade.
+Tutorial_BoostPaddle	Depois de transformar seus motores, segure o Gatilho Direito para usar o Impulso e ganhar uma explosão de velocidade.
+Tutorial_BoostJumpX	Quando tiver Impulso, aperte X para dar um Salto de Impulso e passar por cima de obstáculos baixos e outros barcos.
+Tutorial_BoostJumpPaddle	Quando tiver Impulso, aperte o Gatilho Esquerdo para dar um Salto de Impulso e passar por cima de obstáculos baixos e outros barcos.
+Tutorial_Drafting	Uma última dica: entre no rastro dos barcos à sua frente para pegar vácuo e ganhar velocidade extra.
+PauseMenu_InfoResume	Continuar o evento de onde você parou.
+PauseMenu_InfoRestart	Recomeçar o evento do início.
+PauseMenu_InfoQuit	Sair do evento e voltar ao Menu Principal. Você não recebe créditos pelo evento.
+BoatBody_Vector_Info	Uma boa escolha para começar, este casco em V é mais rápido e mais estável do que outros barcos da classe Novato, mas o controle no ar deixa a desejar. 
+BoatBody_Banshee_Info	O design clássico de hidroplano do Banshee permite curvas potentes e ágeis. É difícil de manobrar, mas compensa para quem dominar as curvas. 
+BoatBody_TidalBlade_Info	A grande aceleração e o design ágil do Tidal Blade cortam as ondas como nenhum outro. O perfil fino e o casco comprido exigem mão firme nos controles. 
+BoatBody_Razorback_Info	A maior velocidade máxima da sua liga faz do Razorback uma escolha tentadora. Mas planeje bem seus saltos, porque o controle no ar deste barco não é brincadeira. 
+BoatBody_Dam_Info	Um hidroplano bem equilibrado para iniciantes, com um design único de dois motores. Derrapa de lado nas curvas, mas tem a melhor velocidade máxima da sua classe. 
+BoatBody_MissB_Info	Feito com peças de aviões da Segunda Guerra Mundial, o Miss Behave enfrenta qualquer barco da sua liga quando está no ar. Na água, é bem mais pé no chão. 
+BoatBody_Thresher_Info	A envergadura gigantesca do Thresher reduz sua velocidade, mas o que ele ganha em estabilidade compensa de sobra. Este barco tem uma dirigibilidade de sonho, além da ativação de impulso mais rápida da sua liga. 
+BoatBody_RadHazard_Info	Curto, largo, escorregadio e rápido, este híbrido estranho é difícil de dominar. Mantenha a mão firme nas curvas e colha as recompensas no ar. 
+BoatBody_Cutthroat_Info	Ótima dirigibilidade e números impressionantes fazem do Cutthroat um dos barcos mais acessíveis da classe superior. 
+BoatBody_RubberDucky_Info	Não é rápido. Nem manobrável. Nem elegante. Mas, se você vencer alguém online com o Patinho de Borracha, pode zoar a pessoa pelo resto da vida.
+BoatSkin_RedTeam	EQUIPE VERMELHA
+BoatSkin_BlueTeam	EQUIPE AZUL
+BoatSkin_Banshee02	PENSE NISSO
+BoatSkin_Cutthroat02	BOLA NA CAÇAPA
+BoatSkin_Thresher01	NÃO ODEIE
+BoatSkin_TidalBlade01	BATATA QUENTE
+HUD_LapTime	Atual
+HUD_GatesMissed	Portões Perdidos
+HUD_GateHit	Acertou!
+HUD_GateMissed	Errou!
+HUD_PackageFound	Pacote Encontrado!
+HUD_PlayerLeft	Jogador Saiu:
+HUD_WrongWay	Direção Errada
+HUD_AsyncOpponent	Rival da Classificação
+HUD_AsyncSuccess	Você ficou à frente do rival da classificação!
+HUD_AsyncFailure	Você ficou atrás do rival da classificação.
+HUD_RespawnHint	Aperte {(Z)} para recuperar!
+HUD_SpectatorTitle	Assistindo
+HUD_SpectatorInstructions	Use {(DLR)} para trocar de barco.
+HUD_Place_000	1º Lugar!
+HUD_Place_001	2º Lugar!
+HUD_Place_002	3º Lugar!
+HUD_Place_003	4º Lugar!
+HUD_Place_004	5º Lugar!
+HUD_Place_005	6º Lugar!
+HUD_Place_006	7º Lugar!
+HUD_Place_007	8º Lugar!
+HUD_Place_008	9º Lugar!
+HUD_Place_009	10º Lugar!
+HUD_Place_010	11º Lugar!
+HUD_Place_011	12º Lugar!
+HUD_Place_012	13º Lugar!
+HUD_Place_013	14º Lugar!
+HUD_Place_014	15º Lugar!
+HUD_Place_015	16º Lugar!
+HUD_Tier_000	Você ganhou\numa medalha de Ouro
+HUD_Tier_001	Você ganhou\numa medalha de Prata
+HUD_Tier_002	Você ganhou\numa medalha de Bronze
+HUD_Tier_Fail	Você não ganhou\numa medalha
+NetGameMsg_000	Você perdeu a conexão com o anfitrião.
+NetGameMsg_002	Para jogar online, você precisa estar conectado ao Xbox LIVE.
+NetGameMsg_004	Não foi possível entrar no jogo. Ele pode não estar mais disponível ou pode haver um problema de compatibilidade de rede. Verifique suas configurações de rede.
+NetGameMsg_005	Aguardando outros Jogadores.
+NetGameMsg_006	Aguardando os resultados da corrida.
+NetGameMsg_007	Aguardando os resultados da série.
+NetGameMsg_008	Tem certeza de que quer sair da partida?
+NetGameMsg_009	Você perdeu a conexão.
+NetGameMsg_010	O anfitrião encerrou o jogo.
+NetGameMsg_012	Saindo da sessão de jogo...
+NetGameMsg_013	Tem certeza de que quer remover este jogador?
+NetGameMsg_015	Não foi possível entrar no jogo porque não há vagas suficientes.
+NetGameMsg_016	Não foi possível entrar no jogo porque ele não existe mais.
+NetGameMsg_017	Não foi possível entrar no jogo porque a conexão falhou. Ele pode não estar mais disponível ou pode haver um problema de compatibilidade de rede. Verifique suas configurações de rede.
+NetGameMsg_018	Um perfil de jogador ativo não tem as permissões necessárias para acessar jogos no Xbox LIVE.
+NetGameMsg_019	Não foi possível entrar no jogo. Ele pode não estar mais disponível ou pode haver um problema de compatibilidade de rede. Verifique suas configurações de rede.
+NetGameMsg_020	Você está voltando ao menu Multijogador porque perdeu a conexão com o Xbox LIVE.
+NetGame_Invalid_RubberDucky	O jogo só pode começar quando cada equipe escolher exatamente um barco Patinho de Borracha.
+XboxLive_Search_000	Aguardando os resultados da busca...
+XboxLive_Join_000	Entrando na sessão...
+XboxLive_Create_000	Criando a sessão...
+XboxLive_Trial_000	Para jogar esta demonstração online, você precisa estar conectado ao Xbox LIVE.
+Option_Track_Hydroelectric_Info	As águas azul-safira e os cânions sinuosos do Lago Powell formam um circuito de corrida natural e disputado.
+Option_Track_Tropical_Info	No meio do Triângulo das Bermudas, esta ilha tropical é famosa pelas praias de sonho, ruínas antigas e desaparecimentos misteriosos. Mas provavelmente é totalmente segura.
+Option_Track_Stadium_Info	Os japoneses levaram as corridas de lanchas a outro nível com este estádio e parque aquático construído especialmente para isso. Fique de olho nas máquinas de ondas acionáveis e nos atalhos!
+Option_Track_Asgard_Info	Os fiordes escandinavos são famosos pelas enormes paredes de rocha, geleiras impressionantes e tempestades imprevisíveis.
+Option_Track_Area51_Info	Algo está acontecendo nesta base militar de pesquisa em Nevada. A segurança está em alvoroço e o perímetro está aberto. Em outras palavras, é a oportunidade perfeita para umas corridas em local proibido.
+Option_Track_Sewers_Info	Explore os antigos esgotos industriais sob a Cidade Luz e desvie dos barcos de serviço nas águas abertas do Sena neste circuito curto e apertado.
+Option_Track_Babylon	BABILÔNIA PERDIDA
+Option_Track_Babylon_Info	Uma equipe de arqueólogos descobriu a entrada de uma cidade antiga. Será a cidade perdida da Babilônia?
+Option_Track_City	RIO DE SEUL
+Option_Track_City_Info	A capital da Coreia do Sul transformou seus canais em um parque público e, sem querer, criou uma pista para corridas ilegais que só vendo para acreditar.
+Option_Championship_ChampC1_Info	Aberto apenas para barcos Novato. 2 eventos. 
+Option_Championship_ChampC2_Info	Aberto apenas para barcos Novato. 3 eventos. 
+Option_Championship_ChampB1	GP SUPATÔMICO
+Option_Championship_ChampB1_Info	Aberto apenas para barcos Profissional. 3 eventos. 
+Option_Championship_ChampB2_Info	Aberto apenas para barcos Profissional. 4 eventos. 
+Option_Championship_ChampB3	GP VECTOR UNIT
+Option_Championship_ChampB3_Info	Aberto apenas para barcos Profissional. 4 eventos. 
+Option_Championship_ChampA1	SÓ ESPECIALISTAS
+Option_Championship_ChampA1_Info	Aberto apenas para barcos Especialista. 5 eventos. 
+Option_Championship_ChampA2_Info	Aberto apenas para barcos Especialista. 6 eventos. 
+Option_Championship_ChampA3_Info	Aberto apenas para barcos Especialista. 8 eventos, todos Corridas. 
+Option_Championship_ChampA4_Info	Aberto apenas para barcos Especialista. 8 eventos, todos Mestre dos Anéis. 
+Option_Championship_ChampA5_Info	Aberto apenas para barcos Especialista. 8 eventos, todos Desafio. 
+Option_MatchType	TIPO DE PARTIDA
+Option_MatchType_Ranked	RANQUEADA
+Option_MatchType_Private	PRIVADA
+ChampC1_Done_Info	Parabéns, você terminou o Campeonato Entrega do Leite!
+ChampC1_Event1	Rodada 1/2\nLago Powell\nMestre dos Anéis
+ChampC1_Event2	Rodada 2/2\nInvasão de Asgard\nCorrida
+ChampC2_Done_Info	Parabéns, você terminou o Campeonato Rato Crocante!
+ChampC2_Event1	Rodada 1/3\nInvasão de Asgard\nMestre dos Anéis
+ChampC2_Event2	Rodada 2/3\nLago Powell\nDesafio
+ChampC2_Event3	Rodada 3/3\nIlha dos Monstros\nCorrida
+ChampB1_Name	GP Supatômico
+ChampB1_Done_Info	Parabéns, você terminou o Campeonato GP Supatômico!
+ChampB1_Event1	Rodada 1/3\nIlha dos Monstros\nMestre dos Anéis
+ChampB1_Event2	Rodada 2/3\nInvasão de Asgard\nDesafio
+ChampB1_Event3	Rodada 3/3\nTaça Tsunami\nCorrida
+ChampB2_Done_Info	Parabéns, você terminou o Campeonato Martelo!
+ChampB2_Event1	Rodada 1/4\nIlha dos Monstros\nDesafio
+ChampB2_Event2	Rodada 2/4\nLago Powell\nCorrida
+ChampB2_Event3	Rodada 3/4\nInvasão de Asgard\nMestre dos Anéis
+ChampB2_Event4	Rodada 4/4\nBabilônia Perdida\nCorrida
+ChampB3_Name	GP Vector Unit
+ChampB3_Done_Info	Parabéns, você terminou o Campeonato GP Vector Unit!
+ChampB3_Event1	Rodada 1/4\nBabilônia Perdida\nDesafio
+ChampB3_Event2	Rodada 2/4\nTaça Tsunami\nMestre dos Anéis
+ChampB3_Event3	Rodada 3/4\nIlha dos Monstros\nCorrida
+ChampB3_Event4	Rodada 4/4\nEsgotos de Paris\nCorrida
+ChampA1_Name	Só Especialistas
+ChampA1_Done_Info	Parabéns, você terminou o Campeonato Só Especialistas!
+ChampA1_Event1	Rodada 1/5\nBabilônia Perdida\nCorrida
+ChampA1_Event2	Rodada 2/5\nLago Powell\nMestre dos Anéis
+ChampA1_Event3	Rodada 3/5\nEsgotos de Paris\nDesafio
+ChampA1_Event4	Rodada 4/5\nIlha dos Monstros\nMestre dos Anéis
+ChampA1_Event5	Rodada 5/5\nTaça Tsunami\nCorrida
+ChampA2_Done_Info	Parabéns, você terminou o Campeonato Touro!
+ChampA2_Event1	Rodada 1/6\nEsgotos de Paris\nCorrida
+ChampA2_Event2	Rodada 2/6\nRio de Seul\nCorrida
+ChampA2_Event3	Rodada 3/6\nBabilônia Perdida\nMestre dos Anéis
+ChampA2_Event4	Rodada 4/6\nTaça Tsunami\nDesafio
+ChampA2_Event5	Rodada 5/6\nInvasão de Asgard\nCorrida
+ChampA2_Event6	Rodada 6/6\nÁrea 51\nCorrida
+ChampA3_Done_Info	Parabéns, você terminou o Campeonato GP Furacão!
+ChampA3_Event1	Rodada 1/8\nLago Powell\nCorrida
+ChampA3_Event2	Rodada 2/8\nInvasão de Asgard\nCorrida
+ChampA3_Event3	Rodada 3/8\nIlha dos Monstros\nCorrida
+ChampA3_Event4	Rodada 4/8\nTaça Tsunami\nCorrida
+ChampA3_Event5	Rodada 5/8\nBabilônia Perdida\nCorrida
+ChampA3_Event6	Rodada 6/8\nEsgotos de Paris\nCorrida
+ChampA3_Event7	Rodada 7/8\nRio de Seul\nCorrida
+ChampA3_Event8	Rodada 8/8\nÁrea 51\nCorrida
+ChampA4_Done_Info	Parabéns, você terminou o Campeonato GP Agulha!
+ChampA4_Event1	Rodada 1/8\nLago Powell\nMestre dos Anéis
+ChampA4_Event2	Rodada 2/8\nInvasão de Asgard\nMestre dos Anéis
+ChampA4_Event3	Rodada 3/8\nIlha dos Monstros\nMestre dos Anéis
+ChampA4_Event4	Rodada 4/8\nTaça Tsunami\nMestre dos Anéis
+ChampA4_Event5	Rodada 5/8\nBabilônia Perdida\nMestre dos Anéis
+ChampA4_Event6	Rodada 6/8\nEsgotos de Paris\nMestre dos Anéis
+ChampA4_Event7	Rodada 7/8\nRio de Seul\nMestre dos Anéis
+ChampA4_Event8	Rodada 8/8\nÁrea 51\nMestre dos Anéis
+ChampA5_Done_Info	Parabéns, você terminou o Campeonato GP Boom Boom!
+ChampA5_Event1	Rodada 1/8\nLago Powell\nDesafio
+ChampA5_Event2	Rodada 2/8\nInvasão de Asgard\nDesafio
+ChampA5_Event3	Rodada 3/8\nIlha dos Monstros\nDesafio
+ChampA5_Event4	Rodada 4/8\nTaça Tsunami\nDesafio
+ChampA5_Event5	Rodada 5/8\nBabilônia Perdida\nDesafio
+ChampA5_Event6	Rodada 6/8\nEsgotos de Paris\nDesafio
+ChampA5_Event7	Rodada 7/8\nRio de Seul\nDesafio
+ChampA5_Event8	Rodada 8/8\nÁrea 51\nDesafio
+Leaderboard_FriendsNotRanked	Seus amigos ainda não estão nesta classificação
+Leaderboard_Enumerating	Conectando...
+Leaderboard_NoOneRanked	Ninguém está nesta classificação ainda
+Leaderboard_YoureNotRanked	Você ainda não está nesta classificação
+Leaderboard_Filter_MyScore	Minha Pontuação
+Award_NoviceGold	Você ganhou um Troféu de Ouro de Novato!
+Award_NoviceSilver	Você ganhou um Troféu de Prata de Novato!
+Award_NoviceBronze	Você ganhou um Troféu de Bronze de Novato!
+Award_ProGold	Você ganhou um Troféu de Ouro de Profissional!
+Award_ProSilver	Você ganhou um Troféu de Prata de Profissional!
+Award_ProBronze	Você ganhou um Troféu de Bronze de Profissional!
+Award_ExpertGold	Você ganhou um Troféu de Ouro de Especialista!
+Award_ExpertSilver	Você ganhou um Troféu de Prata de Especialista!
+Award_ExpertBronze	Você ganhou um Troféu de Bronze de Especialista!
+Award_SpecialGold	Você ganhou um Troféu de Ouro Especial!
+Award_SpecialSilver	Você ganhou um Troféu de Prata Especial!
+Award_SpecialBronze	Você ganhou um Troféu de Bronze Especial!
+Award_TeamWin	Você ganhou um Troféu!
+Award_TeamLose	Você perdeu!
+Unlock_Body	Você desbloqueou um novo barco!
+Unlock_Skin	Você desbloqueou uma nova skin de barco!
+Unlock_Race	Você desbloqueou um novo evento de Corrida!
+Unlock_TimeTrial	Você desbloqueou um novo evento de Desafio!
+Unlock_Slalom	Você desbloqueou um novo evento de Mestre dos Anéis!
+Unlock_Championship	Você desbloqueou um novo Campeonato!
+Unlock_AvatarAward	Você desbloqueou um novo Prêmio Avatar!
+Unlock_GamerPic	Você desbloqueou uma nova Imagem de Jogador!
+Unlock_Dam_Info	Ganhe 300 créditos para desbloquear este barco.
+Unlock_MissB_Trial	O Miss Behave só está disponível no jogo completo. \nDesbloqueie agora e fique com ele!
+Unlock_MissB_Info	Ganhe 1.250 créditos para desbloquear este barco. 
+Unlock_Banshee_Trial	O Banshee só está disponível no jogo completo. \nDesbloqueie agora e fique com ele!
+Unlock_Banshee_Info	Ganhe 6000 créditos para desbloquear este barco.
+Unlock_Thresher	O Thresher é um barco de classe Profissional.\nOs eventos Profissionais são mais difíceis, mas você ganha mais créditos. 
+Unlock_Thresher_Trial	O Thresher só está disponível no jogo completo. \nDesbloqueie agora e fique com ele!
+Unlock_Thresher_Info	Ganhe 3.000 créditos para desbloquear este barco.
+Unlock_TidalBlade_Trial	O Tidal Blade só está disponível no jogo completo. \nDesbloqueie agora e fique com ele!
+Unlock_TidalBlade_Info	Ganhe 4.000 créditos para desbloquear este barco. 
+Unlock_RadHazard_Trial	O Rad Hazard só está disponível no jogo completo. \nDesbloqueie agora e fique com ele!
+Unlock_RadHazard_Info	Ganhe 24.000 créditos para desbloquear este barco.
+Unlock_Razorback_Trial	O Razorback só está disponível no jogo completo. \nDesbloqueie agora e fique com ele!
+Unlock_Razorback_Info	Ganhe 18.000 créditos para desbloquear este barco.
+Unlock_Cutthroat_Trial	O Cutthroat só está disponível no jogo completo. \nDesbloqueie agora e fique com ele!
+Unlock_Cutthroat_Info	Ganhe 15.000 créditos para desbloquear este barco.
+Unlock_VectorSkin02	Você desbloqueou uma nova skin de barco para o\nVector!
+Unlock_VectorSkin02_Info	Para desbloquear esta skin, ganhe Ouro com este barco no evento Mestre dos Anéis da Taça Tsunami.
+Unlock_VectorSkin03	Você desbloqueou uma nova skin de barco para o\nVector!
+Unlock_VectorSkin03_Info	Para desbloquear esta skin, encontre todos os pacotes escondidos no Lago Powell.
+Unlock_DamSkin02	Você desbloqueou uma nova skin de barco para o\nDamn the Torpedoes!
+Unlock_DamSkin02_Info	Para desbloquear esta skin, ganhe Ouro no evento de Corrida do Lago Powell.
+Unlock_DamSkin03	Você desbloqueou uma nova skin de barco para o\nDamn the Torpedoes!
+Unlock_DamSkin03_Info	Para desbloquear esta skin, encontre todos os pacotes escondidos na Taça Tsunami.
+Unlock_MissBSkin02	Você desbloqueou uma nova skin de barco para o\nMiss Behave!
+Unlock_MissBSkin02_Info	Para desbloquear esta skin, ganhe Ouro no evento Desafio da Invasão de Asgard.
+Unlock_MissBSkin03	Você desbloqueou uma nova skin de barco para o\nMiss Behave!
+Unlock_MissBSkin03_Info	Para desbloquear esta skin, encontre todos os pacotes escondidos na Invasão de Asgard.
+Unlock_ThresherSkin02	Você desbloqueou uma nova skin de barco para o\nThresher!
+Unlock_ThresherSkin02_Info	Para desbloquear esta skin, ganhe Ouro com este barco no evento de Corrida da Invasão de Asgard.
+Unlock_ThresherSkin03	Você desbloqueou uma nova skin de barco para o\nThresher!
+Unlock_ThresherSkin03_Info	Para desbloquear esta skin, ganhe Ouro com este barco no evento de Desafio da Taça Tsunami.
+Unlock_TidalBladeSkin02	Você desbloqueou uma nova skin de barco para o\nTidal Blade!
+Unlock_TidalBladeSkin02_Info	Para desbloquear esta skin, ganhe Ouro no evento Mestre dos Anéis Profissional do Rio de Seul.
+Unlock_TidalBladeSkin03	Você desbloqueou uma nova skin de barco para o\nTidal Blade!
+Unlock_TidalBladeSkin03_Info	Para desbloquear esta skin, encontre todos os pacotes escondidos nos Esgotos de Paris.
+Unlock_BansheeSkin02	Você desbloqueou uma nova skin de barco para o\nBanshee!
+Unlock_BansheeSkin02_Info	Para desbloquear esta skin, ganhe Ouro com este barco no Desafio dos Esgotos de Paris.
+Unlock_BansheeSkin03	Você desbloqueou uma nova skin de barco para o\nBanshee!
+Unlock_BansheeSkin03_Info	Para desbloquear esta skin, encontre todos os pacotes escondidos no Rio de Seul.
+Unlock_CutthroatSkin02	Você desbloqueou uma nova skin de barco para o\nCutthroat!
+Unlock_CutthroatSkin02_Info	Para desbloquear esta skin, ganhe Ouro com este barco em uma Corrida multijogador do Xbox LIVE nos Esgotos de Paris.
+Unlock_CutthroatSkin03	Você desbloqueou uma nova skin de barco para o\nCutthroat!
+Unlock_CutthroatSkin03_Info	Para desbloquear esta skin, ganhe Ouro com este barco no evento de Mestre dos Anéis da Invasão de Asgard.
+Unlock_CutthroatSkin04	Você desbloqueou uma nova skin de barco para o\nCutthroat!
+Unlock_CutthroatSkin04_Info	Para desbloquear esta skin, encontre todos os pacotes escondidos na Ilha dos Monstros.
+Unlock_RazorbackSkin02	Você desbloqueou uma nova skin de barco para o\nRazorback!
+Unlock_RazorbackSkin02_Info	Para desbloquear esta skin, ganhe Ouro com este barco em uma Corrida multijogador do Xbox LIVE na Área 51.
+Unlock_RazorbackSkin03	Você desbloqueou uma nova skin de barco para o\nRazorback!
+Unlock_RazorbackSkin03_Info	Para desbloquear esta skin, ganhe Ouro no evento Mestre dos Anéis Especialista do Lago Powell.
+Unlock_RazorbackSkin04	Você desbloqueou uma nova skin de barco para o\nRazorback!
+Unlock_RazorbackSkin04_Info	Para desbloquear esta skin, encontre todos os pacotes escondidos na Babilônia Perdida.
+Unlock_RadHazardSkin02	Você desbloqueou uma nova skin de barco para o\nRad Hazard!
+Unlock_RadHazardSkin02_Info	Para desbloquear esta skin, ganhe Ouro em uma Corrida multijogador do Xbox LIVE no Rio de Seul.
+Unlock_RadHazardSkin03	Você desbloqueou uma nova skin de barco para o\nRad Hazard!
+Unlock_RadHazardSkin03_Info	Para desbloquear esta skin, ganhe Ouro com este barco no evento de Mestre dos Anéis Especialista da Babilônia Perdida.
+Unlock_RadHazardSkin04	Você desbloqueou uma nova skin de barco para o\nRad Hazard!
+Unlock_RadHazardSkin04_Info	Para desbloquear esta skin, encontre todos os pacotes escondidos na Área 51.
+Unlock_Race_Area51	A Área 51 \nagora está disponível no modo Corrida.
+Unlock_Race_Area51_Trial	A Área 51 só está disponível no jogo completo. \nDesbloqueie agora e fique com ela!
+Unlock_Race_Area51_Info	Ganhe 23.000 créditos para desbloquear este evento de Corrida.
+Unlock_Race_Asgard	A Invasão de Asgard\nagora está disponível no modo de Corrida.
+Unlock_Race_Asgard_Trial	A Invasão de Asgard só está disponível no jogo completo. \nDesbloqueie agora e fique com ela!
+Unlock_Race_Tropical_Info	Ganhe 1.750 créditos para desbloquear este evento de Corrida.
+Unlock_Race_Babylon	A Babilônia Perdida\nagora está disponível no modo Corrida.
+Unlock_Race_Babylon_Trial	A Babilônia Perdida só está disponível no jogo completo. \nDesbloqueie agora e fique com ela!
+Unlock_Race_City_Info	Ganhe 16.000 créditos para desbloquear este evento de Corrida.
+Unlock_Race_City	O Rio de Seul\nagora está disponível no modo Corrida.
+Unlock_Race_City_Trial	O Rio de Seul só está disponível no jogo completo. \nDesbloqueie agora e fique com ele!
+Unlock_Race_Babylon_Info	Ganhe 8.000 créditos para desbloquear este evento de Corrida.
+Unlock_Race_Sewers	Os Esgotos de Paris\nagora estão disponíveis no modo Corrida.
+Unlock_Race_Sewers_Trial	Os Esgotos de Paris só estão disponíveis no jogo completo. \nDesbloqueie agora e fique com eles!
+Unlock_Race_Stadium_Info	Ganhe 5.000 créditos para desbloquear este evento de Corrida.
+Unlock_Race_Stadium	A Taça Tsunami\nagora está disponível no modo Corrida.
+Unlock_Race_Stadium_Trial	A Taça Tsunami só está disponível no jogo completo. \nDesbloqueie agora e fique com ela!
+Unlock_Race_Asgard_Info	Ganhe 500 créditos para desbloquear este evento de Corrida.
+Unlock_Race_Tropical	A Ilha dos Monstros\nagora está disponível no modo Corrida.
+Unlock_Race_Tropical_Trial	A Ilha dos Monstros só está disponível no jogo completo. \nDesbloqueie agora e fique com ela!
+Unlock_Race_Sewers_Info	Ganhe 10.500 créditos para desbloquear este evento de Corrida.
+Unlock_TimeTrial_Area51	A Área 51 \nagora está disponível no modo Desafio.
+Unlock_TimeTrial_Area51_Trial	A Área 51 só está disponível no jogo completo. \nDesbloqueie agora e fique com ela!
+Unlock_TimeTrial_Area51_Info	Ganhe 36.000 créditos para desbloquear este evento de Desafio.
+Unlock_TimeTrial_Asgard	A Invasão de Asgard\nagora está disponível no modo Desafio.
+Unlock_TimeTrial_Asgard_Trial	A Invasão de Asgard só está disponível no jogo completo. \nDesbloqueie agora e fique com ela!
+Unlock_TimeTrial_Tropical_Info	Ganhe 6.500 créditos para desbloquear este evento de Desafio.
+Unlock_TimeTrial_Babylon	A Babilônia Perdida\nagora está disponível no modo Desafio.
+Unlock_TimeTrial_Babylon_Trial	A Babilônia Perdida só está disponível no jogo completo. \nDesbloqueie agora e fique com ela!
+Unlock_TimeTrial_City_Info	Ganhe 26.000 créditos para desbloquear este evento de Desafio.
+Unlock_TimeTrial_City	O Rio de Seul\nagora está disponível no modo Desafio.
+Unlock_TimeTrial_City_Trial	O Rio de Seul só está disponível no jogo completo. \nDesbloqueie agora e fique com ele!
+Unlock_TimeTrial_Babylon_Info	Ganhe 11.500 créditos para desbloquear este evento de Desafio.
+Unlock_TimeTrial_Hydroelectric	O Lago Powell\nagora está disponível no modo Desafio.
+Unlock_TimeTrial_Hydroelectric_Info	Ganhe 600 créditos para desbloquear este evento de Desafio. 
+Unlock_TimeTrial_Sewers	Os Esgotos de Paris\nagora estão disponíveis no modo Desafio.
+Unlock_TimeTrial_Sewers_Trial	Os Esgotos de Paris só estão disponíveis no jogo completo. \nDesbloqueie agora e fique com eles!
+Unlock_TimeTrial_Stadium_Info	Ganhe 9.000 créditos para desbloquear este evento de Desafio. 
+Unlock_TimeTrial_Stadium	A Taça Tsunami\nagora está disponível no modo Desafio.
+Unlock_TimeTrial_Stadium_Trial	A Taça Tsunami só está disponível no jogo completo. \nDesbloqueie agora e fique com ela!
+Unlock_TimeTrial_Asgard_Info	Ganhe 2.250 créditos para desbloquear este evento de Desafio. 
+Unlock_TimeTrial_Tropical	A Ilha dos Monstros\nagora está disponível no modo Desafio.
+Unlock_TimeTrial_Tropical_Trial	A Ilha dos Monstros só está disponível no jogo completo. \nDesbloqueie agora e fique com ela!
+Unlock_TimeTrial_Sewers_Info	Ganhe 17.000 créditos para desbloquear este evento de Desafio. 
+Unlock_Slalom_CourseA_Area51	O Circuito Especialista da Área 51 \nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseA_Area51_Trial	O Circuito Especialista da Área 51 só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseA_Area51_Info	Ganhe 55.000 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseA_Asgard	O Circuito Especialista da Invasão de Asgard\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseA_Asgard_Trial	O Circuito Especialista da Invasão de Asgard só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseA_Tropical_Info	Ganhe 22.000 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseA_Babylon	O Circuito Especialista da Babilônia Perdida\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseA_Babylon_Trial	O Circuito Especialista da Babilônia Perdida só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseA_City_Info	Ganhe 46.000 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseA_City	O Circuito Especialista do Rio de Seul\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseA_City_Trial	O Circuito Especialista do Rio de Seul só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseA_Babylon_Info	Ganhe 30.000 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseA_Hydroelectric	O Circuito Especialista do Lago Powell\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseA_Hydroelectric_Trial	O Circuito Especialista do Lago Powell só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseA_Hydroelectric_Info	Ganhe 15.500 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseA_Sewers	O Circuito Especialista dos Esgotos de Paris\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseA_Sewers_Trial	O Circuito Especialista dos Esgotos de Paris só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseA_Stadium_Info	Ganhe 27.000 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseA_Stadium	O Circuito Especialista da Taça Tsunami\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseA_Stadium_Trial	O Circuito Especialista da Taça Tsunami só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseA_Asgard_Info	Ganhe 19.000 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseA_Tropical	O Circuito Especialista da Ilha dos Monstros\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseA_Tropical_Trial	O Circuito Especialista da Ilha dos Monstros só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseA_Sewers_Info	Ganhe 34.000 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseB_Area51	O Circuito Profissional da Área 51\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseB_Area51_Trial	O Circuito Profissional da Área 51 só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseB_Area51_Info	Ganhe 42.000 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseB_Asgard	O Circuito Profissional da Invasão de Asgard\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseB_Asgard_Trial	O Circuito Profissional da Invasão de Asgard só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseB_Tropical_Info	Ganhe 7.500 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseB_Babylon	O Circuito Profissional da Babilônia Perdida\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseB_Babylon_Trial	O Circuito Profissional da Babilônia Perdida só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseB_City_Info	Ganhe 28.000 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseB_City	O Circuito Profissional do Rio de Seul\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseB_City_Trial	O Circuito Profissional do Rio de Seul só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseB_Babylon_Info	Ganhe 12.000 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseB_Hydroelectric	O Circuito Profissional do Lago Powell\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseB_Hydroelectric_Trial	O Circuito Profissional do Lago Powell só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseB_Hydroelectric_Info	Ganhe 3.500 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseB_Sewers	O Circuito Profissional dos Esgotos de Paris\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseB_Sewers_Trial	O Circuito Profissional dos Esgotos de Paris só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseB_Stadium_Info	Ganhe 9.500 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseB_Stadium	O Circuito Profissional da Taça Tsunami\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseB_Stadium_Trial	O Circuito Profissional da Taça Tsunami só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseB_Asgard_Info	Ganhe 4.500 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseB_Tropical	O Circuito Profissional da Ilha dos Monstros\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseB_Tropical_Trial	O Circuito Profissional da Ilha dos Monstros só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseB_Sewers_Info	Ganhe 17.500 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseC_Area51	O Circuito Novato da Área 51\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseC_Area51_Trial	O Circuito Novato da Área 51 só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseC_Area51_Info	Ganhe 31.000 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseC_Asgard	O Circuito Novato da Invasão de Asgard\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseC_Asgard_Trial	O Circuito Novato da Invasão de Asgard só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseC_Tropical_Info	Ganhe 5.500 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseC_Babylon	O Circuito Novato da Babilônia Perdida\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseC_Babylon_Trial	O Circuito Novato da Babilônia Perdida só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseC_City_Info	Ganhe 25.000 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseC_City	O Circuito Novato do Rio de Seul\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseC_City_Trial	O Circuito Novato do Rio de Seul só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseC_Babylon_Info	Ganhe 11.000 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseC_Hydroelectric	O Circuito Novato do Lago Powell\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseC_Hydroelectric_Info	Ganhe 200 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseC_Sewers	O Circuito Novato dos Esgotos de Paris\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseC_Sewers_Trial	O Circuito Novato dos Esgotos de Paris só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseC_Stadium_Info	Ganhe 8.500 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseC_Stadium	O Circuito Novato da Taça Tsunami\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseC_Stadium_Trial	O Circuito Novato da Taça Tsunami só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseC_Asgard_Info	Ganhe 2.000 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_Slalom_CourseC_Tropical	O Circuito Novato da Ilha dos Monstros\nagora está disponível no modo Mestre dos Anéis.
+Unlock_Slalom_CourseC_Tropical_Trial	O Circuito Novato da Ilha dos Monstros só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_Slalom_CourseC_Sewers_Info	Ganhe 16.500 créditos para desbloquear este Circuito Mestre dos Anéis.
+Unlock_ChampC1	O Campeonato Entrega do Leite\nagora está disponível no modo Campeonato.
+Unlock_ChampC1_Trial	O Campeonato Entrega do Leite só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_ChampC1_Info	Ganhe 1.000 créditos para desbloquear este Campeonato.
+Unlock_ChampC2	O Campeonato Rato Crocante\nagora está disponível no modo Campeonato.
+Unlock_ChampC2_Trial	O Campeonato Rato Crocante só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_ChampC2_Info	Ganhe 2.500 créditos para desbloquear este Campeonato. 
+Unlock_ChampB1	O Campeonato GP Supatômico\nagora está disponível no modo Campeonato.
+Unlock_ChampB1_Trial	O Campeonato GP Supatômico só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_ChampB1_Info	Ganhe 7.000 créditos para desbloquear este Campeonato.
+Unlock_ChampB2	O Campeonato Martelo\nagora está disponível no modo Campeonato.
+Unlock_ChampB2_Trial	O Campeonato Martelo só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_ChampB2_Info	Ganhe 10.000 créditos para desbloquear este Campeonato.
+Unlock_ChampB3	O Campeonato GP Vector Unit\nagora está disponível no modo Campeonato.
+Unlock_ChampB3_Trial	O Campeonato GP Vector Unit só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_ChampB3_Info	Ganhe 13.000 créditos para desbloquear este Campeonato.
+Unlock_ChampA1	O Campeonato Só Especialistas\nagora está disponível no modo Campeonato.
+Unlock_ChampA1_Trial	O Campeonato Só Especialistas só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_ChampA1_Info	Ganhe 20.000 créditos para desbloquear este Campeonato.
+Unlock_ChampA2	O Campeonato Touro\nagora está disponível no modo Campeonato.
+Unlock_ChampA2_Trial	O Campeonato Touro só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_ChampA2_Info	Ganhe 32.000 créditos para desbloquear este Campeonato.
+Unlock_ChampA3	O Campeonato GP Furacão\nagora está disponível no modo Campeonato.
+Unlock_ChampA3_Trial	O Campeonato GP Furacão só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_ChampA3_Info	Ganhe 40.000 créditos para desbloquear este Campeonato.
+Unlock_ChampA4	O Campeonato GP Agulha\nagora está disponível no modo Campeonato.
+Unlock_ChampA4_Trial	O Campeonato GP Agulha só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_ChampA4_Info	Ganhe 50.000 créditos para desbloquear este Campeonato.
+Unlock_ChampA5	O Campeonato GP Boom Boom\nagora está disponível no modo Campeonato.
+Unlock_ChampA5_Trial	O Campeonato GP Boom Boom só está disponível no jogo completo. Desbloqueie agora e fique com ele!
+Unlock_ChampA5_Info	Ganhe 60.000 créditos para desbloquear este Campeonato.
+Unlock_AvatarAward1_Trial	Você desbloqueou um Prêmio Avatar: \nDesbloqueie o jogo completo agora e fique com ele!
+Unlock_AvatarAward2_Trial	Você desbloqueou um Prêmio Avatar: \nDesbloqueie o jogo completo agora e fique com ele!
+Unlock_GamerPic1_Trial	Você desbloqueou uma nova Imagem de Jogador:\nDesbloqueie o jogo completo agora e fique com ela!
+Unlock_GamerPic2_Trial	Você desbloqueou uma nova Imagem de Jogador:\nDesbloqueie o jogo completo agora e fique com ela!
+Unlock_Test	Você desbloqueou um novo teste!
+Unlock_Test_Info	Para desbloquear, você deve 'encontrar todos os pacotes escondidos'.
+Copilot_000	Isto aqui não é clube náutico.
+Copilot_002	Sempre tem uma próxima vez, né?
+Copilot_003	Impulso ativado.
+Copilot_004	Impulso ativado.
+Copilot_005	Impulso ativado.
+Copilot_006	Use o impulso para vencer!
+Copilot_007	Use o impulso para vencer!
+Copilot_009	Impulso pronto.
+Copilot_010	Quase bom o bastante para o serviço público.
+Copilot_011	Ouvi dizer que os navios de cruzeiro estão contratando.
+Copilot_012	Você sempre pode ir trabalhar nos navios de cruzeiro.
+Copilot_013	Que sono... ah, oh... já acabamos?
+Copilot_014	Não estou gostando disso!
+Copilot_015	Não estou gostando disso!
+Copilot_020	Nossa!
+Copilot_021	Nossa!
+Copilot_022	Nossa!
+Copilot_023	Tá bom, eu aceito.
+Copilot_026	Eu sabia que a gente devia ter virado à esquerda em Albuquerque.
+Copilot_027	Belo vácuo.
+Copilot_028	Belo vácuo.
+Copilot_029	Belo vácuo.
+Copilot_030	Bela pilotagem.
+Copilot_031	Bela pilotagem.
+Copilot_034	Rampa chegando.
+Copilot_035	Uma rampa logo ali.
+Copilot_036	Rampa erguida.
+Copilot_037	A rampa está erguida.
+Copilot_038	A rampa está erguida.
+Copilot_039	Você ainda pode melhorar muito.
+Copilot_042	Nossa, foi por pouco.
+Copilot_043	Nossa, foi por pouco.
+Copilot_044	Ai, isso vai doer!
+Copilot_045	Ai, isso vai doer!
+Copilot_046	Isso vai doer!
+Copilot_047	Isso vai doer!
+Copilot_050	Ondas ativadas.
+Copilot_051	Ondas ativadas.
+Copilot_052	As ondas foram ativadas.
+Copilot_053	Quase que a gente pegava eles.
+Copilot_059	Que final de corrida!
+Copilot_060	Que final de corrida!
+Copilot_061	Caramba!
+Copilot_062	Caramba!
+Copilot_063	Isso!
+Copilot_064	Isso!
+Copilot_066	Você abriu um portão.
+Copilot_067	Você ligou as máquinas de ondas.
+Copilot_068	Você ligou as máquinas de ondas.
+Copilot_069	Você venceu!
+Copilot_070	Hahah! Você venceu!
+Copilot_071	Hahah! Você venceu!
+Copilot_072	Para pular, a gente precisa de impulso.
+Copilot_073	Sem impulso, sem salto de impulso.
+Copilot_074	Sem impulso, a gente não pula.
+Copilot_075	Sem impulso, sem salto.
+Copilot_076	Vamos achar um impulso e depois tentar pular.
+Copilot_077	Sem impulso a gente não pode pular.
+Copilot_078	Dava para chegar lá com um salto de impulso.
+Copilot_079	Dava para pegar aquilo com um salto de impulso.
+Copilot_080	Aposto que dava para chegar ali com um salto de impulso.
+Copilot_081	A gente precisa pegar um impulso potente.
+Copilot_082	A gente precisa pegar um power-up de impulso.
+Copilot_083	Vamos ter que pegar um power-up de impulso.
+Copilot_084	Para isso funcionar, a gente precisa achar um power-up de impulso.
+Copilot_085	Vamos achar um power-up de impulso e tentar de novo.
+Copilot_086	Dava para ter pegado aquilo com um salto de impulso.
+Copilot_087	Isso não funciona até a gente pegar um power-up de impulso.
+Copilot_088	Você abriu um portão.
+Copilot_089	Uhuuuuuu!
+Copilot_090	Uhuuuuuu!
+Copilot_095	Olha só... quem ficou em primeiro? Ah... não foi você.
+Copilot_096	Olha só... quem ficou em primeiro? Ah... não foi você.
+Copilot_097	Uau!
+Copilot_098	Uau!
+Copilot_099	Uau!
+Copilot_100	Uau!
+Copilot_101	Mas que diabos é aquilo?
+Copilot_105	Você faz ideia do que era aquilo que você pegou?
+Copilot_106	Olha só, a gente ga... é, perdemos.
+Copilot_107	Olha só, a gente ga... é, no fim não.
+Copilot_108	Olha, ganhamos! ... é, nem tanto.
+Copilot_109	Nossa, somos péssimos.
+Copilot_110	Hã... Quer pipoca?
+Copilot_113	Vamos tentar de novo. Mas vamos usar aquele impulso que pegamos.
+Copilot_114	Vamos tentar de novo. Tá, mas da próxima vez a gente usa o impulso.
+Copilot_115	Ah... Achei que você ia alcançar eles!
+Copilot_116	Ah, isso é insano!
+Copilot_117	Isso é insano!
+Copilot_118	Ah, isso é insanooooo!
+Copilot_119	Isso é loucura, isso é loucura, isso é loucura, isso é loucura!
+Copilot_120	Isso é loucura!
+Copilot_121	Isso é loucura!
+Copilot_122	Isso é loucura!
+Copilot_123	Aquilo foi insano, isso é loucura!
+Copilot_126	Não, tudo bem, tudo bem. Com certeza é alguma coisa "no barco".
+Copilot_127	É uma longa queda até lá embaixo.
+Copilot_128	É uma longa queda até lá embaixo.
+Copilot_129	É uma longa queda até lá embaixo.
+Copilot_133	Bom, pelo menos ainda estamos inteiros, né?
+Copilot_134	Bom, pelo menos ainda estamos inteiros.
+Copilot_136	É brilhante e gira. Deve ser importante.
+Copilot_137	É brilhante e gira. Deve ser importante.
+Copilot_140	Muito bem, me dê um bom motivo para você não ter usado o impulso.
+Copilot_142	E essa vai para o livro dos recordes.
+Copilot_143	Caramba, caramba, caramba, caramba, caramba, caramba!
+Copilot_144	Caramba. Caramba, caramba, caramba, caramba, caramba!
+Copilot_145	Não... caramba!
+Copilot_146	É, agora eu já vi de tudo.
+Copilot_151	Na próxima vez, tente usar o impulso.
+Copilot_152	Tudo bem, tudo bem, eu tenho um plano: na próxima vez, perca menos.
+Copilot_153	Na próxima vez, eu piloto.
+Copilot_154	Você nunca usou a sua força de impulso.
+Copilot_157	Você chegou ao pódio.
+Copilot_158	Sabe, eu adoro a cor do ouro.
+Copilot_159	Essa coisa parece importante. Vamos pegar.
+Copilot_160	Olha, parece importante. Vamos pegar.
+Copilot_161	Olha, tem um medalhão ali.
+Copilot_162	Olha, tem um medalhão ali.
+Copilot_163	Vamos pegar esse medalhão.
+Copilot_165	Não me inscrevi para isso.
+Copilot_166	Não me inscrevi para isso!
+Copilot_167	Olha só, eu não me inscrevi para isso!
+Copilot_168	Ei, daqui dá para ver a minha casa.
+Copilot_169	Ei, daqui dá para ver a minha casa.
+Copilot_171	É... a gente... perdeu.
+Copilot_172	Olha só, e a gente... perdeu.
+Copilot_173	Que tal esta ideia: na próxima vez, use o impulso de verdade.
+Copilot_174	Que tal esta ideia: na próxima vez, use o impulso.
+Copilot_175	Nossa... Ainda bem que acabou.
+Copilot_176	Tá bom, me dá as chaves. Eu piloto.
+Copilot_177	Pegue esse medalhão.
+Copilot_178	Boa, você achou uma... coisa secreta.
+Copilot_179	Olha, você achou uma... coisa secreta.
+Copilot_180	Não, não fique mal, não, com certeza tinha algo errado "no barco".
+Copilot_181	Não fique mal, com certeza a culpa é do barco.
+Copilot_182	A gente estaria melhor se você tivesse usado o impulso.
+Copilot_184	Olha, sabe, a gente devia voltar, porque acho que tem uma ou duas paredes em que a gente não bateu.
+Copilot_185	Olha, dá para voltar? Acho que a gente não bateu em uma parede ou duas.
+Copilot_186	Olha, dá para voltar? Acho que esquecemos de bater em uma ou duas paredes.
+Copilot_187	Dá para voltar? Acho que deixei a carteira cair.
+Copilot_188	Dá para voltar? Acho que deixei as chaves caírem.
+Copilot_189	Dá para voltar? Acho que deixei as chaves caírem.
+Copilot_190	E se da próxima vez eu pilotar?
+Copilot_191	Da próxima vez, posso pilotar eu?
+Copilot_192	A gente teria feito um tempo muito melhor se você tivesse usado o impulso.
+Copilot_193	Impressionante. Simplesmente impressionante.
+Copilot_194	Impressionante.
+Copilot_195	Você pega tudo que vê? Nem sabe o que essa coisa faz.
+Copilot_196	Você pega tudo que vê? Pelo menos sabe o que essa coisa faz?
+Copilot_197	Você pega tudo que vê? Pelo menos sabe o que essa coisa faz?
+Copilot_198	E isso, senhoras e senhores, foi incrível!
+Copilot_199	E isso, senhoras e senhores, foi incrível.
+Copilot_200	E isso, senhoras e senhores, foi impressionante.
+Copilot_201	Todo esse impulso que a gente pegou só serve se você usar.
+Copilot_202	Todo esse impulso que você tem só serve se você usar.
+Copilot_203	Mamma mia!
+Copilot_204	Mamma mia!
+Copilot_205	Enfim, vencer não é tudo.
+Copilot_206	Terceiro lugar. Pelo menos é uma taça.
+Copilot_207	Terceiro lugar. Bom, você chegou ao pódio.
+Copilot_208	Segundo lugar! Achei que você ia alcançar eles.
+Copilot_209	Segundo! Achei que você ia alcançar eles.
+Copilot_211	Bom, isso não é algo que se vê todo dia.
+Copilot_212	É por aqui... ei, o que está acontecendo com a minha voz?
+Copilot_213	Ahh, é isso que... espera aí, o que está acontecendo com a minha voz?
+Copilot_214	Isso foi... espera aí, o que está acontecendo com a minha voz?
+Copilot_215	Tá, isso é estranho... espera aí, o que está acontecendo com a minha voz?
+Copilot_216	Algo me diz que não estamos mais no Kansas.
+Copilot_217	Hum... tá... isso é estranho.
+Copilot_218	Hum... isso é bizarro.
+Copilot_219	Hum... isso é bizarro.
+Copilot_220	Ei, o que está acontecendo com a minha voz?
+Copilot_221	Totó, não estamos mais no Kansas.
+Copilot_222	Ei, o que está acontecendo com a minha voz?
+Copilot_223	Enquanto isso, no planeta Terra...
+Copilot_228	Impulso pronto para usar.
+Copilot_232	Impulso pronto.

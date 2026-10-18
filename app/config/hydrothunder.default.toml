@@ -1,0 +1,58 @@
+# Hydro Thunder Hurricane: Recompiled - default settings
+#
+# This file ships beside the executable as `hydrothunder.toml`. Everything in
+# it can be changed in-game with F5; the panel merges its changes back into
+# this file rather than rewriting it, so comments and hand-edits survive.
+#
+# Delete it and the game will start with engine defaults - but see the
+# licensing note below before you do.
+
+# --- Licensing ---------------------------------------------------------------
+# Reported to the game as the content licence. It defaults to 0 in the engine,
+# which makes a legitimate full copy present itself as the TRIAL: no maps, no
+# modes, no boats. Set to 1 for a full copy that you own, which is what this
+# ships with.
+license_mask = 1
+
+# --- Display -----------------------------------------------------------------
+# Output resolution. This is effectively free: the game renders its 3D scene to
+# a fixed-size target regardless, so 4K costs the same as 1080p. Empty uses the
+# window size. Accepts "720p", "1080p", "1440p", "4k", or "1920x1080".
+resolution = "1080p"
+fullscreen = false
+
+# Uncapped frame rate. The console was locked to 30.
+# Set vsync = true and video_mode_refresh_rate to cap it to your display.
+vsync = false
+video_mode_refresh_rate = 60.0
+
+# Let frames present without waiting on vblank. Good on a G-Sync or FreeSync
+# display; causes tearing on a fixed-refresh one.
+d3d12_allow_variable_refresh_rate_and_tearing = true
+
+# --- Graphics ----------------------------------------------------------------
+# 16x anisotropic filtering. Nearly free, and the best-looking change here.
+anisotropic_override = 5
+
+# Internal 3D resolution scale. THIS is the expensive one - 2 measures roughly
+# 8x the GPU cost of 1. Leave it at 1 unless you have GPU headroom to spare.
+resolution_scale = 1
+
+# Keep compiled shaders between runs so the first lap does not stutter.
+store_shaders = true
+async_shader_compilation = true
+
+# --- Fixes -------------------------------------------------------------------
+# The game draws its point lights with the depth test switched off, which on PC
+# leaves them visible through terrain. This re-enables the depth compare the
+# game itself left programmed.
+force_additive_depth_test = true
+
+# The game trips the engine's fetch-constant validation about 267 times a
+# second. With this off, those draws and textures are silently DISCARDED -
+# missing geometry and untextured surfaces. Leave it on.
+gpu_allow_invalid_fetch_constants = true
+
+# --- Logging -----------------------------------------------------------------
+# "info" keeps the log to a few dozen lines. Raise to "debug" for a bug report.
+log_level = "info"

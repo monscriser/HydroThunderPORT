@@ -1,0 +1,129 @@
+# Hydro Thunder Hurricane: pt-BR overrides for the Tempest Pack DLC (applied over pt-pt.resx at launch)
+Option_Track_Pack01Track01_Info	Já se perguntou para onde foram todos aqueles barcos e aviões desaparecidos? Você está prestes a descobrir.
+Unlock_Race_Pack01Track01	Triângulo das Bermudas - exclusivo da versão completa do Pacote Tempestade!
+Unlock_Race_Pack01Track01_Info	Ganhe 48.000 créditos para desbloquear este evento de Corrida.
+Unlock_Slalom_CourseC_Pack01Track01	Triângulo das Bermudas - Pista Novato - exclusivo da versão completa do Pacote Tempestade!
+Unlock_Slalom_CourseC_Pack01Track01_Info	Ganhe 52.000 créditos para desbloquear esta Pista Mestre dos Anéis.
+Unlock_Slalom_CourseB_Pack01Track01	Triângulo das Bermudas - Pista Profissional - exclusivo da versão completa do Pacote Tempestade!
+Unlock_Slalom_CourseB_Pack01Track01_Info	Ganhe 53.000 créditos para desbloquear esta Pista Mestre dos Anéis.
+Unlock_Slalom_CourseA_Pack01Track01	Triângulo das Bermudas - Pista Especialista - exclusivo da versão completa do Pacote Tempestade!
+Unlock_Slalom_CourseA_Pack01Track01_Info	Ganhe 58.000 créditos para desbloquear esta Pista Mestre dos Anéis.
+Unlock_TimeTrial_Pack01Track01	Triângulo das Bermudas - exclusivo da versão completa do Pacote Tempestade!
+Unlock_TimeTrial_Pack01Track01_Info	Ganhe 56.000 créditos para desbloquear este evento de Desafio.
+Option_Track_Pack01Track02_Info	O que você ganha quando mistura castelos, moinhos de vento, ondas, canhões, minas explosivas e batidas de frente? Isso mesmo. Algo impressionante.
+Unlock_Race_Pack01Track02	Castelo Von Boom - exclusivo da versão completa do Pacote Tempestade!
+Unlock_Race_Pack01Track02_Info	Ganhe 37.000 créditos para desbloquear este evento de Corrida.
+Unlock_Slalom_CourseC_Pack01Track02	Castelo Von Boom - Pista Novato - exclusivo da versão completa do Pacote Tempestade!
+Unlock_Slalom_CourseC_Pack01Track02_Info	Ganhe 43.000 créditos para desbloquear esta Pista Mestre dos Anéis.
+Unlock_Slalom_CourseB_Pack01Track02	Castelo Von Boom - Pista Profissional - exclusivo da versão completa do Pacote Tempestade!
+Unlock_Slalom_CourseB_Pack01Track02_Info	Ganhe 45.000 créditos para desbloquear esta Pista Mestre dos Anéis.
+Unlock_Slalom_CourseA_Pack01Track02	Castelo Von Boom - Pista Especialista - exclusivo da versão completa do Pacote Tempestade!
+Unlock_Slalom_CourseA_Pack01Track02_Info	Ganhe 49.000 créditos para desbloquear esta Pista Mestre dos Anéis.
+Unlock_TimeTrial_Pack01Track02	Castelo Von Boom - exclusivo da versão completa do Pacote Tempestade!
+Unlock_TimeTrial_Pack01Track02_Info	Ganhe 44.000 créditos para desbloquear este evento de Desafio.
+Option_Track_Pack01Track03_Info	Terremotos submarinos fizeram a cidade perdida de Atlântida emergir das profundezas do Mar Egeu. Cuidado, a região ainda é muito instável.
+Unlock_Race_Pack01Track03	Atlântida - exclusivo da versão completa do Pacote Tempestade!
+Unlock_Race_Pack01Track03_Info	Ganhe 29.000 créditos para desbloquear este evento de Corrida.
+Unlock_Slalom_CourseC_Pack01Track03	Atlântida - Pista Novato - exclusivo da versão completa do Pacote Tempestade!
+Unlock_Slalom_CourseC_Pack01Track03_Info	Ganhe 32.500 créditos para desbloquear esta Pista Mestre dos Anéis.
+Unlock_Slalom_CourseB_Pack01Track03	Atlântida - Pista Profissional - exclusivo da versão completa do Pacote Tempestade!
+Unlock_Slalom_CourseB_Pack01Track03_Info	Ganhe 35.000 créditos para desbloquear esta Pista Mestre dos Anéis.
+Unlock_Slalom_CourseA_Pack01Track03	Atlântida - Pista Especialista - exclusivo da versão completa do Pacote Tempestade!
+Unlock_Slalom_CourseA_Pack01Track03_Info	Ganhe 41.000 créditos para desbloquear esta Pista Mestre dos Anéis.
+Unlock_TimeTrial_Pack01Track03	Atlântida - exclusivo da versão completa do Pacote Tempestade!
+Unlock_TimeTrial_Pack01Track03_Info	Ganhe 39.000 créditos para desbloquear este evento de Desafio.
+Unlock_Pack01Boat01Skin02	Você desbloqueou uma nova skin de barco para o\nWhiplash!
+Unlock_Pack01Boat01Skin02_Info	Para desbloquear esta skin, ganhe o Ouro no evento de Desafio Castelo Von Boom.
+Unlock_Pack01Boat01Skin03	Você desbloqueou uma nova skin de barco para o\nWhiplash!
+Unlock_Pack01Boat01Skin03_Info	Para desbloquear esta skin, ganhe Ouro em uma Corrida multijogador do Xbox LIVE na Atlântida.
+BoatSkin_Pack01Boat01Skin04	FUMAÇA
+Unlock_Pack01Boat01Skin04	Você desbloqueou uma nova skin de barco para o\nWhiplash!
+Unlock_Pack01Boat01Skin04_Info	Para desbloquear esta skin, encontre todos os pacotes escondidos no Triângulo das Bermudas.
+Unlock_Pack01Boat02Skin02	Você desbloqueou uma nova skin de barco para o\nPsyclone!
+Unlock_Pack01Boat02Skin02_Info	Para desbloquear esta skin, ganhe o Ouro com este barco no Evento de Corrida Triângulo das Bermudas.
+Unlock_Pack01Boat02Skin03	Você desbloqueou uma nova skin de barco para o\nPsyclone!
+Unlock_Pack01Boat02Skin03_Info	Para desbloquear esta skin, ganhe Ouro em uma Corrida multijogador do Xbox LIVE no Castelo Von Boom.
+Unlock_Pack01Boat02Skin04	Você desbloqueou uma nova skin de barco para o\nPsyclone!
+Unlock_Pack01Boat02Skin04_Info	Para desbloquear esta skin, encontre todos os pacotes escondidos na Atlântida.
+Unlock_VectorSkin04	Você desbloqueou uma nova skin de barco para o\nVector!
+Unlock_VectorSkin04_Info	Para desbloquear esta skin, ganhe o Ouro com este barco no evento Mestre dos Anéis Novato Atlântida.
+Unlock_DamSkin04	Você desbloqueou uma nova skin de barco para o\nDamn the Torpedoes!
+Unlock_DamSkin04_Info	Para desbloquear esta skin, ganhe o Ouro no Evento de Mestre dos Anéis Novato Castelo Von Boom.
+Unlock_MissBSkin04	Você desbloqueou uma nova skin de barco para o\nMiss Behave!
+Unlock_MissBSkin04_Info	Para desbloquear esta skin, ganhe o Ouro com este barco no Evento Mestre dos Anéis Novato Triângulo das Bermudas.
+Unlock_ThresherSkin04	Você desbloqueou uma nova skin de barco para o\nThresher!
+Unlock_ThresherSkin04_Info	Para desbloquear esta skin, ganhe o Ouro no Evento de Mestre dos Anéis Profissional Castelo Von Boom.
+Unlock_TidalBladeSkin04	Você desbloqueou uma nova skin de barco para o\nTidal Blade!
+Unlock_TidalBladeSkin04_Info	Para desbloquear esta skin, ganhe o Ouro com este barco no Evento Mestre dos Anéis Profissional Triângulo das Bermudas.
+Unlock_BansheeSkin04	Você desbloqueou uma nova skin de barco para o\nBanshee!
+Unlock_BansheeSkin04_Info	Para desbloquear esta skin, ganhe o Ouro com este barco no evento Mestre dos Anéis Profissional Atlântida.
+Unlock_CutthroatSkin05	Você desbloqueou uma nova skin de barco para o\nCutthroat!
+Unlock_CutthroatSkin05_Info	Para desbloquear esta skin, ganhe o Ouro com este barco no Evento de Corrida Atlântida.
+Unlock_RazorbackSkin05	Você desbloqueou uma nova skin de barco para o\nRazorback!
+Unlock_RazorbackSkin05_Info	Para desbloquear esta skin, ganhe o Ouro com este barco no Evento de Desafio Triângulo das Bermudas.
+Unlock_RadHazardSkin05	Você desbloqueou uma nova skin de barco para o\nRad Hazard!
+Unlock_RadHazardSkin05_Info	Para desbloquear esta skin, encontre todos os pacotes escondidos no Castelo Von Boom.
+BoatSkin_ThresherX01	NÃO ODEIE
+BoatSkin_TidalBladeX01	BATATA QUENTE
+BoatSkin_TidalBladeX04	VELOCIDADE
+BoatSkin_BansheeX02	PENSE NISSO
+BoatBody_Pack01Boat01_Info	Você pode até se perguntar "Como essa coisa consegue flutuar?!"  Não importa.  Só precisa saber que ela é rápida, ágil e devora curvas no café da manhã.
+Unlock_Pack01Boat01	Whiplash - exclusivo da versão completa do Pacote Tempestade!
+Unlock_Pack01Boat01_Info	Ganhe 27.500 créditos para desbloquear este barco.
+BoatBody_Pack01Boat02_Info	Resgatada de uma antiga operação de contrabando, a hélice de 8000 CV do Psyclone coloca o poder dos furacões nas suas mãos.  É incrivelmente rápido na água e no ar... se você conseguir controlá-lo.
+Unlock_Pack01Boat02	Psyclone - exclusivo da versão completa do Pacote Tempestade!
+Unlock_Pack01Boat02_Info	Ganhe 33.000 créditos para desbloquear este barco.
+BoatBody_VectorX_Info	Esta é uma versão altamente modificada do Vector.
+Unlock_VectorX	Vector X - exclusivo da versão completa do Pacote Tempestade!
+Unlock_VectorX_Info	Ganhe 100.000 créditos para desbloquear este barco.
+BoatBody_DamX_Info	Esta é uma versão altamente modificada do Damn the Torpedoes.
+Unlock_DamX	DT X - exclusivo da versão completa do Pacote Tempestade!
+Unlock_DamX_Info	Ganhe 120.000 créditos para desbloquear este barco.
+BoatBody_MissBX_Info	Esta é uma versão altamente modificada do Miss Behave.
+Unlock_MissBX	Miss Behave X - exclusivo da versão completa do Pacote Tempestade!
+Unlock_MissBX_Info	Ganhe 140.000 créditos para desbloquear este barco.
+BoatBody_ThresherX_Info	Esta é uma versão altamente modificada do Thresher.
+Unlock_ThresherX	Thresher X - exclusivo da versão completa do Pacote Tempestade!
+Unlock_ThresherX_Info	Ganhe 160.000 créditos para desbloquear este barco.
+BoatBody_TidalBladeX_Info	Esta é uma versão altamente modificada do Tidal Blade.
+Unlock_TidalBladeX	Tidal Blade X - exclusivo da versão completa do Pacote Tempestade!
+Unlock_TidalBladeX_Info	Ganhe 180.000 créditos para desbloquear este barco.
+BoatBody_BansheeX_Info	Esta é uma versão altamente modificada do Banshee.
+Unlock_BansheeX	Banshee X - exclusivo da versão completa do Pacote Tempestade!
+Unlock_BansheeX_Info	Ganhe 200.000 créditos para desbloquear este barco.
+Option_Championship_Pack01ChampA1_Info	Aberto apenas para barcos Especialista. 5 eventos, todos em pistas circulares. 
+Pack01ChampA1_Done_Info	Parabéns, você terminou o Campeonato Dar a Volta!
+Pack01ChampA1_Event1	Rodada 1/5\nCastelo Von Boom\nDesafio
+Pack01ChampA1_Event2	Rodada 2/5\nTaça Tsunami\nMestre dos Anéis
+Pack01ChampA1_Event3	Rodada 3/5\nIlha dos Monstros\nCorrida
+Pack01ChampA1_Event4	Rodada 4/5\nEsgotos de Paris\nMestre dos Anéis
+Pack01ChampA1_Event5	Rodada 5/5\nAtlântida\nCorrida
+Unlock_Pack01ChampA1	O Campeonato Dar a Volta\nagora está disponível no modo Campeonato.
+Unlock_Pack01ChampA1_Info	Ganhe Ouro com o Psyclone na Corrida do Castelo Von Boom para desbloquear este Campeonato.
+Option_Championship_Pack01ChampA2_Info	Aberto apenas para barcos Especialista. 6 eventos, todos em pistas de ponto a ponto. 
+Pack01ChampA2_Done_Info	Parabéns, você terminou o Campeonato Corrida Louca!
+Pack01ChampA2_Event1	Rodada 1/6\nBabilônia Perdida\nCorrida
+Pack01ChampA2_Event2	Rodada 2/6\nInvasão de Asgard\nDesafio
+Pack01ChampA2_Event3	Rodada 3/6\nRio de Seul\nMestre dos Anéis
+Pack01ChampA2_Event4	Rodada 4/6\nÁrea 51\nCorrida
+Pack01ChampA2_Event5	Rodada 5/6\nLago Powell\nCorrida
+Pack01ChampA2_Event6	Rodada 6/6\nTriângulo das Bermudas\nCorrida
+Unlock_Pack01ChampA2	O Campeonato Corrida Louca\nagora está disponível no modo Campeonato.
+Unlock_Pack01ChampA2_Info	Ganhe Ouro com o Whiplash na Corrida do Triângulo das Bermudas para desbloquear este Campeonato.
+Option_Championship_Pack01ChampA3_Info	Aberto apenas para barcos Especialista. 11 eventos, todos Corridas. 
+Pack01ChampA3_Done_Info	Parabéns, você terminou o Campeonato Tempestade!
+Pack01ChampA3_Event1	Rodada 1/11\nAtlântida\nCorrida
+Pack01ChampA3_Event2	Rodada 2/11\nRio de Seul\nCorrida
+Pack01ChampA3_Event3	Rodada 3/11\nInvasão de Asgard\nCorrida
+Pack01ChampA3_Event4	Rodada 4/11\nBabilônia Perdida\nCorrida
+Pack01ChampA3_Event5	Rodada 5/11\nTriângulo das Bermudas\nCorrida
+Pack01ChampA3_Event6	Rodada 6/11\nIlha dos Monstros\nCorrida
+Pack01ChampA3_Event7	Rodada 7/11\nÁrea 51\nCorrida
+Pack01ChampA3_Event8	Rodada 8/11\nEsgotos de Paris\nCorrida
+Pack01ChampA3_Event9	Rodada 9/11\nTaça Tsunami\nCorrida
+Pack01ChampA3_Event10	Rodada 10/11\nLago Powell\nCorrida
+Pack01ChampA3_Event11	Rodada 11/11\nCastelo Von Boom\nDesafio
+Unlock_Pack01ChampA3	O Campeonato Tempestade\nagora está disponível no modo Campeonato.
+Unlock_Pack01ChampA3_Info	Desbloqueie os Campeonatos Dar a Volta e Corrida Louca para desbloquear este Campeonato.
+Credits_DLC_Contest	VENCEDORES DO CONCURSO\nCRIE UMA SKIN
+Credits_DLC_Special_Body	A David Chen pelos valiosos comentários editoriais e criativos. A Steven Kovensky pelo apurado senso comercial.

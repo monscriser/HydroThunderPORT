@@ -1,0 +1,46 @@
+# ===========================================================================
+# Xbox 360 executables and images — NEVER commit
+# These are copyrighted game / system code. Bring your own files to test with.
+# ===========================================================================
+*.xex
+*.xexp
+*.bin
+*.basefile
+*.nand
+*.idc
+!src/idc_boilerplate.h
+
+# ===========================================================================
+# Reverse-engineering workspace — not redistributable
+# The original XexTool binary, its disassembly/decompilation, and any keys
+# recovered from it. See README "Provenance".
+# ===========================================================================
+_re/
+xextool.exe
+xextool_unpacked.exe
+ghidra_*/
+ghidra_*.txt
+ghidra_*.log
+*_key.txt
+devkit_key*
+enc_src*.c
+enc_init*.c
+
+# === Build artifacts ===
+*.o
+*.d
+*.a
+*.exe
+!/**/*.vcxproj
+build/
+obj/
+
+# === Editor / OS ===
+.vscode/
+.vs/
+*.user
+desktop.ini
+Thumbs.db
+.DS_Store
+__pycache__/
+*.pyc

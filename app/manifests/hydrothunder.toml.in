@@ -1,0 +1,10 @@
+[project]
+sdk_version = "0.10.0"
+name = "hydrothunder"
+
+[entrypoint]
+file_path = "@HT_GAME_DATA_ROOT_CONFIG@/default.xex"
+out_directory_path = "@HT_SOURCE_DIR_CONFIG@/generated-updated"
+includes = [
+@HT_FUNCTION_CONFIG_INCLUDES@
+]

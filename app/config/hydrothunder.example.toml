@@ -1,0 +1,118 @@
+# Optional developer override file for htrecomp.
+#
+# Copy this next to hydrothunder.exe as `hydrothunder.toml` to take effect.
+# Release builds do not require this file. See rexglue-sdk REXCVAR_DEFINE_*
+# declarations for the full list of keys.
+#
+# Defaults here are tuned for PLAYING. The commented-out blocks are the
+# debugging setup; re-enable them only while investigating, because the log
+# volume alone is enough to cost frame pacing, audio continuity and input
+# latency.
+
+# --- Logging -----------------------------------------------------------------
+log_level = "info"
+
+# --- Memory diagnostics ------------------------------------------------------
+# Fault on guest null dereferences instead of silently reading zeros. This is the
+# SDK default, stated explicitly so it is never lost by accident - it is what
+# turns a guest null dereference into a catchable fault, and it is why the boot
+# crash was findable at all. Cheap; leave it on.
+protect_zero = true
+
+# --- Graphics -----------------------------------------------------------------
+# Accept fetch constants the Xenos marks "invalid". This is NOT just warning
+# suppression - with it off, the runtime DROPS the work:
+#
+#   vertex  (d3d12/command_processor.cpp:2519)  -> `return false`, whole draw aborted
+#   texture (pipeline/texture/cache.cpp:914)    -> key invalidated, texture never bound
+#
+# This game hits it ~267 times a second, so leaving it off means missing geometry
+# and untextured surfaces, plus a synchronous log write per draw. Turn it off
+# again if it ever produces visual corruption rather than fixing it.
+gpu_allow_invalid_fetch_constants = true
+
+# Xenos depth is a 24-bit FLOAT format no PC GPU has natively, so it must be
+# approximated - and imprecise depth compares are how emissive effects end up
+# visible through terrain and geometry. This does the conversion exactly, in the
+# pixel shader (float24_truncate_ps / float24_round_ps). Costs some GPU time.
+# Set false to go back to the fast approximation.
+# depth_float24_convert_in_pixel_shader = true   # tested: no effect on the lights bug
+
+# Round rather than truncate during that conversion. Try it if the above helps
+# but does not fully clear the problem.
+# depth_float24_round = true
+
+# --- Licensing ------------------------------------------------------------------
+# Reported to the game by XamContentGetLicenseMask (xam_content.cpp:32). Each bit
+# is a granted license; bit 0 is "this copy is purchased" for most titles - the
+# SDK's own comment says as much. It defaults to 0, which makes a full retail dump
+# present itself as the trial: no map, mode or boat unlocks.
+#
+# Set to 1 for a dump of the full game you own.
+license_mask = 1
+
+
+# =============================================================================
+# Audio stutter - A/B experiments (change ONE at a time)
+# =============================================================================
+#
+# What has already been ruled out, so you do not re-chase it:
+#   * XMA register handling is fine. The "Write to unknown register (0601)"
+#     spam is a lock acquire/release pair - measured 6,917 writes of value 2 and
+#     exactly 6,917 of value 3 over 40s, and xma_decoder.cpp:336 documents it.
+#   * Queue depth is not the constraint. kMaximumQueuedFrames = 64 at 256
+#     samples/channel @ 48 kHz is 341 ms of buffer; a producer stall would have
+#     to exceed a third of a second to underrun.
+#
+# That leaves a RATE problem, which is also what "slowed down" sounds like.
+# The guest clock is scaled globally by guest_time_scalar_ (core/clock.cpp:28)
+# and every timing path multiplies through it.
+#
+# Experiment 1 - take the guest clock off scaling entirely:
+# clock_no_scaling = true
+#
+# Experiment 2 - raw host clock source, no scaling layer:
+# clock_source_raw = true
+#
+# Experiment 3 - you are on a 144 Hz panel and the game is an Xbox 360 title
+# that expects 60. If audio is paced off presentation, an uncapped or 144 Hz
+# present rate would drag it. Pin both:
+# vsync = true
+# video_mode_refresh_rate = 60.0
+#
+# Experiment 4 - if 3 helps but is not clean, try letting the present run
+# untorn instead of waiting on vblank:
+# d3d12_allow_variable_refresh_rate_and_tearing = true
+
+# =============================================================================
+# Debugging - all off by default
+# =============================================================================
+#
+# "debug" surfaces the runtime's function-table registration summary
+# ("Registered N recompiled functions (D duplicates, R rejected)" from
+# runtime.cpp:205) plus kernel/VFS detail. "trace" is extremely noisy - a single
+# boot at trace produced ~26k lines.
+# log_level = "debug"
+#
+# Flush every second so a hard crash does not eat the last lines. The difference
+# between seeing the faulting call and seeing nothing. Costs I/O; debugging only.
+# log_flush_interval = 1
+#
+# Include the high-frequency kernel calls that are normally filtered out. Useful
+# when the trace goes quiet just before a fault.
+# log_high_frequency_kernel_calls = true
+#
+# Fill allocations with 0xCD so use-of-uninitialised-heap becomes an immediate
+# fault rather than odd behaviour. Costs performance.
+# scribble_heap = true
+#
+# --- Per-category log levels -------------------------------------------------
+# Parsed by ParseCategoryLevelsFromConfig (logging.cpp:532). Must stay at the END
+# of the file: once a TOML table is opened, later bare keys belong to it.
+#
+# Turning up 'krnl' alone keeps the guest's kernel calls visible without the
+# volume of a global trace level.
+#
+# [log.levels]
+# krnl = "trace"
+# sys  = "debug"

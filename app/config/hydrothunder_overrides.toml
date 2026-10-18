@@ -1,0 +1,14 @@
+# Candidate offsets matched against the supplied v0.0.2.1 executable.
+# Must be validated during gameplay; do not use with v0.0.1.1.
+setjmp_address = 0x826A8680
+
+[functions]
+0x82671208 = { end = 0x8267192C }
+0x826A8680 = { end = 0x826A894C }
+# Shared epilogues: li r3,0; blr. Backward tail branches target these.
+0x823272C4 = { size = 8 }
+0x8230B6EC = { size = 8 }
+0x823271AC = { size = 8 }
+# Hand-written dispatch routines use shared return blocks after early blr's.
+0x824960B8 = { end = 0x824961C8 }
+0x82679D58 = { end = 0x82679DD8 }

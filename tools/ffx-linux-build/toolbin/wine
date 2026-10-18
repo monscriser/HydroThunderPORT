@@ -1,0 +1,4 @@
+#!/bin/sh
+# Shim: FFX build runs "wine FidelityFX_SC.exe args..." on Linux. Run the Linux port instead.
+shift
+ASAN_OPTIONS=detect_leaks=0 exec /tmp/claude-0/-home-claude/c47f0806-4b0f-5957-8db3-2ba6367b480c/scratchpad/ffxsc/FidelityFX_SC_asan "$@"

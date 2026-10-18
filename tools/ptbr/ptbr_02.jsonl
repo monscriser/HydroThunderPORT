@@ -1,0 +1,112 @@
+{"k": "Credits_000", "v": "CRÉDITOS"}
+{"k": "BoatConfig_000", "v": "SELECIONE O BARCO"}
+{"k": "BoatConfig_020", "v": "DIRIGIBILIDADE"}
+{"k": "BoatConfig_023", "v": "CONTROLE NO AR"}
+{"k": "GameConfigRace_000", "v": "SELECIONE A PISTA"}
+{"k": "GameConfigChampionship_000", "v": "Selecione"}
+{"k": "GameConfigSlalom_000", "v": "SELECIONE O CIRCUITO"}
+{"k": "GameConfigTimeTrial_000", "v": "SELECIONE A PISTA"}
+{"k": "GameConfigLiveQuick_000", "v": "PARTIDA RÁPIDA"}
+{"k": "GameConfigLiveQuick_InfoTypePlayer", "v": "A partida de jogadores coloca você no primeiro jogo disponível, com jogadores de qualquer nível de habilidade."}
+{"k": "GameConfigLiveQuick_InfoTypeRanked", "v": "A partida ranqueada coloca você com jogadores de nível de habilidade parecido com o seu."}
+{"k": "GameConfigLiveCustom_InfoTypePlayer", "v": "A partida de jogadores coloca você no primeiro jogo disponível, com jogadores de qualquer nível de habilidade."}
+{"k": "GameConfigLiveCustom_InfoTypeRanked", "v": "A partida ranqueada coloca você com jogadores de nível de habilidade parecido com o seu."}
+{"k": "GameConfigLiveCustom_InfoModeRace", "v": "Uma série de Corridas personalizada. Cada jogador ganha pontos no estilo Campeonato conforme a posição em que termina e é classificado no saguão pela pontuação total."}
+{"k": "GameConfigLiveCustom_InfoModeDuck", "v": "No modo Patinho de Borracha, os jogadores se dividem nas equipes Vermelha e Azul. Cada equipe escolhe um jogador para pilotar o barco Patinho de Borracha e faz de tudo para que ele cruze a linha de chegada primeiro."}
+{"k": "GameConfigLiveCreate_000", "v": "CRIAR PARTIDA"}
+{"k": "GameConfigLiveCreate_InfoTypePlayer", "v": "A partida de jogadores abre o seu jogo para jogadores de todos os níveis de habilidade."}
+{"k": "GameConfigLiveCreate_InfoTypeRanked", "v": "A partida ranqueada vai encontrar jogadores com nível de habilidade parecido com o seu."}
+{"k": "GameConfigLiveCreate_InfoTypePrivate", "v": "A partida privada só deixa entrar no seu jogo os jogadores que você convidou."}
+{"k": "GameConfigLiveCreate_InfoModeRace", "v": "Uma série de Corridas personalizada. Cada jogador ganha pontos no estilo Campeonato conforme a posição em que termina e é classificado no saguão pela pontuação total."}
+{"k": "GameConfigLiveCreate_InfoModeDuck", "v": "No modo Patinho de Borracha, os jogadores se dividem nas equipes Vermelha e Azul. Cada equipe escolhe um jogador para pilotar o barco Patinho de Borracha e faz de tudo para que ele cruze a linha de chegada primeiro."}
+{"k": "GameConfigLiveCreate_InfoTrack", "v": "Escolha o primeiro ambiente em que quer jogar. Depois você pode mudar isso no saguão."}
+{"k": "Sell_001", "v": "PARTICIPE HOJE!"}
+{"k": "Sell_Point000", "v": "Este não é o Hydro Thunder do seu pai!"}
+{"k": "Sell_Point010", "v": "Hydro Thunder Hurricane oferece ação de lanchas totalmente original:"}
+{"k": "Sell_Point030", "v": "9 lanchas superpotentes, dezenas de skins desbloqueáveis."}
+{"k": "Sell_Point040", "v": "24 eventos de slalom de Mestre dos Anéis para pôr suas habilidades à prova."}
+{"k": "Sell_Point050", "v": "Corridas e partidas de Patinho de Borracha para 8 jogadores no Xbox LIVE."}
+{"k": "Sell_Point060", "v": "Dispute com ação em tela dividida para 4 jogadores."}
+{"k": "Sell_Point070", "v": "Desbloqueie o jogo completo agora e fique com os créditos e Conquistas que já ganhou!"}
+{"k": "Sell_Point080", "v": "O quê, ainda está lendo? Faça isso agora!"}
+{"k": "SellLIVE_001", "v": "JOGUE NO LIVE HOJE MESMO!"}
+{"k": "SellLIVE_Point000", "v": "O jogo online está disponível exclusivamente no Xbox LIVE quando você desbloqueia o Hydro Thunder Hurricane completo."}
+{"k": "SellLIVE_Point010", "v": "Mostre do que você é capaz em partidas online para 8 jogadores no Xbox LIVE."}
+{"k": "SellLIVE_Point020", "v": "Jogue no Xbox LIVE com até 4 jogadores no seu console."}
+{"k": "SellLIVE_Point030", "v": "Corra em 8 ambientes emocionantes."}
+{"k": "SellLIVE_Point040", "v": "Jogue em equipe com seus companheiros no novo modo Patinho de Borracha."}
+{"k": "SellLIVE_Point050", "v": "Dispute os tempos parciais dos seus Amigos nas partidas de Jogador Individual com Rivais da Classificação."}
+{"k": "SellLIVE_Point060", "v": "Desbloqueie o jogo completo agora e mergulhe no Hydro Thunder Hurricane no Xbox LIVE!"}
+{"k": "SellLIVE_Point070", "v": "Esta é a primeira experiência online da história das corridas Hydro Thunder!"}
+{"k": "SellLIVE_Point080", "v": "Jogue hoje mesmo!"}
+{"k": "SellLocked_001", "v": "FIQUE COM SUAS COISAS!"}
+{"k": "SellLocked_Point000", "v": "Você selecionou um recurso que só fica disponível ao desbloquear o Hydro Thunder Hurricane completo."}
+{"k": "SellLocked_Point020", "v": "Se desbloquear o jogo completo agora, você poderá jogar com este item e com quaisquer outros barcos, pistas e modos de jogo que já tenha desbloqueado."}
+{"k": "SellLocked_Point040", "v": "Você também mantém os créditos e as Conquistas que já ganhou!"}
+{"k": "SellLocked_Point060", "v": "O quê, ficou maluco? Faça isso agora!"}
+{"k": "JoinGame_000", "v": "ENTRAR NO JOGO"}
+{"k": "Lobby_000", "v": "SAGUÃO"}
+{"k": "Lobby_003", "v": "STATUS"}
+{"k": "Lobby_190", "v": "Tem certeza de que quer encerrar a série?"}
+{"k": "Lobby_191", "v": "Só resta um jogador na série. Voltando ao menu Multijogador."}
+{"k": "Loading_000", "v": "Carregando..."}
+{"k": "Loading_Slalom", "v": "PENALIDADE POR PORTÃO PERDIDO"}
+{"k": "Place_000", "v": "1º"}
+{"k": "Place_001", "v": "2º"}
+{"k": "Place_002", "v": "3º"}
+{"k": "Place_003", "v": "4º"}
+{"k": "Place_004", "v": "5º"}
+{"k": "Place_005", "v": "6º"}
+{"k": "Place_006", "v": "7º"}
+{"k": "Place_007", "v": "8º"}
+{"k": "Place_008", "v": "9º"}
+{"k": "Place_009", "v": "10º"}
+{"k": "Place_010", "v": "11º"}
+{"k": "Place_011", "v": "12º"}
+{"k": "Place_012", "v": "13º"}
+{"k": "Place_013", "v": "14º"}
+{"k": "Place_014", "v": "15º"}
+{"k": "Place_015", "v": "16º"}
+{"k": "Team_000", "v": "Equipe Azul"}
+{"k": "Team_001", "v": "Equipe Vermelha"}
+{"k": "WinningTeam", "v": "Equipe Vencedora"}
+{"k": "TeamLoad", "v": "Ajude o Patinho de Borracha da sua equipe a cruzar a linha de chegada primeiro, por todos os meios necessários!"}
+{"k": "Win_000", "v": "Vitória"}
+{"k": "Lose_000", "v": "Derrota"}
+{"k": "RaceResults_005", "v": "CHEGADA"}
+{"k": "TeamResults_000", "v": "RESULTADO DA EQUIPE"}
+{"k": "PauseMenu_014", "v": "Conquistas"}
+{"k": "ProTip_000", "v": "DICA DE PROFISSIONAL"}
+{"k": "ProTip_001", "v": "Dica de Profissional:\nOs power-ups de Impulso Azuis e Vermelhos enchem o indicador de Impulso ao lado do seu velocímetro."}
+{"k": "ProTip_002", "v": "Dica de Profissional:\nOs power-ups de Impulso transformam os motores do seu barco. Depois que os motores se transformarem, segure o botão de Impulso para ganhar velocidade rapidamente."}
+{"k": "ProTip_003", "v": "Dica de Profissional:\nUse o impulso enquanto estiver no ar para mudar a direção do seu barco."}
+{"k": "ProTip_004", "v": "Dica de Profissional:\nCom o barco no modo Impulso, você pode dar um Salto de Impulso apertando X."}
+{"k": "ProTip_005", "v": "Dica de Profissional:\nEntre no rastro dos outros barcos para pegar vácuo e ganhar velocidade. Quanto mais perto, mais rápido você vai."}
+{"k": "ProTip_006", "v": "Dica de Profissional:\nTodas as pistas têm atalhos e caminhos alternativos. Fique de olho em aberturas e barreiras que dá para pular com Saltos de Impulso."}
+{"k": "ProTip_007", "v": "Dica de Profissional:\nEstá com dificuldade para terminar uma Corrida ou um Desafio? Experimente um barco Novato. Você ganha menos créditos, mas fica mais fácil vencer."}
+{"k": "ProTip_008", "v": "Dica de Profissional:\nJogando com barcos Profissional e Especialista você ganha mais créditos, mas a competição fica mais difícil."}
+{"k": "ProTip_009", "v": "Dica de Profissional:\nCada barco tem suas vantagens e desvantagens. Experimente todos para encontrar o que combina com o seu estilo em cada evento."}
+{"k": "ProTip_010", "v": "Dica de Profissional:\nAndando em círculos? Encalhou? Explodiu? Aperte o botão BACK para colocar seu barco de volta na direção certa."}
+{"k": "ProTip_011", "v": "Dica de Profissional:\nGanhe créditos de desbloqueio conquistando troféus nos eventos de Jogador Individual e Multijogador, mesmo nos eventos que você já venceu."}
+{"k": "ProTip_012", "v": "Dica de Profissional:\nEstá com pressa? Experimente acelerar exatamente no JÁ! depois da contagem regressiva. Tem um presentinho esperando por você. "}
+{"k": "ProTip_013", "v": "Dica de Profissional:\nHydro Thunder não é mais só corrida. Teste sua habilidade nos eventos Mestre dos Anéis e Desafio, ou encare os Campeonatos para um desafio de vários eventos."}
+{"k": "ProTip_014", "v": "Dica de Profissional:\nHydro Thunder tem 10 medalhões escondidos em cada circuito. Colete-os para desbloquear novas skins de barcos e ganhar uma Conquista."}
+{"k": "ProTip_015", "v": "Dica de Profissional:\nQuer bater o pé no ritmo de outras músicas? Aperte esquerda ou direita no direcional para mudar a música durante o jogo."}
+{"k": "Tutorial_Boost", "v": "Pegue power-ups de Impulso para encher o indicador de Impulso ao lado do velocímetro e transformar seus motores."}
+{"k": "Tutorial_BoostButton", "v": "Depois de transformar seus motores, segure o botão A para usar o Impulso e ganhar uma explosão de velocidade."}
+{"k": "Tutorial_BoostTrigger", "v": "Depois de transformar seus motores, segure o Gatilho Direito para usar o Impulso e ganhar uma explosão de velocidade."}
+{"k": "Tutorial_BoostPaddle", "v": "Depois de transformar seus motores, segure o Gatilho Direito para usar o Impulso e ganhar uma explosão de velocidade."}
+{"k": "Tutorial_BoostJumpX", "v": "Quando tiver Impulso, aperte X para dar um Salto de Impulso e passar por cima de obstáculos baixos e outros barcos."}
+{"k": "Tutorial_BoostJumpPaddle", "v": "Quando tiver Impulso, aperte o Gatilho Esquerdo para dar um Salto de Impulso e passar por cima de obstáculos baixos e outros barcos."}
+{"k": "Tutorial_Drafting", "v": "Uma última dica: entre no rastro dos barcos à sua frente para pegar vácuo e ganhar velocidade extra."}
+{"k": "PauseMenu_InfoResume", "v": "Continuar o evento de onde você parou."}
+{"k": "PauseMenu_InfoRestart", "v": "Recomeçar o evento do início."}
+{"k": "PauseMenu_InfoQuit", "v": "Sair do evento e voltar ao Menu Principal. Você não recebe créditos pelo evento."}
+{"k": "BoatBody_Vector_Info", "v": "Uma boa escolha para começar, este casco em V é mais rápido e mais estável do que outros barcos da classe Novato, mas o controle no ar deixa a desejar. "}
+{"k": "BoatBody_Banshee_Info", "v": "O design clássico de hidroplano do Banshee permite curvas potentes e ágeis. É difícil de manobrar, mas compensa para quem dominar as curvas. "}
+{"k": "BoatBody_TidalBlade_Info", "v": "A grande aceleração e o design ágil do Tidal Blade cortam as ondas como nenhum outro. O perfil fino e o casco comprido exigem mão firme nos controles. "}
+{"k": "BoatBody_Razorback_Info", "v": "A maior velocidade máxima da sua liga faz do Razorback uma escolha tentadora. Mas planeje bem seus saltos, porque o controle no ar deste barco não é brincadeira. "}
+{"k": "BoatBody_Dam_Info", "v": "Um hidroplano bem equilibrado para iniciantes, com um design único de dois motores. Derrapa de lado nas curvas, mas tem a melhor velocidade máxima da sua classe. "}
+{"k": "BoatBody_MissB_Info", "v": "Feito com peças de aviões da Segunda Guerra Mundial, o Miss Behave enfrenta qualquer barco da sua liga quando está no ar. Na água, é bem mais pé no chão. "}
+{"k": "BoatBody_Thresher_Info", "v": "A envergadura gigantesca do Thresher reduz sua velocidade, mas o que ele ganha em estabilidade compensa de sobra. Este barco tem uma dirigibilidade de sonho, além da ativação de impulso mais rápida da sua liga. "}
+{"k": "BoatBody_RadHazard_Info", "v": "Curto, largo, escorregadio e rápido, este híbrido estranho é difícil de dominar. Mantenha a mão firme nas curvas e colha as recompensas no ar. "}

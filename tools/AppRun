@@ -1,0 +1,41 @@
+#!/bin/sh
+# Hydro Thunder Hurricane (recompilado) - AppRun
+# Nada e gravado dentro da imagem (somente leitura): configuracao, logs e cache
+# ficam em ${XDG_DATA_HOME:-~/.local/share}/HydroThunderRecompiled.
+APPDIR="${APPDIR:-$(dirname -- "$(readlink -f -- "$0")")}"
+export APPDIR
+DATA="${XDG_DATA_HOME:-$HOME/.local/share}/HydroThunderRecompiled"
+LOGDIR="$DATA/logs"
+mkdir -p "$LOGDIR" 2>/dev/null || LOGDIR="${TMPDIR:-/tmp}"
+LOG="$LOGDIR/appimage-launch.log"
+
+# X11/XWayland primeiro (caminho testado; tambem e o usado pelo gamescope do
+# modo jogo da Steam); se nao houver X, o SDL tenta Wayland nativo.
+if [ -z "${SDL_VIDEODRIVER:-}" ] && [ -z "${SDL_VIDEO_DRIVER:-}" ]; then
+  export SDL_VIDEO_DRIVER="x11,wayland"
+fi
+
+{
+  echo "=== $(date) ==="
+  echo "APPIMAGE=${APPIMAGE:-} APPDIR=$APPDIR"
+  echo "XDG_SESSION_TYPE=${XDG_SESSION_TYPE:-} DISPLAY=${DISPLAY:-} WAYLAND_DISPLAY=${WAYLAND_DISPLAY:-}"
+  uname -a
+} >"$LOG" 2>&1
+
+cd -- "$APPDIR/usr/bin" || exit 1
+start=$(date +%s)
+./hydrothunder "$@" >>"$LOG" 2>&1 &
+child=$!
+trap 'kill -TERM "$child" 2>/dev/null' TERM INT HUP
+wait "$child"
+rc=$?
+trap - TERM INT HUP
+if [ "$rc" -ne 0 ] && [ $(( $(date +%s) - start )) -lt 15 ]; then
+  msg="Hydro Thunder fechou ao iniciar (codigo $rc).
+Detalhes em: $LOG"
+  if command -v kdialog >/dev/null 2>&1; then kdialog --title "Hydro Thunder" --error "$msg"
+  elif command -v zenity >/dev/null 2>&1; then zenity --error --title="Hydro Thunder" --text="$msg"
+  elif command -v notify-send >/dev/null 2>&1; then notify-send "Hydro Thunder" "$msg"
+  fi
+fi
+exit "$rc"

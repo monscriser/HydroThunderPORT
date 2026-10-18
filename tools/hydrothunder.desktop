@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Hydro Thunder Hurricane
+Comment=Configurar e jogar
+Exec=hydrothunder
+Icon=hydrothunder
+Categories=Game;SportsGame;
+Terminal=false

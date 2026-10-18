@@ -1,0 +1,153 @@
+{"k": "BoatBody_Cutthroat_Info", "v": "Ótima dirigibilidade e números impressionantes fazem do Cutthroat um dos barcos mais acessíveis da classe superior. "}
+{"k": "BoatBody_RubberDucky_Info", "v": "Não é rápido. Nem manobrável. Nem elegante. Mas, se você vencer alguém online com o Patinho de Borracha, pode zoar a pessoa pelo resto da vida."}
+{"k": "BoatSkin_RedTeam", "v": "EQUIPE VERMELHA"}
+{"k": "BoatSkin_BlueTeam", "v": "EQUIPE AZUL"}
+{"k": "BoatSkin_Banshee02", "v": "PENSE NISSO"}
+{"k": "BoatSkin_Cutthroat02", "v": "BOLA NA CAÇAPA"}
+{"k": "BoatSkin_Thresher01", "v": "NÃO ODEIE"}
+{"k": "BoatSkin_TidalBlade01", "v": "BATATA QUENTE"}
+{"k": "HUD_LapTime", "v": "Atual"}
+{"k": "HUD_GatesMissed", "v": "Portões Perdidos"}
+{"k": "HUD_GateHit", "v": "Acertou!"}
+{"k": "HUD_GateMissed", "v": "Errou!"}
+{"k": "HUD_PackageFound", "v": "Pacote Encontrado!"}
+{"k": "HUD_PlayerLeft", "v": "Jogador Saiu:"}
+{"k": "HUD_WrongWay", "v": "Direção Errada"}
+{"k": "HUD_AsyncOpponent", "v": "Rival da Classificação"}
+{"k": "HUD_AsyncSuccess", "v": "Você ficou à frente do rival da classificação!"}
+{"k": "HUD_AsyncFailure", "v": "Você ficou atrás do rival da classificação."}
+{"k": "HUD_RespawnHint", "v": "Aperte {(Z)} para recuperar!"}
+{"k": "HUD_SpectatorTitle", "v": "Assistindo"}
+{"k": "HUD_SpectatorInstructions", "v": "Use {(DLR)} para trocar de barco."}
+{"k": "HUD_Place_000", "v": "1º Lugar!"}
+{"k": "HUD_Place_001", "v": "2º Lugar!"}
+{"k": "HUD_Place_002", "v": "3º Lugar!"}
+{"k": "HUD_Place_003", "v": "4º Lugar!"}
+{"k": "HUD_Place_004", "v": "5º Lugar!"}
+{"k": "HUD_Place_005", "v": "6º Lugar!"}
+{"k": "HUD_Place_006", "v": "7º Lugar!"}
+{"k": "HUD_Place_007", "v": "8º Lugar!"}
+{"k": "HUD_Place_008", "v": "9º Lugar!"}
+{"k": "HUD_Place_009", "v": "10º Lugar!"}
+{"k": "HUD_Place_010", "v": "11º Lugar!"}
+{"k": "HUD_Place_011", "v": "12º Lugar!"}
+{"k": "HUD_Place_012", "v": "13º Lugar!"}
+{"k": "HUD_Place_013", "v": "14º Lugar!"}
+{"k": "HUD_Place_014", "v": "15º Lugar!"}
+{"k": "HUD_Place_015", "v": "16º Lugar!"}
+{"k": "HUD_Tier_000", "v": "Você ganhou\numa medalha de Ouro"}
+{"k": "HUD_Tier_001", "v": "Você ganhou\numa medalha de Prata"}
+{"k": "HUD_Tier_002", "v": "Você ganhou\numa medalha de Bronze"}
+{"k": "HUD_Tier_Fail", "v": "Você não ganhou\numa medalha"}
+{"k": "NetGameMsg_000", "v": "Você perdeu a conexão com o anfitrião."}
+{"k": "NetGameMsg_002", "v": "Para jogar online, você precisa estar conectado ao Xbox LIVE."}
+{"k": "NetGameMsg_004", "v": "Não foi possível entrar no jogo. Ele pode não estar mais disponível ou pode haver um problema de compatibilidade de rede. Verifique suas configurações de rede."}
+{"k": "NetGameMsg_005", "v": "Aguardando outros Jogadores."}
+{"k": "NetGameMsg_006", "v": "Aguardando os resultados da corrida."}
+{"k": "NetGameMsg_007", "v": "Aguardando os resultados da série."}
+{"k": "NetGameMsg_008", "v": "Tem certeza de que quer sair da partida?"}
+{"k": "NetGameMsg_009", "v": "Você perdeu a conexão."}
+{"k": "NetGameMsg_010", "v": "O anfitrião encerrou o jogo."}
+{"k": "NetGameMsg_012", "v": "Saindo da sessão de jogo..."}
+{"k": "NetGameMsg_013", "v": "Tem certeza de que quer remover este jogador?"}
+{"k": "NetGameMsg_015", "v": "Não foi possível entrar no jogo porque não há vagas suficientes."}
+{"k": "NetGameMsg_016", "v": "Não foi possível entrar no jogo porque ele não existe mais."}
+{"k": "NetGameMsg_017", "v": "Não foi possível entrar no jogo porque a conexão falhou. Ele pode não estar mais disponível ou pode haver um problema de compatibilidade de rede. Verifique suas configurações de rede."}
+{"k": "NetGameMsg_018", "v": "Um perfil de jogador ativo não tem as permissões necessárias para acessar jogos no Xbox LIVE."}
+{"k": "NetGameMsg_019", "v": "Não foi possível entrar no jogo. Ele pode não estar mais disponível ou pode haver um problema de compatibilidade de rede. Verifique suas configurações de rede."}
+{"k": "NetGameMsg_020", "v": "Você está voltando ao menu Multijogador porque perdeu a conexão com o Xbox LIVE."}
+{"k": "NetGame_Invalid_RubberDucky", "v": "O jogo só pode começar quando cada equipe escolher exatamente um barco Patinho de Borracha."}
+{"k": "XboxLive_Search_000", "v": "Aguardando os resultados da busca..."}
+{"k": "XboxLive_Join_000", "v": "Entrando na sessão..."}
+{"k": "XboxLive_Create_000", "v": "Criando a sessão..."}
+{"k": "XboxLive_Trial_000", "v": "Para jogar esta demonstração online, você precisa estar conectado ao Xbox LIVE."}
+{"k": "Option_Track_Hydroelectric_Info", "v": "As águas azul-safira e os cânions sinuosos do Lago Powell formam um circuito de corrida natural e disputado."}
+{"k": "Option_Track_Tropical_Info", "v": "No meio do Triângulo das Bermudas, esta ilha tropical é famosa pelas praias de sonho, ruínas antigas e desaparecimentos misteriosos. Mas provavelmente é totalmente segura."}
+{"k": "Option_Track_Stadium_Info", "v": "Os japoneses levaram as corridas de lanchas a outro nível com este estádio e parque aquático construído especialmente para isso. Fique de olho nas máquinas de ondas acionáveis e nos atalhos!"}
+{"k": "Option_Track_Asgard_Info", "v": "Os fiordes escandinavos são famosos pelas enormes paredes de rocha, geleiras impressionantes e tempestades imprevisíveis."}
+{"k": "Option_Track_Area51_Info", "v": "Algo está acontecendo nesta base militar de pesquisa em Nevada. A segurança está em alvoroço e o perímetro está aberto. Em outras palavras, é a oportunidade perfeita para umas corridas em local proibido."}
+{"k": "Option_Track_Sewers_Info", "v": "Explore os antigos esgotos industriais sob a Cidade Luz e desvie dos barcos de serviço nas águas abertas do Sena neste circuito curto e apertado."}
+{"k": "Option_Track_Babylon", "v": "BABILÔNIA PERDIDA"}
+{"k": "Option_Track_Babylon_Info", "v": "Uma equipe de arqueólogos descobriu a entrada de uma cidade antiga. Será a cidade perdida da Babilônia?"}
+{"k": "Option_Track_City", "v": "RIO DE SEUL"}
+{"k": "Option_Track_City_Info", "v": "A capital da Coreia do Sul transformou seus canais em um parque público e, sem querer, criou uma pista para corridas ilegais que só vendo para acreditar."}
+{"k": "Option_Championship_ChampC1_Info", "v": "Aberto apenas para barcos Novato. 2 eventos. "}
+{"k": "Option_Championship_ChampC2_Info", "v": "Aberto apenas para barcos Novato. 3 eventos. "}
+{"k": "Option_Championship_ChampB1", "v": "GP SUPATÔMICO"}
+{"k": "Option_Championship_ChampB1_Info", "v": "Aberto apenas para barcos Profissional. 3 eventos. "}
+{"k": "Option_Championship_ChampB2_Info", "v": "Aberto apenas para barcos Profissional. 4 eventos. "}
+{"k": "Option_Championship_ChampB3", "v": "GP VECTOR UNIT"}
+{"k": "Option_Championship_ChampB3_Info", "v": "Aberto apenas para barcos Profissional. 4 eventos. "}
+{"k": "Option_Championship_ChampA1", "v": "SÓ ESPECIALISTAS"}
+{"k": "Option_Championship_ChampA1_Info", "v": "Aberto apenas para barcos Especialista. 5 eventos. "}
+{"k": "Option_Championship_ChampA2_Info", "v": "Aberto apenas para barcos Especialista. 6 eventos. "}
+{"k": "Option_Championship_ChampA3_Info", "v": "Aberto apenas para barcos Especialista. 8 eventos, todos Corridas. "}
+{"k": "Option_Championship_ChampA4_Info", "v": "Aberto apenas para barcos Especialista. 8 eventos, todos Mestre dos Anéis. "}
+{"k": "Option_Championship_ChampA5_Info", "v": "Aberto apenas para barcos Especialista. 8 eventos, todos Desafio. "}
+{"k": "Option_MatchType", "v": "TIPO DE PARTIDA"}
+{"k": "Option_MatchType_Ranked", "v": "RANQUEADA"}
+{"k": "Option_MatchType_Private", "v": "PRIVADA"}
+{"k": "ChampC1_Done_Info", "v": "Parabéns, você terminou o Campeonato Entrega do Leite!"}
+{"k": "ChampC1_Event1", "v": "Rodada 1/2\nLago Powell\nMestre dos Anéis"}
+{"k": "ChampC1_Event2", "v": "Rodada 2/2\nInvasão de Asgard\nCorrida"}
+{"k": "ChampC2_Done_Info", "v": "Parabéns, você terminou o Campeonato Rato Crocante!"}
+{"k": "ChampC2_Event1", "v": "Rodada 1/3\nInvasão de Asgard\nMestre dos Anéis"}
+{"k": "ChampC2_Event2", "v": "Rodada 2/3\nLago Powell\nDesafio"}
+{"k": "ChampC2_Event3", "v": "Rodada 3/3\nIlha dos Monstros\nCorrida"}
+{"k": "ChampB1_Name", "v": "GP Supatômico"}
+{"k": "ChampB1_Done_Info", "v": "Parabéns, você terminou o Campeonato GP Supatômico!"}
+{"k": "ChampB1_Event1", "v": "Rodada 1/3\nIlha dos Monstros\nMestre dos Anéis"}
+{"k": "ChampB1_Event2", "v": "Rodada 2/3\nInvasão de Asgard\nDesafio"}
+{"k": "ChampB1_Event3", "v": "Rodada 3/3\nTaça Tsunami\nCorrida"}
+{"k": "ChampB2_Done_Info", "v": "Parabéns, você terminou o Campeonato Martelo!"}
+{"k": "ChampB2_Event1", "v": "Rodada 1/4\nIlha dos Monstros\nDesafio"}
+{"k": "ChampB2_Event2", "v": "Rodada 2/4\nLago Powell\nCorrida"}
+{"k": "ChampB2_Event3", "v": "Rodada 3/4\nInvasão de Asgard\nMestre dos Anéis"}
+{"k": "ChampB2_Event4", "v": "Rodada 4/4\nBabilônia Perdida\nCorrida"}
+{"k": "ChampB3_Name", "v": "GP Vector Unit"}
+{"k": "ChampB3_Done_Info", "v": "Parabéns, você terminou o Campeonato GP Vector Unit!"}
+{"k": "ChampB3_Event1", "v": "Rodada 1/4\nBabilônia Perdida\nDesafio"}
+{"k": "ChampB3_Event2", "v": "Rodada 2/4\nTaça Tsunami\nMestre dos Anéis"}
+{"k": "ChampB3_Event3", "v": "Rodada 3/4\nIlha dos Monstros\nCorrida"}
+{"k": "ChampB3_Event4", "v": "Rodada 4/4\nEsgotos de Paris\nCorrida"}
+{"k": "ChampA1_Name", "v": "Só Especialistas"}
+{"k": "ChampA1_Done_Info", "v": "Parabéns, você terminou o Campeonato Só Especialistas!"}
+{"k": "ChampA1_Event1", "v": "Rodada 1/5\nBabilônia Perdida\nCorrida"}
+{"k": "ChampA1_Event2", "v": "Rodada 2/5\nLago Powell\nMestre dos Anéis"}
+{"k": "ChampA1_Event3", "v": "Rodada 3/5\nEsgotos de Paris\nDesafio"}
+{"k": "ChampA1_Event4", "v": "Rodada 4/5\nIlha dos Monstros\nMestre dos Anéis"}
+{"k": "ChampA1_Event5", "v": "Rodada 5/5\nTaça Tsunami\nCorrida"}
+{"k": "ChampA2_Done_Info", "v": "Parabéns, você terminou o Campeonato Touro!"}
+{"k": "ChampA2_Event1", "v": "Rodada 1/6\nEsgotos de Paris\nCorrida"}
+{"k": "ChampA2_Event2", "v": "Rodada 2/6\nRio de Seul\nCorrida"}
+{"k": "ChampA2_Event3", "v": "Rodada 3/6\nBabilônia Perdida\nMestre dos Anéis"}
+{"k": "ChampA2_Event4", "v": "Rodada 4/6\nTaça Tsunami\nDesafio"}
+{"k": "ChampA2_Event5", "v": "Rodada 5/6\nInvasão de Asgard\nCorrida"}
+{"k": "ChampA2_Event6", "v": "Rodada 6/6\nÁrea 51\nCorrida"}
+{"k": "ChampA3_Done_Info", "v": "Parabéns, você terminou o Campeonato GP Furacão!"}
+{"k": "ChampA3_Event1", "v": "Rodada 1/8\nLago Powell\nCorrida"}
+{"k": "ChampA3_Event2", "v": "Rodada 2/8\nInvasão de Asgard\nCorrida"}
+{"k": "ChampA3_Event3", "v": "Rodada 3/8\nIlha dos Monstros\nCorrida"}
+{"k": "ChampA3_Event4", "v": "Rodada 4/8\nTaça Tsunami\nCorrida"}
+{"k": "ChampA3_Event5", "v": "Rodada 5/8\nBabilônia Perdida\nCorrida"}
+{"k": "ChampA3_Event6", "v": "Rodada 6/8\nEsgotos de Paris\nCorrida"}
+{"k": "ChampA3_Event7", "v": "Rodada 7/8\nRio de Seul\nCorrida"}
+{"k": "ChampA3_Event8", "v": "Rodada 8/8\nÁrea 51\nCorrida"}
+{"k": "ChampA4_Done_Info", "v": "Parabéns, você terminou o Campeonato GP Agulha!"}
+{"k": "ChampA4_Event1", "v": "Rodada 1/8\nLago Powell\nMestre dos Anéis"}
+{"k": "ChampA4_Event2", "v": "Rodada 2/8\nInvasão de Asgard\nMestre dos Anéis"}
+{"k": "ChampA4_Event3", "v": "Rodada 3/8\nIlha dos Monstros\nMestre dos Anéis"}
+{"k": "ChampA4_Event4", "v": "Rodada 4/8\nTaça Tsunami\nMestre dos Anéis"}
+{"k": "ChampA4_Event5", "v": "Rodada 5/8\nBabilônia Perdida\nMestre dos Anéis"}
+{"k": "ChampA4_Event6", "v": "Rodada 6/8\nEsgotos de Paris\nMestre dos Anéis"}
+{"k": "ChampA4_Event7", "v": "Rodada 7/8\nRio de Seul\nMestre dos Anéis"}
+{"k": "ChampA4_Event8", "v": "Rodada 8/8\nÁrea 51\nMestre dos Anéis"}
+{"k": "ChampA5_Done_Info", "v": "Parabéns, você terminou o Campeonato GP Boom Boom!"}
+{"k": "ChampA5_Event1", "v": "Rodada 1/8\nLago Powell\nDesafio"}
+{"k": "ChampA5_Event2", "v": "Rodada 2/8\nInvasão de Asgard\nDesafio"}
+{"k": "ChampA5_Event3", "v": "Rodada 3/8\nIlha dos Monstros\nDesafio"}
+{"k": "ChampA5_Event4", "v": "Rodada 4/8\nTaça Tsunami\nDesafio"}
+{"k": "ChampA5_Event5", "v": "Rodada 5/8\nBabilônia Perdida\nDesafio"}
+{"k": "ChampA5_Event6", "v": "Rodada 6/8\nEsgotos de Paris\nDesafio"}
+{"k": "ChampA5_Event7", "v": "Rodada 7/8\nRio de Seul\nDesafio"}
+{"k": "ChampA5_Event8", "v": "Rodada 8/8\nÁrea 51\nDesafio"}

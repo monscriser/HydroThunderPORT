@@ -1,0 +1,1 @@
+export PKG_CONFIG_PATH=/home/claude/ht/deps/prefix/lib/pkgconfig PATH=/home/claude/ht/deps/prefix/bin:$PATH CMAKE_INCLUDE_PATH=/home/claude/ht/deps/prefix/include CMAKE_LIBRARY_PATH=/home/claude/ht/deps/prefix/lib
