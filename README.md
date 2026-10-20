@@ -1,212 +1,132 @@
-# Hydro Thunder Hurricane — Native PC Port
+# Hydro Thunder Hurricane PC Port — Windows & Linux | HydroThunderPORT
 
-A community project bringing Hydro Thunder Hurricane to Windows and Linux through static recompilation with ReXGlue, using Xenia as a compatibility reference.
+**HydroThunderPORT** is an experimental, unofficial **Hydro Thunder Hurricane native PC port for Windows and Linux**, built using **static recompilation with ReXGlue**, a **Vulkan graphics backend**, and Xbox 360 compatibility work informed by **Xenia**.
 
-The project combines native execution of recompiled game code with a Vulkan graphics backend, a configuration launcher, keyboard support, and tools for managing your own game files.
+Play Hydro Thunder Hurricane on PC with a configuration launcher, controller and keyboard support, graphics scaling options, persistent shader caches, and support for your own legally obtained game files. The Windows version uses a native executable; the Linux version is distributed as an AppImage.
 
-**Current release: Revision 9.1.0.** Some features remain experimental. Original game files are required and are not included.
+> **Current preview: Revision 9.1.0.** This project is experimental and is not affiliated with the original game's creators. **Game files, DLC, and title updates are not provided.** You must supply your own legally obtained copies.
 
-## Release highlights (9.1.0)
+[**Download the latest release**](https://github.com/monscriser/HydroThunderPORT/releases) · [**Official project website**](https://monscriser.github.io/HydroThunderPORT/) · [**Report an issue**](https://github.com/monscriser/HydroThunderPORT/issues)
 
-- **Performance:** engine optimizations on the CPU and GPU raise frame rates **without lowering resolution, MSAA, effects or precision**. Each one has an on/off switch in `hydrothunder.toml`.
-- **ROG Ally (Linux, 25 W TDP):** play-tested on the first four tracks, around 120 FPS most of the time and rarely below 100 FPS, with effectively instant shader loading. This is a hands-on report, not an instrumented benchmark.
-- **Stability:** fixed a crash when quitting from the in-game menu, and lights showing through walls.
-- **Launcher:** new Controls tab with remappable keys.
+## Hydro Thunder Hurricane on PC: Quick Overview
 
-See the [release notes](https://github.com/monscriser/HydroThunderPORT/releases) for the full list, measurements and checksums.
+| Feature | Status / details |
+| --- | --- |
+| Windows PC port | Native executable and configuration launcher |
+| Linux PC port | AppImage with integrated configuration launcher |
+| Graphics API | Vulkan |
+| Input | Game controller and remappable keyboard controls |
+| Graphics options | FSR 1, experimental FSR 3.1, FXAA, resolution and display settings |
+| Performance options | Shader/pipeline caches and configurable FPS limits |
+| Handheld targets | ROG Ally, CachyOS and Steam Deck; validation is ongoing |
+| Original game content | Required; not included in the download |
 
-## Supported Platforms
-- **Windows:** native executable with a separate configuration launcher.
-- **Linux:** AppImage with an integrated launcher.
-- **Graphics:** Vulkan.
+## Release Highlights — Revision 9.1.0
 
-CachyOS, ROG Ally, and Steam Deck are target platforms. Performance and compatibility on each device still need more hardware testing.
+- **CPU/GPU performance:** configurable engine optimizations target improved frame rates without reducing resolution, MSAA, effects, or precision; each has a switch in `hydrothunder.toml`.
+- **ROG Ally (Linux, 25 W TDP):** first four tracks were play-tested at around 120 FPS most of the time and rarely below 100 FPS. These are informal observations, **not controlled benchmarks or guarantees**.
+- **Stability:** fixes for a crash when leaving through the in-game menu and lighting showing through walls.
+- **Controls:** the launcher includes a Controls tab with remappable keys.
+
+Check the [GitHub Releases page](https://github.com/monscriser/HydroThunderPORT/releases) for downloads, release notes, measurements and checksums.
 
 ## Features
 
-### Game and Content Setup
-- Guided setup for Game, DLC, and Title Update files.
-- Support for extracted content and supported Xbox 360 content packages.
-- Persistent game-directory selection across launcher updates.
-- Save data stored alongside the selected game installation.
-- Runtime handling of supported content and translations without modifying the original source files.
-- Configuration for the supported 0.0.2.1 title update.
+### Game Content and Launcher
 
-You must provide your own legally obtained game and additional content.
+- Guided setup for Game, DLC and Title Update files, including supported extracted content and Xbox 360 content packages.
+- Game directory selection persists between launcher updates; save data lives alongside your selected game installation.
+- Runtime handling of supported content and translations without modifying original game source files.
+- Support for the 0.0.2.1 title update configuration.
+- Configuration launcher with display mode, resolution, language, scaling, FPS and installation details.
+- Save backup and restore, optional FPS overlay, and Steam shortcut export with artwork.
+- Launcher languages: Portuguese, English and Spanish.
 
-### Configuration Launcher
-- Modern dark interface with game artwork.
-- Separate layouts for first-time setup and recognized installations.
-- Installation status and game/save directory information.
-- Display mode, resolution, language, image scaling, and FPS settings.
-- Save backup and restore tools.
-- Steam shortcut export with artwork.
-- Optional FPS overlay.
-- Launcher interface available in Portuguese, English, and Spanish.
+### Controllers and Keyboard
 
-### Controls
-- Keyboard support, with a Controls tab to remap keys.
-- Controller support.
-- Local player profiles named Player 1 and Player 2.
-- Local split-screen support, with further validation needed across configurations.
+- Controller support, remappable keyboard controls and local profiles for Player 1 and Player 2.
+- Local split-screen is supported, but still needs validation across configurations.
 
-Default keyboard controls include:
-
-| Action | Key |
-|---|---|
+| Action | Default key |
+| --- | --- |
 | Start / Pause | Enter |
 | Confirm / A | Space |
 | Accelerate / RT | E |
 | Brake / LT | Q |
 | Steering | A/D or arrow keys |
 
-### Graphics
-- Vulkan rendering backend.
-- FSR 1 image upscaling and sharpening.
-- Experimental FSR 3.1 image reconstruction.
-- Adjustable sharpness.
-- Optional FXAA.
-- Windowed, borderless, and fullscreen settings.
-- Output-resolution and image-quality controls.
+### Vulkan Graphics, Upscaling and Performance
 
-FSR image scaling and frame generation are separate features. Selecting FSR 3.1 does not enable frame generation. The current FSR 3.1 integration does not receive complete game motion-vector data, so its reconstruction benefits are limited.
+- Vulkan graphics backend, FSR 1 upscaling and sharpening, experimental FSR 3.1 reconstruction, optional FXAA.
+- Windowed, borderless and fullscreen modes; resolution and image-quality adjustments.
+- Parallel shader compilation, persistent shader/Vulkan pipeline caches and background cache saving.
+- FPS limits: 30, 40, 60, 90 and 120; experimental unlimited presentation maintains a 60 Hz virtual clock.
 
-### Frame Pacing and Shader Cache
-- Parallel shader-compilation support.
-- Persistent shader and Vulkan pipeline caches.
-- Background cache saving.
-- FPS limits of 30, 40, 60, 90, and 120.
-- Unlimited mode (experimental). Unlimited presentation preserves the virtual clock at 60 Hz.
-
-Cache reuse depends on compatibility with the build, graphics driver, and hardware. New shaders or incompatible caches can still cause stuttering.
+**Note:** FSR 3.1 currently lacks complete in-game motion-vector inputs. FSR scaling is not the same as frame generation; selecting FSR 3.1 **does not** enable generated frames. Shader cache compatibility varies with drivers, hardware and builds.
 
 ### Optional Lossless Scaling Integration
-- Automatic discovery of a separately purchased Steam installation of Lossless Scaling across supported library locations.
-- Purchase/install links when the application is missing.
-- Frame-generation multiplier settings.
-- Dedicated Windows game-profile configuration with backups.
-- Linux setup guidance for lsfg-vk.
-- Overlay information showing the requested backend and multiplier.
 
-Lossless Scaling and its proprietary files are not bundled. On Linux, installing the Steam application alone is insufficient: the compatible lsfg-vk Vulkan layer must also be installed.
+- Discovers a separately purchased Steam installation of Lossless Scaling in supported locations.
+- Offers frame-generation multiplier and Windows game-profile configuration with backups.
+- Provides Linux setup guidance for the external `lsfg-vk` Vulkan layer and an overlay reporting requested settings.
 
-## Installation
+Lossless Scaling is **not bundled**. On Linux, the Steam application alone is insufficient; a compatible `lsfg-vk` Vulkan layer is also required. Frame generation still requires further end-to-end testing.
+
+## How to Install Hydro Thunder Hurricane PC Port
 
 ### Windows
-1. Download and extract the Windows release into a new folder.
-2. Open `Launcher-Config.exe`.
-3. Select your game, DLC, and update files.
-4. Complete setup and choose your video settings.
-5. Click Play.
 
-Use `HydroThunder.exe` to start the game directly. Reopen `Launcher-Config.exe` whenever you want to change settings, manage saves, or export a Steam shortcut.
+1. Download and extract the Windows package from [Releases](https://github.com/monscriser/HydroThunderPORT/releases).
+2. Launch `Launcher-Config.exe`.
+3. Select your own Game, DLC and update files.
+4. Configure the video and input settings, then click **Play**.
 
-### Linux
-1. Download the Linux `.AppImage`.
-2. Allow the file to run as an executable (`chmod +x HydroThunder*.AppImage` if needed).
-3. Open the AppImage.
-4. Select your game, DLC, and update files.
-5. Complete setup and click Play.
+You can subsequently run `HydroThunder.exe` directly. Use the launcher for settings, save management and Steam shortcut export.
 
-The AppImage opens the configuration launcher by default. A shortcut exported through the launcher starts the game directly through Steam.
+### Linux / AppImage
 
-### Optional Frame Generation
+1. Download the Linux `.AppImage` from [Releases](https://github.com/monscriser/HydroThunderPORT/releases).
+2. Grant execution permission if needed: `chmod +x HydroThunder*.AppImage`.
+3. Open the AppImage, select your legally obtained game files and finish configuration.
+4. Click **Play**. Exporting a Steam shortcut through the launcher enables direct game startup through Steam.
 
-**Windows:**
-1. Install your purchased copy of Lossless Scaling through Steam.
-2. Open it once, then close it.
-3. Open the launcher's frame-generation settings.
-4. Scan for the installation and enable integration.
-5. Start with a 2× multiplier.
+### Optional Frame Generation Setup
 
-Close Lossless Scaling before changing settings that require its profile file to be updated.
+**Windows:** Install and open your purchased copy of Lossless Scaling in Steam, close it, and enable integration in the launcher. Start with a 2× multiplier. Close Lossless Scaling before changing settings that update its profile.
 
-**Linux:**
-1. Install Lossless Scaling through Steam.
-2. Select the appropriate lsfg-vk Steam branch.
-3. Install the compatible lsfg-vk 2.x Vulkan layer for your distribution.
-4. Follow the launcher's setup guidance and run the layer's health check.
-5. Scan again and enable integration.
+**Linux:** Install the purchased Steam app, select an appropriate `lsfg-vk` Steam branch, install a compatible `lsfg-vk` 2.x Vulkan layer for your distribution, run the layer's health check, then rescan and enable integration in the launcher. Follow the layer's own installation documentation.
 
-See the lsfg-vk installation documentation for distribution-specific instructions.
+## Saves, Updates and Compatibility
 
-## Saves and Updates
+The launcher remembers your selected game directory. Before upgrading, export a save backup, extract the new release into a different application folder, verify that the game directory is recognized, and retain the previous version until you have tested the update. Do not delete your actual game directory when removing an older launcher.
 
-The launcher remembers the selected game directory. Updating the application should preserve that registration and the saves stored alongside the game.
-
-Before replacing a build:
-1. Export a save backup through the launcher.
-2. Extract the new release into a separate application folder.
-3. Open its launcher and check the recognized game directory.
-4. Keep the previous release until the new one has been tested.
-
-Avoid deleting your game directory when removing an older application build.
-
-## Performance
-
-Performance varies with hardware, resolution, image-quality settings, driver versions, and cache state.
-
-Native recompilation does not guarantee a particular improvement over Xenia. GPU rendering and compatibility work remain significant parts of the workload.
-
-Frame generation can increase presentation smoothness, but it does not increase the game's underlying simulation rate or eliminate input latency.
+Actual performance depends on hardware, drivers, settings, track and shader-cache state. Static recompilation does not guarantee higher performance than Xenia. Frame generation can change visual smoothness but cannot raise the underlying simulation rate or eliminate input latency.
 
 ## Known Limitations
-- Revision 9.1.0 is a preview, not a fully validated stable release.
-- On the ROG Ally, 9.1.0 has been play-tested but not benchmarked with instruments.
-- Lossless Scaling frame generation still requires end-to-end validation with an installed copy.
-- The internal overlay reports the requested frame-generation configuration and measured game FPS. It does not independently verify generated frames.
+
+- Revision 9.1.0 is a **preview**, not a fully validated stable release.
+- ROG Ally testing is informal; broader Linux, CachyOS, Steam Deck and handheld testing is still needed.
+- Lossless Scaling frame generation needs further end-to-end validation; the in-game overlay does not independently verify generated frames.
 - Linux generated-frame counters depend on external overlays and Vulkan-layer ordering.
-- Above-refresh-rate presentation is experimental and may introduce discarded frames, uneven pacing, or tearing.
-- Unlimited FPS has not received exhaustive physics and audio regression testing.
-- Linux gameplay and frame generation need more testing on CachyOS and handheld hardware.
-- Some graphics defects may remain, including reported visibility of colored gate lights through scenery.
-- Shader compilation can still cause stuttering.
-- Steam shortcut export needs further testing against real Steam installations.
-- Some error messages are currently available only in Portuguese.
-- FSR 3.1 does not currently have complete temporal inputs from the game.
+- Above-refresh-rate presentation and unlimited FPS may cause uneven pacing, tearing or regressions; unlimited mode has not undergone exhaustive physics/audio checks.
+- Shader compilation can still stutter; graphics issues may remain, including colored gate lights appearing through scenery.
+- Steam shortcut export needs testing across real Steam installations; some errors remain Portuguese-only.
+- FSR 3.1 does not have the complete temporal data needed for full reconstruction quality.
 
 ## Building from Source
 
-This repository does not include the recompiled game code (`app/generated-updated/`). Building requires that code to be generated from your own copy of the game. The build scripts are in `tools/` (Linux/WSL: `tools/wsl/`), and `AGENTS.md` and `CLAUDE.md` contain the current development notes.
+The repository does not ship the recompiled game code (`app/generated-updated/`). Building from source requires generating that code from your **own** game copy. Build scripts are under [`tools/`](tools/) and [`tools/wsl/`](tools/wsl/); development notes are in [`AGENTS.md`](AGENTS.md) and [`CLAUDE.md`](CLAUDE.md).
 
-Third-party components are used under their own licenses; see `licenses/`.
+The project uses ReXGlue for static recompilation/runtime support, Xenia-derived compatibility components, Vulkan for rendering, and Dear ImGui for configuration and overlays. Third-party software retains its own licenses; see [`licenses/`](licenses/).
 
-## Reporting Issues
+## Bug Reports and Contributions
 
-Please include:
-- Release revision.
-- Operating system and graphics-driver version.
-- CPU, GPU, and available RAM.
-- Resolution, image-quality settings, and FPS limit.
-- Whether frame generation is enabled.
-- Track, game mode, and steps to reproduce.
-- Screenshots or video when useful.
-- Relevant logs.
+Please open an [issue](https://github.com/monscriser/HydroThunderPORT/issues) and include the release revision, operating system, driver, CPU, GPU, RAM, display/FPS settings, whether frame generation is enabled, track and game mode, reproduction steps, relevant logs, and screenshots or video where helpful. Xenia comparisons are useful when made in the same scene and settings.
 
-Mention whether the issue also occurs in your Xenia installation. Comparisons are most useful when the same track, scene, and settings are used.
+**Do not upload copyrighted game files, DLC, updates or personal save data in public issues.**
 
-Do not upload game files, DLC, title updates, or personal save data in public issue reports.
+## Credits and Legal Notice
 
-## Source and Build Information
+Thanks to contributors to ReXGlue, Xenia, Dear ImGui, FidelityFX, lsfg-vk and the wider graphics/emulation community. Steam artwork belongs to its respective SteamGridDB contributors, including Monscriser.
 
-The project uses:
-- ReXGlue for static recompilation and runtime support.
-- Xenia-derived components for Xbox 360 compatibility.
-- Vulkan for graphics.
-- Dear ImGui for configuration and overlays.
-
-Source releases include application code, build tools, SDK modification patches, and available project documentation.
-
-## Credits
-
-Thanks to the developers and contributors behind ReXGlue, Xenia, Dear ImGui, FidelityFX, lsfg-vk, and the wider emulation and graphics communities.
-
-Steam artwork credits belong to the respective SteamGridDB contributors, including Monscriser.
-
-## Legal and Licensing
-
-This is an unofficial community project. It is not affiliated with or endorsed by Microsoft, Xbox, or the original game's developers or publishers.
-
-Hydro Thunder Hurricane and associated names, artwork, and assets belong to their respective owners.
-
-Game files and purchased third-party components are not distributed with this project. Third-party code and dependencies remain subject to their respective licenses; consult the included license files before redistributing builds or source.
+**HydroThunderPORT is an unofficial community project.** It is not affiliated with or endorsed by Microsoft, Xbox or the game's original developers/publishers. Hydro Thunder Hurricane names, artwork and assets remain the property of their respective rights holders. No original game files or proprietary Lossless Scaling files are distributed. Consult the relevant third-party licenses before reuse or redistribution.
