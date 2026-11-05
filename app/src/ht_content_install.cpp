@@ -136,7 +136,7 @@ void PrepareContent(const fs::path& root, const std::array<fs::path, 3>& sources
     Unpack(sources[1], unique_stage / "dlc");
     const auto apf = FindFile(unique_stage / "dlc", "Pack01.apf");
     Require(!apf.empty(), "O pacote de DLC precisa conter Pack01.apf.");
-    CopyTree(apf.parent_path(), root / "user_data" / "0000000000000000" / "5841096A" / "00000002" / "Pack01");
+    CopyTree(apf.parent_path(), UserDataRoot(root) / "0000000000000000" / "5841096A" / "00000002" / "Pack01");
   }
   auto input = game / "default.xex";
   const auto patch_root = root / "imports" / "update";

@@ -4,7 +4,7 @@
 # nvidia-smi and the game's own [ht-present] FPS, over the race only.
 # Usage: gpu_race.ps1 -Name base -Set 'fps_limit=60;resolution_scale=1'
 param([Parameter(Mandatory)][string]$Name,[string]$Set='',[string]$Cvars='',[string]$OutRoot='',
-      [int]$MenuSeconds=75,[string]$StillShots='',[string]$RaceShots='50,130',[int]$RaceSeconds=55,[int]$SkipSeconds=20,[string]$DrivePlan='normal')
+      [int]$MenuSeconds=75,[string]$StillShots='',[string]$RaceShots='50,130',[int]$RaceSeconds=55,[int]$SkipSeconds=20,[string]$DrivePlan='normal',[switch]$Visible)
 $ErrorActionPreference='Stop'
 $inv=[Globalization.CultureInfo]::InvariantCulture
 $project=Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
@@ -17,22 +17,28 @@ $settings=Join-Path $OutRoot 'settings'   # frame generation stays off here
 New-Item -ItemType Directory -Force $settings | Out-Null
 @('HT-LS-2','0','2','0','0') | Set-Content -LiteralPath (Join-Path $settings 'lossless-scaling.txt') -Encoding ASCII
 Add-Type -AssemblyName System.Windows.Forms,System.Drawing
-# The game pauses when it loses focus: keep it in front and record if it was not.
+# -Visible: keep the game in front (old runs). Default: minimized, virtual pad only (04/11: the game keeps racing without focus).
 Add-Type @'
 using System;using System.Runtime.InteropServices;
 public static class GrWin{[DllImport("user32.dll")]public static extern bool SetForegroundWindow(IntPtr h);[DllImport("user32.dll")]public static extern IntPtr GetForegroundWindow();
 [DllImport("user32.dll")]public static extern int GetWindowThreadProcessId(IntPtr h,out int pid);
+[DllImport("kernel32.dll")]static extern bool SetProcessInformation(IntPtr h,int cls,ref PT info,int size);
+[StructLayout(LayoutKind.Sequential)]public struct PT{public uint Version,ControlMask,StateMask;}
+// Minimized/background processes get Windows 11 power throttling (EcoQoS); opt the game out so a minimized test runs at full speed.
+public static bool NoThrottle(IntPtr h){var i=new PT{Version=1,ControlMask=1,StateMask=0};return SetProcessInformation(h,4,ref i,Marshal.SizeOf(typeof(PT)));}
 public static bool Front(int pid){int p;GetWindowThreadProcessId(GetForegroundWindow(),out p);return p==pid;}}
 '@
 $script:unfocused=0
-function Keep($p){if(![GrWin]::Front($p.Id)){$script:unfocused++;$p.Refresh();[void][GrWin]::SetForegroundWindow($p.MainWindowHandle)}}
-function Shot([string]$n){$b=[System.Windows.Forms.Screen]::PrimaryScreen.Bounds;$bmp=New-Object System.Drawing.Bitmap $b.Width,$b.Height;$g=[System.Drawing.Graphics]::FromImage($bmp);$g.CopyFromScreen($b.Location,[System.Drawing.Point]::Empty,$b.Size);$bmp.Save((Join-Path $out "$n.png"),[System.Drawing.Imaging.ImageFormat]::Png);$g.Dispose();$bmp.Dispose()}
+# Ian 04/11: tests run minimized with the virtual pad (like UFC); -Visible restores the old focus-keeping run.
+function Keep($p){if(!$Visible){return};if(![GrWin]::Front($p.Id)){$script:unfocused++;$p.Refresh();[void][GrWin]::SetForegroundWindow($p.MainWindowHandle)}}
+function Shot([string]$n){if(!$Visible){return};$b=[System.Windows.Forms.Screen]::PrimaryScreen.Bounds;$bmp=New-Object System.Drawing.Bitmap $b.Width,$b.Height;$g=[System.Drawing.Graphics]::FromImage($bmp);$g.CopyFromScreen($b.Location,[System.Drawing.Point]::Empty,$b.Size);$bmp.Save((Join-Path $out "$n.png"),[System.Drawing.Imaging.ImageFormat]::Png);$g.Dispose();$bmp.Dispose()}
 function Pad([int]$b,[int]$rt,[int]$lx){[System.IO.File]::WriteAllText((Join-Path $sandbox 'ht_test_input.txt'),"$b $rt 0 0 $lx 0 0 0")}
 
 # Same baseline for every run (Ian's screen: 1080p borderless), plus overrides.
 $values=[ordered]@{fps_limit='60';video_mode_refresh_rate='60.0';vsync='true';ht_import_on_start='false';
   ht_game_fullscreen='true';fullscreen='true';fullscreen_mode='"borderless"';window_width='1920';window_height='1080';
   ht_output_width='1920';resolution_scale='1';ht_render_quality='1';present_effect='"fsr"';ht_perf_log='true';ht_show_fps='true';log_level='"warn"'}
+if(!$Visible){$values['ht_game_fullscreen']='false';$values['fullscreen']='false'}  # a fullscreen window would not stay minimized
 foreach($pair in ($Set -split ';' | Where-Object {$_})){$k,$v=$pair -split '=',2;$values[$k.Trim()]=$v.Trim()}
 $config=Join-Path $sandbox 'hydrothunder.toml'
 $original=[System.IO.File]::ReadAllText($config)
@@ -47,7 +53,8 @@ $env:HT_BOOT_TEST='1';$env:HT_SETTINGS_ROOT=$settings;$env:HT_TEST_CVARS=$Cvars;
 $smiFile=Join-Path $out 'nvidia-smi.csv'
 $smi=$null
 try{
-  $p=Start-Process -FilePath (Join-Path $sandbox 'hydrothunder.exe') -WorkingDirectory $sandbox -ArgumentList '--ht_direct_launch=true' -PassThru
+  $p=Start-Process -FilePath (Join-Path $sandbox 'hydrothunder.exe') -WorkingDirectory $sandbox -ArgumentList '--ht_direct_launch=true' -WindowStyle $(if($Visible){'Normal'}else{'Minimized'}) -PassThru
+  $noThrottle=[GrWin]::NoThrottle($p.Handle);"no_throttle=$noThrottle visible=$Visible" | Add-Content (Join-Path $out 'config.txt')
   Start-Sleep 15
   # Start only early (title screens); later a stray Start would pause the race,
   # while A also resumes from the pause menu ("Retomar Jogo" is preselected).

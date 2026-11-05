@@ -11,7 +11,13 @@
 // Internal short name. This also becomes the config filename and the log
 // prefix, so it must stay a valid Windows filename - no colons, no spaces.
 #define HT_BUILD_TITLE "htrecomp"
-#define HT_BUILD_STAMP "revision-9.1.0"
+// 1.0.0 BETA ships in two variants (Ian, 04/11/2026): Standard and PGO (profile-guided
+// optimization of the recompiled game code; CMake HT_PGO=USE defines HT_PGO_USE_BUILD).
+#if defined(HT_PGO_USE_BUILD) && HT_PGO_USE_BUILD
+#define HT_BUILD_STAMP "1.0.0-beta-pgo"
+#else
+#define HT_BUILD_STAMP "1.0.0-beta-standard"
+#endif
 
 // The name shown on the window. Set explicitly in main.cpp rather than by
 // renaming the app, precisely because this one is NOT a legal filename.

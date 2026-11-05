@@ -135,6 +135,20 @@ if(EXISTS "${HT_GENERATED_DIR}/sources.cmake")
     if(WIN32 AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
         target_compile_options(ht_guest PRIVATE -fasync-exceptions)
     endif()
+    # Profile-guided optimization of the recompiled game code only (the game thread).
+    # GEN: instrumented build that writes HT_PGO profiles; USE: build with HT_PGO_PROFILE.
+    # PGO changes code layout/inlining choices, never what the code computes.
+    set(HT_PGO "OFF" CACHE STRING "OFF, GEN or USE")
+    set(HT_PGO_PROFILE "" CACHE FILEPATH "Merged .profdata for HT_PGO=USE")
+    if(HT_PGO STREQUAL "GEN")
+        target_compile_options(ht_guest PRIVATE -fprofile-instr-generate)
+        target_link_options(hydrothunder PRIVATE -fprofile-instr-generate)
+        target_compile_definitions(hydrothunder PRIVATE HT_PGO_GEN=1)
+    elseif(HT_PGO STREQUAL "USE")
+        target_compile_options(ht_guest PRIVATE "-fprofile-instr-use=${HT_PGO_PROFILE}"
+            -Wno-profile-instr-unprofiled -Wno-profile-instr-out-of-date -Wno-backend-plugin)
+        target_compile_definitions(hydrothunder PRIVATE HT_PGO_USE_BUILD=1)
+    endif()
     target_link_libraries(hydrothunder PRIVATE ht_guest)
     target_include_directories(hydrothunder PRIVATE "${HT_GENERATED_DIR}")
 else()

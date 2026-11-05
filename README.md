@@ -4,7 +4,7 @@
 
 Play Hydro Thunder Hurricane on PC with a configuration launcher, controller and keyboard support, graphics scaling options, persistent shader caches, and support for your own legally obtained game files. The Windows version uses a native executable; the Linux version is distributed as an AppImage.
 
-> **Current preview: Revision 9.1.0.** This project is experimental and is not affiliated with the original game's creators. **Game files, DLC, and title updates are not provided.** You must supply your own legally obtained copies.
+> **Current release: 1.0.0 BETA**, available in two builds: **Standard** and **PGO** (profile-guided optimization). This project is experimental and is not affiliated with the original game's creators. **Game files, DLC, and title updates are not provided.** You must supply your own legally obtained copies.
 
 [**Download the latest release**](https://github.com/monscriser/HydroThunderPORT/releases) · [**Official project website**](https://monscriser.github.io/HydroThunderPORT/) · [**Report an issue**](https://github.com/monscriser/HydroThunderPORT/issues)
 
@@ -21,7 +21,16 @@ Play Hydro Thunder Hurricane on PC with a configuration launcher, controller and
 | Handheld targets | ROG Ally, CachyOS and Steam Deck; validation is ongoing |
 | Original game content | Required; not included in the download |
 
-## Release Highlights — Revision 9.1.0
+## Release Highlights — 1.0.0 BETA
+
+- **Two builds, same features:** **Standard** and **PGO**. The PGO build compiles the recompiled game code with a profile recorded in real races, so the CPU runs the same logic faster. Measured on Windows (uncapped): **+3.5%** on Asgard Invasion and **+9%** on a canyon track that was not part of the first profile. Linux PGO uses its own Linux-recorded profile.
+- **New launcher**, organized like the UFC3MONS launcher: header art, flag language selector (Portuguese, English, Spanish), Home / Video / Controls / Saves and logs / Frame generation tabs, and a footer with **Add to Steam** and **PLAY**.
+- **Choose where `user_data` lives:** saves, installed DLC and achievements stay next to the game by default and can be moved to any folder. Data is copied (the old folder is kept as a backup), and the choice is remembered across updates.
+- **Import saves from Xenia:** pick your Xenia folder and the launcher finds `ht2save.dat`, backing up the current save first.
+- **Fix:** windowed mode with Windows display scaling (125%/150%) opened larger than the chosen resolution; it now opens at the selected size and fits the monitor.
+- **CPU:** the video command thread checks memory pages without a global lock (−2.7% CPU per draw on that thread).
+
+## Previous Highlights — Revision 9.1.0
 
 - **CPU/GPU performance:** configurable engine optimizations target improved frame rates without reducing resolution, MSAA, effects, or precision; each has a switch in `hydrothunder.toml`.
 - **ROG Ally (Linux, 25 W TDP):** first four tracks were play-tested at around 120 FPS most of the time and rarely below 100 FPS. These are informal observations, **not controlled benchmarks or guarantees**.
@@ -35,7 +44,8 @@ Check the [GitHub Releases page](https://github.com/monscriser/HydroThunderPORT/
 ### Game Content and Launcher
 
 - Guided setup for Game, DLC and Title Update files, including supported extracted content and Xbox 360 content packages.
-- Game directory selection persists between launcher updates; save data lives alongside your selected game installation.
+- Game directory selection persists between launcher updates. Save data (`user_data`: saves, DLC, achievements) lives next to the game by default and can be moved to any folder from the launcher; the choice also persists between updates.
+- Import saves directly from a Xenia installation.
 - Runtime handling of supported content and translations without modifying original game source files.
 - Support for the 0.0.2.1 title update configuration.
 - Configuration launcher with display mode, resolution, language, scaling, FPS and installation details.
@@ -76,7 +86,7 @@ Lossless Scaling is **not bundled**. On Linux, the Steam application alone is in
 
 ### Windows
 
-1. Download and extract the Windows package from [Releases](https://github.com/monscriser/HydroThunderPORT/releases).
+1. Download and extract the Windows package from [Releases](https://github.com/monscriser/HydroThunderPORT/releases). Pick **PGO** (recommended) or **Standard**; both have the same features.
 2. Launch `Launcher-Config.exe`.
 3. Select your own Game, DLC and update files.
 4. Configure the video and input settings, then click **Play**.
@@ -104,7 +114,7 @@ Actual performance depends on hardware, drivers, settings, track and shader-cach
 
 ## Known Limitations
 
-- Revision 9.1.0 is a **preview**, not a fully validated stable release.
+- 1.0.0 is a **BETA**, not a fully validated stable release. The PGO gain was measured on Windows; on Linux the PGO profile was verified but its FPS gain still needs measuring on real hardware (ROG Ally / Steam Deck).
 - ROG Ally testing is informal; broader Linux, CachyOS, Steam Deck and handheld testing is still needed.
 - Lossless Scaling frame generation needs further end-to-end validation; the in-game overlay does not independently verify generated frames.
 - Linux generated-frame counters depend on external overlays and Vulkan-layer ordering.
@@ -115,7 +125,7 @@ Actual performance depends on hardware, drivers, settings, track and shader-cach
 
 ## Building from Source
 
-The repository does not ship the recompiled game code (`app/generated-updated/`). Building from source requires generating that code from your **own** game copy. Build scripts are under [`tools/`](tools/) and [`tools/wsl/`](tools/wsl/); development notes are in [`AGENTS.md`](AGENTS.md) and [`CLAUDE.md`](CLAUDE.md).
+The repository does not ship the recompiled game code (`app/generated-updated/`). Building from source requires generating that code from your **own** game copy. Build scripts are under [`tools/`](tools/) and [`tools/wsl/`](tools/wsl/). PGO builds use CMake `-DHT_PGO=USE -DHT_PGO_PROFILE=<file>` with the profiles in [`pgo/`](pgo/) (`build_pgo.sh`, `build_pgo_linux.sh`; Linux needs the profile runtime built by `build_profile_runtime.sh`); development notes are in [`AGENTS.md`](AGENTS.md) and [`CLAUDE.md`](CLAUDE.md).
 
 The project uses ReXGlue for static recompilation/runtime support, Xenia-derived compatibility components, Vulkan for rendering, and Dear ImGui for configuration and overlays. Third-party software retains its own licenses; see [`licenses/`](licenses/).
 

@@ -8,6 +8,9 @@
 #include <rex/ui/window.h>
 #include <cstdlib>
 #include <cstring>
+#include <algorithm>
+#include <cmath>
+#include <SDL3/SDL.h>
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/sinks/basic_file_sink.h>
@@ -49,7 +52,7 @@ class HtBaseApp : public rex::ReXApp {
         library_root_=settings/"library";
     }
     paths.game_data_root=ht::GameDirectory(library_root_);
-    paths.user_data_root=library_root_/"user_data";
+    paths.user_data_root=ht::UserDataRoot(library_root_);
   }
 
   bool SetupEnvironment() override {
@@ -150,8 +153,10 @@ class HtBaseApp : public rex::ReXApp {
     if (!test_mode && ((rex::cvar::GetFlagByName("ht_direct_launch") != "true" && rex::cvar::GetFlagByName("ht_import_on_start") == "true") ||
                        !ht::ReadyForLaunch(library_root_))) {
       rex::cvar::SetFlagByName("fullscreen", "false");
-      rex::cvar::SetFlagByName("window_width", "920");
-      rex::cvar::SetFlagByName("window_height", "660");
+      rex::cvar::SetFlagByName("window_width", "900");
+      rex::cvar::SetFlagByName("window_height", "700");
+    } else if (rex::cvar::GetFlagByName("fullscreen") != "true") {
+      FitGameWindow();
     }
 
     if (!res) {
@@ -212,5 +217,39 @@ class HtBaseApp : public rex::ReXApp {
     return std::nullopt;
   }
  protected:
+  // Windowed game: the launcher's resolution is in real pixels, but the SDK treats
+  // window_width/height as logical size and multiplies by the Windows scale (150% turned
+  // 1920x1080 into 2880x1620 and 2560x1440 into a full 4K screen - user report, 04/11).
+  // Convert to logical with the same primary-display scale the SDK uses before the window
+  // exists, and keep the window inside the monitor's usable area (16:9 kept).
+  void FitGameWindow() {
+    const int w = std::atoi(rex::cvar::GetFlagByName("window_width").c_str());
+    const int h = std::atoi(rex::cvar::GetFlagByName("window_height").c_str());
+    if (w <= 0 || h <= 0 || !SDL_WasInit(SDL_INIT_VIDEO)) return;
+    float scale = SDL_GetDisplayContentScale(SDL_GetPrimaryDisplay());
+    if (!(scale > 0.0f)) scale = 1.0f;
+    const unsigned dpi = unsigned(scale * 96.0f + 0.5f);
+    double pw = w, ph = h;
+    SDL_DisplayID display = SDL_GetPrimaryDisplay();
+    if (const int monitor = std::atoi(rex::cvar::GetFlagByName("monitor").c_str()); monitor > 0) {
+      int count = 0;
+      if (SDL_DisplayID* displays = SDL_GetDisplays(&count)) {
+        if (monitor <= count) display = displays[monitor - 1];
+        SDL_free(displays);
+      }
+    }
+    SDL_Rect usable{};
+    if (SDL_GetDisplayUsableBounds(display, &usable) && usable.w > 0 && usable.h > 0) {
+      // Room for the title bar and borders.
+      const double fit = std::min({1.0, (usable.w - 16.0) / pw, (usable.h - 48.0) / ph});
+      pw *= fit; ph *= fit;
+    }
+    const int lw = std::max(320, int(std::floor(pw * 96.0 / dpi)));
+    const int lh = std::max(180, int(std::floor(ph * 96.0 / dpi)));
+    rex::cvar::SetFlagByName("window_width", std::to_string(lw));
+    rex::cvar::SetFlagByName("window_height", std::to_string(lh));
+    spdlog::warn("[ht-window] windowed {}x{} px, display scale {:.2f}, usable {}x{} -> logical {}x{}",
+                 w, h, scale, usable.w, usable.h, lw, lh);
+  }
   std::filesystem::path library_root_;
 };

@@ -22,6 +22,24 @@
 #include <string_view>
 #include <thread>
 
+#include <chrono>
+#if defined(HT_PGO_GEN) && HT_PGO_GEN
+// PGO profiling build only (CMake HT_PGO=GEN): tests end the game by killing it, so the
+// profile counters are written every 10 s to LLVM_PROFILE_FILE (each write is cumulative).
+extern "C" int __llvm_profile_write_file(void);
+namespace {
+struct HtPgoDumper {
+  HtPgoDumper() {
+    std::thread([] {
+      for (;;) {
+        std::this_thread::sleep_for(std::chrono::seconds(10));
+        __llvm_profile_write_file();
+      }
+    }).detach();
+  }
+} g_ht_pgo_dumper;
+}  // namespace
+#endif
 #include <rex/logging.h>
 #include <rex/ppc.h>
 #include <rex/cvar.h>
@@ -238,7 +256,11 @@ class HtPureApp : public HtBaseApp {
   void OnConfigureFonts(ImFontAtlas* atlas) override {
     ImFontConfig config;
     config.SizePixels = 18.0f;
-    const auto path = rex::filesystem::GetExecutableFolder() / "ui" / "Karla-Regular.ttf";
+    // Roboto Medium (as in the UFC3MONS launcher) has every Portuguese/Spanish accent;
+    // the Karla subset shipped before lacks "ç". Karla stays as the fallback.
+    const auto ui = rex::filesystem::GetExecutableFolder() / "ui";
+    const auto path = std::filesystem::exists(ui / "Roboto-Medium.ttf") ? ui / "Roboto-Medium.ttf"
+                                                                          : ui / "Karla-Regular.ttf";
     ImFont* font = std::filesystem::exists(path)
         ? atlas->AddFontFromFileTTF(path.string().c_str(), 18.0f, &config)
         : atlas->AddFontDefault(&config);

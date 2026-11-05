@@ -37,7 +37,7 @@ inline constexpr Action kActions[] = {
     {"keybind_lstick_up", "W,Up", "Para cima (menus)", "Up (menus)", "Arriba (menus)"},
     {"keybind_lstick_down", "S,Down", "Para baixo (menus)", "Down (menus)", "Abajo (menus)"},
     {"keybind_b", "Backspace", "Voltar (B)", "Back (B)", "Volver (B)"},
-    {"keybind_y", "Y", "Botao Y", "Y button", "Boton Y"},
+    {"keybind_y", "Y", "Botão Y", "Y button", "Botón Y"},
     {"keybind_start", "Return", "Start / pausa", "Start / pause", "Start / pausa"},
     {"keybind_back", "Tab", "Back / Select", "Back / Select", "Back / Select"},
     {"keybind_left_shoulder", "F", "LB", "LB", "LB"},
@@ -132,7 +132,7 @@ inline void Assign(Binds& binds, int action, int slot, const std::string& key) {
 inline std::string Label(const std::string& key, int lang) {
   struct Name { const char *key, *pt, *en, *es; };
   static constexpr Name kNames[] = {
-      {"Space", "Espaco", "Space", "Espacio"}, {"Return", "Enter", "Enter", "Enter"},
+      {"Space", "Espaço", "Space", "Espacio"}, {"Return", "Enter", "Enter", "Enter"},
       {"Backspace", "Backspace", "Backspace", "Retroceso"}, {"Left", "Seta esquerda", "Left arrow", "Flecha izquierda"},
       {"Right", "Seta direita", "Right arrow", "Flecha derecha"}, {"Up", "Seta cima", "Up arrow", "Flecha arriba"},
       {"Down", "Seta baixo", "Down arrow", "Flecha abajo"},
