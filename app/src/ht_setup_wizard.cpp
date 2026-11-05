@@ -11,6 +11,8 @@
 #include "ht_config_edit.h"
 #include "ht_keyboard_binds.h"
 #include "ht_user_data.h"
+#include "ht_player_names.h"
+#include "ht_save_editor.h"
 #include <rex/ui/image_decode.h>
 #include <rex/ui/imgui_drawer.h>
 #include <SDL3/SDL.h>
@@ -136,6 +138,9 @@ inline const char* EngineRateHelp(int i){
 // ---- Look: organized like the UFC3MONS launcher (header art, flag language selector,
 // tabs on the art, cards, footer with Steam + PLAY), in Hydro Thunder's blue. ----
 const ImVec4 kAccent(.12f,.55f,.88f,1),kAccentHover(.19f,.65f,.96f,1),kAccentActive(.08f,.44f,.74f,1);
+constexpr int kAnisoCount=5;
+// anisotropic_override: -1 = the game's own filtering, 2..5 = 2x/4x/8x/16x.
+constexpr int kAnisoValues[kAnisoCount]={-1,2,3,4,5};
 const ImVec4 kGreen(.30f,.86f,.62f,1),kMuted(.66f,.73f,.80f,1),kWarn(1,.66f,.38f,1);
 ImU32 Col(float r,float g,float b,float a=1){return ImGui::GetColorU32(ImVec4(r,g,b,a));}
 void PushSize(float px){ImGui::PushFont(nullptr,px);}
@@ -199,6 +204,9 @@ class SetupWizard final : public rex::ui::ImGuiDialog {
     for(int i=0;i<kEngineRateCount;++i) if(kEngineRates[i]==rate) fps_=i;
     if(std::atoi(rex::cvar::GetFlagByName("fps_limit").c_str())<=0)fps_=kEngineRateCount-1;
     performance_=rex::cvar::GetFlagByName("ht_graphics_profile")=="performance";
+    {const auto a=std::atoi(rex::cvar::GetFlagByName("anisotropic_override").c_str());
+     aniso_=performance_?0:4;for(int i=0;i<kAnisoCount;++i)if(kAnisoValues[i]==a)aniso_=i;}
+    for(int i=0;i<players::kCount;++i)player_names_[i]=players::Effective(i,rex::cvar::GetFlagByName(players::Cvar(i)));
     mode_=rex::cvar::GetFlagByName("ht_game_fullscreen")=="true" ?
         (rex::cvar::GetFlagByName("fullscreen_mode")=="exclusive" ? 2 : 1) : 0;
     const auto width=std::atoi(rex::cvar::GetFlagByName("ht_output_width").c_str());
@@ -226,6 +234,16 @@ class SetupWizard final : public rex::ui::ImGuiDialog {
     if(const char* pick=std::getenv("HT_TEST_PICK_USER_DATA")){state_->save_folder=pick;state_->save_action=std::string(pick)=="default"?8:7;select_tab_=3;}
     if(const char* answer=std::getenv("HT_TEST_USER_DATA_ANSWER"))test_answer_=answer;
     if(const char* xenia=std::getenv("HT_TEST_IMPORT_XENIA")){state_->save_folder=xenia;state_->save_action=9;select_tab_=3;}
+    // Tests only: "<player 1-4>:<credits>" runs the save editor's credit change at start.
+    if(const char* credits=std::getenv("HT_TEST_SET_CREDITS")){
+      int player=0,value=-1;
+      if(std::sscanf(credits,"%d:%d",&player,&value)==2&&player>=1&&player<=players::kCount){
+        try{saveedit::SetCredits(root_,player-1,value);SetStatus("[test] credits "+std::to_string(value));}
+        catch(const std::exception& error){SetStatus(std::string("[test] credits failed: ")+error.what());}
+        edit_player_=player-1;
+      }
+      select_tab_=3;
+    }
   }
   ~SetupWizard() override { if(worker_.joinable()) worker_.join(); }
  protected:
@@ -268,6 +286,7 @@ class SetupWizard final : public rex::ui::ImGuiDialog {
     ImGui::SetCursorPos(ImVec2(side,header+12));
     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding,ImVec2(10,7));
     ImGui::BeginChild("LauncherBody",ImVec2(io.DisplaySize.x-2*side,std::max(120.f,io.DisplaySize.y-header-12-74-10)),ImGuiChildFlags_None,ImGuiWindowFlags_NoBackground);
+    if(tab_!=3)loaded_tab_=-1;  // re-read the saves when the tab is opened again
     switch(tab_){case 0:Home();break;case 1:Video();break;case 2:Controls();break;case 3:Saves();break;default:FrameGeneration();break;}
     ImGui::EndChild();
     Footer(io);
@@ -279,7 +298,7 @@ class SetupWizard final : public rex::ui::ImGuiDialog {
       // shortcut, desktop shortcut, AppImage) uses what was chosen here even
       // if "Jogar" is never pressed.
       const auto snapshot=std::make_tuple(async_,show_fps_,upscaler_,show_on_start_,mode_,language_,
-                                          resolution_,fps_,performance_,render_quality_,sharpness_,fxaa_,ui_lang_);
+                                          resolution_,fps_,performance_,render_quality_,sharpness_,fxaa_,ui_lang_,aniso_,player_names_);
       if(!snapshot_valid_){last_saved_=snapshot;snapshot_valid_=true;}
       else if(snapshot!=last_saved_){SaveAll();last_saved_=snapshot;}
     }
@@ -637,11 +656,19 @@ class SetupWizard final : public rex::ui::ImGuiDialog {
       const char* profiles[]={TR("Qualidade (padrão)","Quality (default)","Calidad (predeterminado)"),
                               TR("Desempenho - GPU fraca (Deck, Ally)","Performance - weak GPU (Deck, Ally)","Rendimiento - GPU débil (Deck, Ally)")};
       int profile=performance_?1:0;
-      ImGui::TextUnformatted(TR("Perfil gráfico","Graphics profile","Perfil gráfico"));ImGui::SetNextItemWidth(-1);ImGui::Combo("##profile",&profile,profiles,2);performance_=profile==1;
+      ImGui::TextUnformatted(TR("Perfil gráfico","Graphics profile","Perfil gráfico"));ImGui::SetNextItemWidth(-1);ImGui::Combo("##profile",&profile,profiles,2);
+      // Switching profile moves texture filtering to that profile's default.
+      if((profile==1)!=performance_){performance_=profile==1;aniso_=performance_?0:4;}
       if(ImGui::IsItemHovered())ImGui::SetTooltip("%s",TR(
         "Desempenho: filtragem de texturas do próprio jogo, alvos de gamma em 8 bits,\nmenos threads de compilação e cache de texturas menor. Diferença visual pequena.",
         "Performance: the game's own texture filtering, 8-bit gamma targets,\nfewer compile threads and a smaller texture cache. Small visual difference.",
         "Rendimiento: filtrado de texturas del juego, objetivos gamma de 8 bits,\nmenos hilos de compilación y caché de texturas menor. Diferencia visual pequeña."));
+      {const char* aniso_labels[kAnisoCount]={TR("Do jogo","Game default","Del juego"),"2x","4x","8x","16x"};
+       ImGui::TextUnformatted(TR("Filtro anisotrópico","Anisotropic filtering","Filtro anisotrópico"));ImGui::SetNextItemWidth(-1);
+       ImGui::Combo("##aniso",&aniso_,aniso_labels,kAnisoCount);
+       if(ImGui::IsItemHovered())ImGui::SetTooltip("%s",TR("Deixa a pista e as texturas vistas de lado mais nítidas à distância.\n16x é o máximo; custo de GPU muito baixo. \"Do jogo\" usa a filtragem original.",
+         "Keeps the track and textures seen at an angle sharp in the distance.\n16x is the maximum; very low GPU cost. \"Game default\" uses the original filtering.",
+         "Mantiene nítidas a distancia la pista y las texturas vistas de lado.\n16x es el máximo; costo de GPU muy bajo. \"Del juego\" usa el filtrado original."));}
       ImGui::Checkbox(TR("Anti-serrilhado FXAA###fxaa","FXAA anti-aliasing###fxaa","Antialiasing FXAA###fxaa"),&fxaa_);
       if(ImGui::IsItemHovered())ImGui::SetTooltip("%s",TR("Suaviza o serrilhado, mas deixa os números pequenos do HUD com contorno duplo. Desligado por padrão.",
         "Smooths jagged edges, but doubles the outline of small HUD digits. Off by default.","Suaviza los bordes, pero duplica el contorno de los números pequeños del HUD. Desactivado por defecto."));
@@ -689,6 +716,7 @@ class SetupWizard final : public rex::ui::ImGuiDialog {
     if(StyledButton(TR("Abrir pasta###open_ud","Open folder###open_ud","Abrir carpeta###open_ud"),ImVec2(0,34),false))OpenFolder(user_data_);
     ImGui::EndDisabled();
     EndCard();
+    SaveEditorCard();
     if(ImGui::BeginTable("SaveTools",2,ImGuiTableFlags_SizingStretchSame)){
       ImGui::TableNextRow();ImGui::TableSetColumnIndex(0);
       BeginCard("BackupCard",ImVec2(0,190));
@@ -716,6 +744,89 @@ class SetupWizard final : public rex::ui::ImGuiDialog {
       ImGui::EndTable();
     }
     Muted((std::string(TR("Preferências: ","Preferences: ","Preferencias: "))+U8(paths_.config_path)).c_str());
+  }
+  static int NameFilter(ImGuiInputTextCallbackData* data){return players::Allowed(data->EventChar)?0:1;}
+  void RefreshSaves(){
+    for(int i=0;i<players::kCount;++i)save_info_[i]=saveedit::Load(user_data_,i);
+    if(!save_info_[edit_player_].valid)for(int i=0;i<players::kCount;++i)if(save_info_[i].valid){edit_player_=i;break;}
+    edit_credits_=save_info_[edit_player_].total;
+    loaded_user_data_=user_data_;
+  }
+  // Save editor: the four player names (the game shows them as gamertags) and the credits
+  // of a player's save (credits unlock tracks and boats).
+  void SaveEditorCard(){
+    if(loaded_tab_!=3||loaded_user_data_!=user_data_)RefreshSaves();
+    loaded_tab_=3;
+    BeginCard("SaveEditorCard",ImVec2(0,0));
+    CardTitle(TR("Editor de save","Save editor","Editor de partida"),
+              TR("Nomes dos jogadores (tela dividida) e créditos do save. Feche o jogo antes de mudar os créditos.",
+                 "Player names (split screen) and the save's credits. Close the game before changing credits.",
+                 "Nombres de los jugadores (pantalla dividida) y créditos de la partida. Cierra el juego antes de cambiar los créditos."));
+    ImGui::Spacing();
+    if(ImGui::BeginTable("SaveEditorGrid",2,ImGuiTableFlags_SizingStretchSame)){
+      ImGui::TableNextRow();ImGui::TableSetColumnIndex(0);
+      ImGui::TextUnformatted(TR("Nomes dos jogadores","Player names","Nombres de los jugadores"));
+      for(int i=0;i<players::kCount;++i){
+        ImGui::PushID(i);
+        char label[32];std::snprintf(label,sizeof label,TR("Jogador %d","Player %d","Jugador %d"),i+1);
+        ImGui::AlignTextToFramePadding();ImGui::TextUnformatted(label);ImGui::SameLine(110);
+        char buffer[players::kMaxLength+1]={};std::snprintf(buffer,sizeof buffer,"%s",player_names_[i].c_str());
+        ImGui::SetNextItemWidth(-12);
+        if(ImGui::InputText("##name",buffer,sizeof buffer,ImGuiInputTextFlags_CallbackCharFilter,NameFilter))player_names_[i]=buffer;
+        // Empty is allowed while typing; leaving the box empty restores "Player N".
+        if(ImGui::IsItemDeactivatedAfterEdit())player_names_[i]=players::Effective(i,player_names_[i]);
+        ImGui::PopID();
+      }
+      Muted(TR("Até 15 letras, sem acentos (a fonte do jogo não tem). Valem na próxima abertura do jogo.",
+               "Up to 15 letters, no accents (the game font lacks them). Applied the next time the game starts.",
+               "Hasta 15 letras, sin acentos (la fuente del juego no los tiene). Se aplican al abrir el juego."));
+      ImGui::TableSetColumnIndex(1);
+      ImGui::TextUnformatted(TR("Créditos","Credits","Créditos"));
+      const bool any=std::any_of(save_info_.begin(),save_info_.end(),[](const saveedit::Info& s){return s.valid;});
+      if(!any){
+        Muted(TR("Nenhum save encontrado. Jogue uma corrida para o jogo criar o save, depois volte aqui.",
+                 "No save found. Play one race so the game creates the save, then come back here.",
+                 "No se encontró ninguna partida. Juega una carrera para que el juego la cree y vuelve aquí."));
+      }else{
+        const std::string prefix=TR("Save do jogador ","Player save ","Partida del jugador ");
+        const std::string preview=prefix+std::to_string(edit_player_+1)+" ("+player_names_[edit_player_]+")";
+        ImGui::SetNextItemWidth(-1);
+        if(ImGui::BeginCombo("##save_player",preview.c_str())){
+          for(int i=0;i<players::kCount;++i){
+            if(!save_info_[i].valid)continue;
+            const std::string item=prefix+std::to_string(i+1)+" ("+player_names_[i]+")";
+            if(ImGui::Selectable(item.c_str(),edit_player_==i)){edit_player_=i;edit_credits_=save_info_[i].total;}
+          }
+          ImGui::EndCombo();
+        }
+        char current[96];std::snprintf(current,sizeof current,TR("No save agora: %d créditos","In the save now: %d credits","En la partida ahora: %d créditos"),save_info_[edit_player_].total);
+        Colored(kGreen,current);
+        ImGui::SetNextItemWidth(-1);
+        ImGui::InputInt("##credits",&edit_credits_,1000,10000);
+        edit_credits_=std::clamp(edit_credits_,0,int(saveedit::kMaxCredits));
+        ImGui::BeginDisabled(state_->busy||edit_credits_==save_info_[edit_player_].total);
+        if(StyledButton(TR("Salvar créditos###save_credits","Save credits###save_credits","Guardar créditos###save_credits"),ImVec2(0,34),true)){
+          try{
+            saveedit::SetCredits(root_,edit_player_,edit_credits_);
+            SetStatus(std::string(TR("Créditos salvos: ","Credits saved: ","Créditos guardados: "))+std::to_string(edit_credits_)+
+                      TR(". O save anterior foi guardado em save_backups.",". The previous save was kept in save_backups.",". La partida anterior se guardó en save_backups."));
+          }catch(const std::exception& error){
+            SetStatus(std::string(TR("Não foi possível mudar os créditos: ","Could not change the credits: ","No se pudieron cambiar los créditos: "))+error.what());
+          }
+          RefreshSaves();
+        }
+        ImGui::EndDisabled();
+        Muted(TR("Os créditos liberam pistas e barcos novos. Antes de salvar, uma cópia do save vai para save_backups.",
+                 "Credits unlock new tracks and boats. Before saving, a copy of the save goes to save_backups.",
+                 "Los créditos desbloquean pistas y barcos nuevos. Antes de guardar, una copia va a save_backups."));
+      }
+      for(int i=0;i<players::kCount;++i)if(save_info_[i].exists&&!save_info_[i].valid){
+        char text[200];std::snprintf(text,sizeof text,TR("O save do jogador %d não pôde ser lido (%s); ele não será alterado.","Player %d's save could not be read (%s); it will not be changed.","La partida del jugador %d no se pudo leer (%s); no se modificará."),i+1,save_info_[i].error.c_str());
+        Colored(kWarn,text);
+      }
+      ImGui::EndTable();
+    }
+    EndCard();
   }
   void ClearCacheModal(){
     const std::string title=std::string(TR("Confirmar limpeza de shaders","Confirm shader cache cleanup","Confirmar limpieza de shaders"))+"###confirm_cache";
@@ -865,7 +976,8 @@ class SetupWizard final : public rex::ui::ImGuiDialog {
     SaveValue("fps_limit",std::to_string(video::SwapLimit(fps_)));
     SaveBool("vsync",true);
     SaveValue("ht_graphics_profile",performance_ ? "\"performance\"" : "\"quality\"");
-    SaveValue("anisotropic_override",performance_ ? "-1" : "4");
+    SaveValue("anisotropic_override",std::to_string(kAnisoValues[std::clamp(aniso_,0,kAnisoCount-1)]));
+    for(int i=0;i<players::kCount;++i)SaveValue(players::Cvar(i),"\""+players::Effective(i,player_names_[i])+"\"");
     SaveBool("gamma_render_target_as_unorm16",!performance_);
     // -1 = automatic (75% of logical cores), as in Xenia.
     SaveValue("vulkan_pipeline_creation_threads",performance_ ? "3" : "-1");
@@ -941,7 +1053,7 @@ class SetupWizard final : public rex::ui::ImGuiDialog {
     if(StyledButton(TR("Restaurar padrão###keys_default","Restore defaults###keys_default","Restaurar valores###keys_default"),ImVec2(0,32),false)&&capture_.action<0){binds_=keys::Defaults();SaveAll();}
   }
  private:
-  std::tuple<bool,bool,int,bool,int,int,int,int,bool,int,int,bool,int> last_saved_{};
+  std::tuple<bool,bool,int,bool,int,int,int,int,bool,int,int,bool,int,int,std::array<std::string,4>> last_saved_{};
   bool snapshot_valid_=false;
   bool manage_install_=false,art_attempted_=false,open_user_data_modal_=false,pending_default_=false;
   int tab_=0,select_tab_=-1;
@@ -965,6 +1077,11 @@ class SetupWizard final : public rex::ui::ImGuiDialog {
   bool nav_saved_=false,nav_was_on_=false;
   int upscaler_=0;
   bool performance_=false;
+  int aniso_=4;  // index in kAnisoValues (16x: measured free, 05/11)
+  std::array<std::string,4> player_names_;
+  std::array<saveedit::Info,4> save_info_;
+  int edit_player_=0,edit_credits_=0,loaded_tab_=-1;
+  std::filesystem::path loaded_user_data_;
   lossless::Options lossless_options_;
   lossless::Detection lossless_detected_;
   std::vector<std::filesystem::path> steam_profiles_;

@@ -4,7 +4,7 @@
 
 Play Hydro Thunder Hurricane on PC with a configuration launcher, controller and keyboard support, graphics scaling options, persistent shader caches, and support for your own legally obtained game files. The Windows version uses a native executable; the Linux version is distributed as an AppImage.
 
-> **Current release: 1.0.0 BETA**, available in two builds: **Standard** and **PGO** (profile-guided optimization). This project is experimental and is not affiliated with the original game's creators. **Game files, DLC, and title updates are not provided.** You must supply your own legally obtained copies.
+> **Current release: BETA 1.1 (1.1.0)**, available in two builds: **Standard** and **PGO** (profile-guided optimization). This project is experimental and is not affiliated with the original game's creators. **Game files, DLC, and title updates are not provided.** You must supply your own legally obtained copies.
 
 > **Based on [htrecomp](https://github.com/visibou/htrecomp) by visibou.** HydroThunderPORT started from htrecomp 1.0 (the app, launcher/overlay foundations and recompilation setup) and builds on it with the work described below.
 
@@ -17,13 +17,20 @@ Play Hydro Thunder Hurricane on PC with a configuration launcher, controller and
 | Windows PC port | Native executable and configuration launcher |
 | Linux PC port | AppImage with integrated configuration launcher |
 | Graphics API | Vulkan |
-| Input | Game controller and remappable keyboard controls |
-| Graphics options | FSR 1, experimental FSR 3.1, FXAA, resolution and display settings |
+| Input | Game controller and remappable keyboard controls; 4 local player profiles with custom names |
+| Graphics options | FSR 1, experimental FSR 3.1, FXAA, anisotropic filtering up to 16x, resolution and display settings |
 | Performance options | Shader/pipeline caches and configurable FPS limits |
 | Handheld targets | ROG Ally, CachyOS and Steam Deck; validation is ongoing |
 | Original game content | Required; not included in the download |
 
-## Release Highlights — 1.0.0 BETA
+## Release Highlights — BETA 1.1 (1.1.0)
+
+- **Save editor** in the launcher (*Saves and logs → Save editor*): set the names of **players 1–4** (shown in game where a gamertag would be) and the **credits** of a save (credits unlock tracks and boats). The save is backed up first, and the editor recomputes the checksum the game uses to accept a save.
+- **Players 3 and 4** now have their own profiles (before, only players 1 and 2), each with a separate save.
+- **Anisotropic filtering up to 16x** (*Video → Image*): Game default, 2x, 4x, 8x or 16x. The default is now 16x; measured at no GPU cost.
+- All exact GPU/CPU verifiers re-run with this release's libraries on Windows and Linux: 0 differences.
+
+## Previous Highlights — 1.0.0 BETA
 
 - **Two builds, same features:** **Standard** and **PGO**. The PGO build compiles the recompiled game code with a profile recorded in real races, so the CPU runs the same logic faster. Measured on Windows (uncapped): **+3.5%** on Asgard Invasion and **+9%** on a canyon track that was not part of the first profile. Linux PGO uses its own Linux-recorded profile.
 - **New launcher**, organized like the UFC3MONS launcher: header art, flag language selector (Portuguese, English, Spanish), Home / Video / Controls / Saves and logs / Frame generation tabs, and a footer with **Add to Steam** and **PLAY**.
@@ -52,11 +59,12 @@ Check the [GitHub Releases page](https://github.com/monscriser/HydroThunderPORT/
 - Support for the 0.0.2.1 title update configuration.
 - Configuration launcher with display mode, resolution, language, scaling, FPS and installation details.
 - Save backup and restore, optional FPS overlay, and Steam shortcut export with artwork.
+- Save editor: player names for players 1–4 and the credits of each player's save.
 - Launcher languages: Portuguese, English and Spanish.
 
 ### Controllers and Keyboard
 
-- Controller support, remappable keyboard controls and local profiles for Player 1 and Player 2.
+- Controller support, remappable keyboard controls and local profiles for Players 1–4, with names set in the launcher.
 - Local split-screen is supported, but still needs validation across configurations.
 
 | Action | Default key |
@@ -69,7 +77,7 @@ Check the [GitHub Releases page](https://github.com/monscriser/HydroThunderPORT/
 
 ### Vulkan Graphics, Upscaling and Performance
 
-- Vulkan graphics backend, FSR 1 upscaling and sharpening, experimental FSR 3.1 reconstruction, optional FXAA.
+- Vulkan graphics backend, FSR 1 upscaling and sharpening, experimental FSR 3.1 reconstruction, optional FXAA, anisotropic filtering up to 16x.
 - Windowed, borderless and fullscreen modes; resolution and image-quality adjustments.
 - Parallel shader compilation, persistent shader/Vulkan pipeline caches and background cache saving.
 - FPS limits: 30, 40, 60, 90 and 120; experimental unlimited presentation maintains a 60 Hz virtual clock.
@@ -116,7 +124,7 @@ Actual performance depends on hardware, drivers, settings, track and shader-cach
 
 ## Known Limitations
 
-- 1.0.0 is a **BETA**, not a fully validated stable release. The PGO gain was measured on Windows; on Linux the PGO profile was verified but its FPS gain still needs measuring on real hardware (ROG Ally / Steam Deck).
+- BETA 1.1 is a **BETA**, not a fully validated stable release. Split screen with 3–4 real controllers has not been played yet (the four profiles exist and were checked). Close the game before changing credits in the save editor. The PGO gain was measured on Windows; on Linux the PGO profile was verified but its FPS gain still needs measuring on real hardware (ROG Ally / Steam Deck).
 - ROG Ally testing is informal; broader Linux, CachyOS, Steam Deck and handheld testing is still needed.
 - Lossless Scaling frame generation needs further end-to-end validation; the in-game overlay does not independently verify generated frames.
 - Linux generated-frame counters depend on external overlays and Vulkan-layer ordering.
@@ -139,7 +147,7 @@ Please open an [issue](https://github.com/monscriser/HydroThunderPORT/issues) an
 
 ## Credits and Legal Notice
 
-Special thanks to **visibou** and the **[htrecomp](https://github.com/visibou/htrecomp)** project, the Hydro Thunder Hurricane recompilation this port is based on.
+Special thanks to **visibou** and the **[htrecomp](https://github.com/visibou/htrecomp)** project, the Hydro Thunder Hurricane recompilation this port is based on. The save checksum format used by the save editor was first documented by htrecomp.
 
 Thanks to contributors to ReXGlue, Xenia, Dear ImGui, FidelityFX, lsfg-vk and the wider graphics/emulation community. Steam artwork belongs to its respective SteamGridDB contributors, including Monscriser.
 

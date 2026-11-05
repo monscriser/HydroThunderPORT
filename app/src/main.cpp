@@ -225,6 +225,13 @@ LONG CALLBACK HtVectoredHandler(EXCEPTION_POINTERS* info) {
 REXCVAR_DEFINE_BOOL(ht_guest_exit_hard, true, "Hydro Thunder",
                     "When the game quits by itself, exit like a window close (skip the crashing teardown)");
 
+// 1.1 BETA: local player names (split screen), set in the launcher.
+#include "ht_player_names.h"
+REXCVAR_DEFINE_STRING(ht_player_name_1, "Player 1", "Hydro Thunder", "Player 1 name (up to 15 letters)");
+REXCVAR_DEFINE_STRING(ht_player_name_2, "Player 2", "Hydro Thunder", "Player 2 name (up to 15 letters)");
+REXCVAR_DEFINE_STRING(ht_player_name_3, "Player 3", "Hydro Thunder", "Player 3 name (up to 15 letters)");
+REXCVAR_DEFINE_STRING(ht_player_name_4, "Player 4", "Hydro Thunder", "Player 4 name (up to 15 letters)");
+
 class HtPureApp : public HtBaseApp {
  public:
   using HtBaseApp::HtBaseApp;
@@ -326,6 +333,20 @@ class HtPureApp : public HtBaseApp {
       win->SetTitle(HT_WINDOW_TITLE);
     }
 
+    // Player names: given to the four local profiles before the guest starts.
+    {
+      auto* kernel = runtime()->kernel_state();
+      const std::string settings[ht::players::kCount] = {
+          REXCVAR_GET(ht_player_name_1), REXCVAR_GET(ht_player_name_2),
+          REXCVAR_GET(ht_player_name_3), REXCVAR_GET(ht_player_name_4)};
+      for (int i = 0; i < ht::players::kCount; ++i) {
+        if (auto* profile = kernel->user_profile(uint32_t(i))) {
+          profile->set_name(ht::players::Effective(i, settings[i]));
+          REXLOG_INFO("[ht-players] player {}: \"{}\"", i + 1, profile->name());
+        }
+      }
+    }
+
     // Suspend mouse-and-keyboard controller emulation while the settings panel
     // is open.
     //
@@ -414,17 +435,21 @@ class HtPureApp : public HtBaseApp {
         input->AddDriver(std::make_unique<rex::input::HtBootTestDriver>(0));
         input->AddDriver(std::make_unique<rex::input::HtBootTestDriver>(1));
         auto* kernel = runtime()->kernel_state();
-        auto* p1 = kernel->user_profile(0);
-        auto* p2 = kernel->user_profile(1);
-        if (!p1 || !p2 || p1->xuid() == p2->xuid() ||
-            p1->name() != "Player 1" || p2->name() != "Player 2" ||
-            !p1->signin_state() || !p2->signin_state() || kernel->user_profile(2))
-          throw std::runtime_error("Local player profile validation failed");
         auto* content = kernel->content_manager();
-        if (content->ResolveGameUserContentPath(p1->xuid()) ==
-            content->ResolveGameUserContentPath(p2->xuid()))
-          throw std::runtime_error("Local player storage is not independent");
-        REXLOG_WARN("[ht-boot-test] Player 1 / Player 2 identities and independent storage verified");
+        for (uint32_t i = 0; i < 4; ++i) {
+          auto* p = kernel->user_profile(i);
+          if (!p || !p->signin_state() || p->storage_name() != ht::players::DefaultName(int(i)))
+            throw std::runtime_error("Local player profile validation failed");
+          for (uint32_t j = 0; j < i; ++j) {
+            auto* q = kernel->user_profile(j);
+            if (p->xuid() == q->xuid() ||
+                content->ResolveGameUserContentPath(p->xuid()) == content->ResolveGameUserContentPath(q->xuid()))
+              throw std::runtime_error("Local player storage is not independent");
+          }
+        }
+        if (kernel->user_profile(4))
+          throw std::runtime_error("Local player profile validation failed");
+        REXLOG_WARN("[ht-boot-test] Players 1-4 identities and independent storage verified");
           const auto packages = content->ListContent(
               1, 0, rex::system::XContentType::kMarketplaceContent, 0x5841096A);
           for (const auto& package : packages) {
