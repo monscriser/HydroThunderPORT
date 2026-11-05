@@ -6,6 +6,8 @@ Play Hydro Thunder Hurricane on PC with a configuration launcher, controller and
 
 > **Current release: 1.0.0 BETA**, available in two builds: **Standard** and **PGO** (profile-guided optimization). This project is experimental and is not affiliated with the original game's creators. **Game files, DLC, and title updates are not provided.** You must supply your own legally obtained copies.
 
+> **Based on [htrecomp](https://github.com/visibou/htrecomp) by visibou.** HydroThunderPORT started from htrecomp 1.0 (the app, launcher/overlay foundations and recompilation setup) and builds on it with the work described below.
+
 [**Download the latest release**](https://github.com/monscriser/HydroThunderPORT/releases) · [**Official project website**](https://monscriser.github.io/HydroThunderPORT/) · [**Report an issue**](https://github.com/monscriser/HydroThunderPORT/issues)
 
 ## Hydro Thunder Hurricane on PC: Quick Overview
@@ -136,6 +138,8 @@ Please open an [issue](https://github.com/monscriser/HydroThunderPORT/issues) an
 **Do not upload copyrighted game files, DLC, updates or personal save data in public issues.**
 
 ## Credits and Legal Notice
+
+Special thanks to **visibou** and the **[htrecomp](https://github.com/visibou/htrecomp)** project, the Hydro Thunder Hurricane recompilation this port is based on.
 
 Thanks to contributors to ReXGlue, Xenia, Dear ImGui, FidelityFX, lsfg-vk and the wider graphics/emulation community. Steam artwork belongs to its respective SteamGridDB contributors, including Monscriser.
 
