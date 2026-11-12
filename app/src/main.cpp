@@ -10,6 +10,7 @@
 #include "ht_fps_overlay.h"
 #include "ht_settings_overlay.h"
 #include "ht_owned_content_labels.h"
+#include "ht_diag.h"
 
 #include <atomic>
 #include <cmath>
@@ -316,11 +317,19 @@ class HtPureApp : public HtBaseApp {
     // Needed to turn a faulting RIP back into a guest function via the PDB.
     REXLOG_DEBUG("[ht] host image base = {}", fmt::ptr(::GetModuleHandleW(nullptr)));
 #endif
+#if defined(HT_DIAG_BUILD) && HT_DIAG_BUILD
+    // Diagnostic build: the 2 s GPU/CPU reports are the per-track data source.
+    // Set before the GPU starts (PerfInitialize reads it once).
+    ht::diag::ConfigureCvars();
+#endif
     HtBaseApp::OnPreSetup(config);
   }
 
   void OnPostLaunchModule(rex::system::XThread* thread) override {
     HtBaseApp::OnPostLaunchModule(thread);
+#if defined(HT_DIAG_BUILD) && HT_DIAG_BUILD
+    ht::diag::Telemetry::Get().Start();
+#endif
 
     // The release window title.
     //

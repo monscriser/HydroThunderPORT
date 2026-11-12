@@ -157,6 +157,12 @@ endif()
 
 target_link_libraries(hydrothunder PRIVATE rex::runtime)
 target_compile_definitions(hydrothunder PRIVATE HT_STARTUP_TRACE=$<BOOL:${HT_STARTUP_TRACE}>)
+# Diagnostic build: per-track telemetry (app/src/ht_diag.h). Needs the SDK hooks of
+# tools/wsl/diag/patch_diag_hooks.py. Never ON for a release.
+option(HT_DIAG "Per-track performance telemetry build" OFF)
+if(HT_DIAG)
+    target_compile_definitions(hydrothunder PRIVATE HT_DIAG_BUILD=1)
+endif()
 # rexglue SDK provides a helper to apply standard config to the host target
 if(COMMAND rexglue_configure_target)
     rexglue_configure_target(hydrothunder GPU_PLUGINS xenos)

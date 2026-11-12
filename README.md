@@ -4,7 +4,7 @@
 
 Play Hydro Thunder Hurricane on PC with a configuration launcher, controller and keyboard support, graphics scaling options, persistent shader caches, and support for your own legally obtained game files. The Windows version uses a native executable; the Linux version is distributed as an AppImage.
 
-> **Current release: BETA 1.1 (1.1.0)**, available in two builds: **Standard** and **PGO** (profile-guided optimization). This project is experimental and is not affiliated with the original game's creators. **Game files, DLC, and title updates are not provided.** You must supply your own legally obtained copies.
+> **Current release: BETA 1.2 (1.2.0)**, **PGO** build (profile-guided optimization) for Windows and Linux. This project is experimental and is not affiliated with the original game's creators. **Game files, DLC, and title updates are not provided.** You must supply your own legally obtained copies.
 
 > **Based on [htrecomp](https://github.com/visibou/htrecomp) by visibou.** HydroThunderPORT started from htrecomp 1.0 (the app, launcher/overlay foundations and recompilation setup) and builds on it with the work described below.
 
@@ -23,7 +23,17 @@ Play Hydro Thunder Hurricane on PC with a configuration launcher, controller and
 | Handheld targets | ROG Ally, CachyOS and Steam Deck; validation is ongoing |
 | Original game content | Required; not included in the download |
 
-## Release Highlights — BETA 1.1 (1.1.0)
+## Release Highlights — BETA 1.2 (1.2.0)
+
+Tuned from **per-track telemetry**: all 11 tracks (8 base + 3 DLC) were raced on a ROG Ally at 20 W with a diagnostic build that recorded every frame, CPU per thread and per function, traced GPU frames, memory, clocks and power.
+
+- **Less driver work per draw:** texture descriptor sets are reused within a frame (~96% of them). On the Ally this step cost 3.17 ms per frame on the thread that limits the heavy tracks (Area 51, Tsunami Cup, City). Exact by construction; verified with 0 differences.
+- **Linux: the audio thread no longer spins** — it used 77% of a CPU core while waiting (a sleep rounded down to 0 ms). Now ~1%.
+- **Fixed the "Capturing Vulkan / F12 or Print Screen" overlay on Steam Deck/SteamOS** (the engine was loading the system's RenderDoc by itself).
+- **New launcher:** side menu with icons, *What's new* page, text that scales with the window, keyboard/controller navigation.
+- Only the **PGO** build is published from now on. The FPS gain on the Ally is estimated from the telemetry and still needs to be measured with 1.2.0.
+
+## Previous Highlights — BETA 1.1 (1.1.0)
 
 - **Save editor** in the launcher (*Saves and logs → Save editor*): set the names of **players 1–4** (shown in game where a gamertag would be) and the **credits** of a save (credits unlock tracks and boats). The save is backed up first, and the editor recomputes the checksum the game uses to accept a save.
 - **Players 3 and 4** now have their own profiles (before, only players 1 and 2), each with a separate save.
@@ -96,7 +106,7 @@ Lossless Scaling is **not bundled**. On Linux, the Steam application alone is in
 
 ### Windows
 
-1. Download and extract the Windows package from [Releases](https://github.com/monscriser/HydroThunderPORT/releases). Pick **PGO** (recommended) or **Standard**; both have the same features.
+1. Download and extract the Windows package from [Releases](https://github.com/monscriser/HydroThunderPORT/releases) (`Hydro-Thunder-1.2.0-BETA-Windows-PGO.zip`).
 2. Launch `Launcher-Config.exe`.
 3. Select your own Game, DLC and update files.
 4. Configure the video and input settings, then click **Play**.
@@ -124,7 +134,7 @@ Actual performance depends on hardware, drivers, settings, track and shader-cach
 
 ## Known Limitations
 
-- BETA 1.1 is a **BETA**, not a fully validated stable release. Split screen with 3–4 real controllers has not been played yet (the four profiles exist and were checked). Close the game before changing credits in the save editor. The PGO gain was measured on Windows; on Linux the PGO profile was verified but its FPS gain still needs measuring on real hardware (ROG Ally / Steam Deck).
+- BETA 1.2 is a **BETA**, not a fully validated stable release. Its handheld FPS gain is estimated from 1.1.0 telemetry and has not been re-measured on ROG Ally / Steam Deck yet. Split screen with 3–4 real controllers has not been played yet (the four profiles exist and were checked). Close the game before changing credits in the save editor.
 - ROG Ally testing is informal; broader Linux, CachyOS, Steam Deck and handheld testing is still needed.
 - Lossless Scaling frame generation needs further end-to-end validation; the in-game overlay does not independently verify generated frames.
 - Linux generated-frame counters depend on external overlays and Vulkan-layer ordering.
