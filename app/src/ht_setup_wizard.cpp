@@ -283,6 +283,7 @@ const char* NT(const news::Text& t){return TR(t.pt,t.en,t.es);}
 // "1.1.0-beta-pgo" -> "BETA 1.1.0" for the sidebar badge (the full stamp shows on hover).
 std::string ShortVersion(){
   const std::string stamp=HT_BUILD_STAMP;
+  if(stamp.rfind("final-build",0)==0)return "FINAL BUILD";  // the last release of the project
   const auto dash=stamp.find('-');
   const std::string version=stamp.substr(0,dash),rest=dash==std::string::npos?std::string():stamp.substr(dash+1);
   std::string label=rest.find("beta")!=std::string::npos?"BETA "+version:version;
@@ -335,6 +336,8 @@ class SetupWizard final : public rex::ui::ImGuiDialog {
     lossless_options_=lossless::Load();
     lossless_detected_=lossless::Detect();
     show_fps_=rex::cvar::GetFlagByName("ht_show_fps")=="true";
+    precompile_=rex::cvar::GetFlagByName("ht_shader_precompile")!="false";
+    write_logs_=rex::cvar::GetFlagByName("ht_write_logs")=="true";  // off by default (FINAL BUILD)
     {const auto effect=rex::cvar::GetFlagByName("present_effect");
      upscaler_=effect=="fsr3" ? 2 : effect=="fsr" ? 1 : 0;}
     sharpness_=std::atoi(rex::cvar::GetFlagByName("ht_sharpness").c_str());
@@ -418,7 +421,7 @@ class SetupWizard final : public rex::ui::ImGuiDialog {
       // Save every change immediately, so starting the game directly (Steam
       // shortcut, desktop shortcut, AppImage) uses what was chosen here even
       // if "Jogar" is never pressed.
-      const auto snapshot=std::make_tuple(async_,show_fps_,upscaler_,show_on_start_,mode_,language_,
+      const auto snapshot=std::make_tuple(async_,show_fps_,precompile_,write_logs_,upscaler_,show_on_start_,mode_,language_,
                                           resolution_,fps_,performance_,render_quality_,sharpness_,fxaa_,ui_lang_,aniso_,player_names_);
       if(!snapshot_valid_){last_saved_=snapshot;snapshot_valid_=true;}
       else if(snapshot!=last_saved_){SaveAll();last_saved_=snapshot;}
@@ -850,6 +853,10 @@ class SetupWizard final : public rex::ui::ImGuiDialog {
                "Los idiomas que el juego no tiene usan su idioma predeterminado. El idioma del configurador está arriba a la derecha."));
       ImGui::Checkbox(TR("Mostrar contador de FPS (F6)###fps","Show FPS counter (F6)###fps","Mostrar contador de FPS (F6)###fps"),&show_fps_);
       ImGui::Checkbox(TR("Compilar shaders em segundo plano###async","Compile shaders in the background###async","Compilar shaders en segundo plano###async"),&async_);
+      ImGui::Checkbox(TR("Pré-compilar os shaders de todas as pistas (recomendado)###precompile","Pre-compile the shaders of every track (recommended)###precompile","Precompilar los shaders de todas las pistas (recomendado)###precompile"),&precompile_);
+      if(ImGui::IsItemHovered())ImGui::SetTooltip("%s",TR("Ligado: antes do menu, o jogo compila os shaders de todas as 11 pistas para a SUA placa de vídeo (com barra de progresso).\nA primeira vez demora alguns segundos; depois fica guardado e as corridas não engasgam.\nDesligado: abre mais rápido, mas cada shader novo é compilado durante a corrida (pequenas travadas).",
+        "On: before the menu, the game compiles the shaders of all 11 tracks for YOUR graphics card (with a progress bar).\nThe first time takes a few seconds; after that it is cached and races do not stutter.\nOff: opens faster, but each new shader is compiled during the race (small hitches).",
+        "Activado: antes del menú, el juego compila los shaders de las 11 pistas para TU tarjeta gráfica (con barra de progreso).\nLa primera vez tarda unos segundos; después queda guardado y las carreras no dan tirones.\nDesactivado: abre más rápido, pero cada shader nuevo se compila durante la carrera (pequeños tirones)."));
 #if defined(_WIN32)
       ImGui::Checkbox(TR("Abrir o configurador ao iniciar###show_on_start","Open the launcher on start###show_on_start","Abrir el configurador al iniciar###show_on_start"),&show_on_start_);
 #else
@@ -970,6 +977,10 @@ class SetupWizard final : public rex::ui::ImGuiDialog {
     },[&](float h){
       BeginCard("LogsCard",ImVec2(0,h),ImGuiWindowFlags_NoScrollbar);
       CardTitle(TR("Registros e cache","Logs and cache","Registros y caché"),TR("Para investigar um problema ou recompilar os shaders.","To investigate a problem or rebuild the shaders.","Para investigar un problema o recompilar los shaders."));
+      ImGui::Checkbox(TR("Gravar registros (logs)###write_logs","Write log files###write_logs","Guardar registros (logs)###write_logs"),&write_logs_);
+      if(ImGui::IsItemHovered())ImGui::SetTooltip("%s",TR("Os registros ajudam a investigar problemas. Desligado, o jogo não grava arquivos de log (vale na próxima abertura).",
+        "Logs help investigate problems. When off, the game writes no log files (applies the next time it starts).",
+        "Los registros ayudan a investigar problemas. Desactivado, el juego no guarda archivos de log (se aplica la próxima vez que abra)."));
       ButtonFlow flow;
       if(flow.Button(TR("Abrir registros###logs","Open logs###logs","Abrir registros###logs"),false))OpenFolder(SettingsDirectory()/"logs");
       ImGui::BeginDisabled(state_->busy);
@@ -1231,6 +1242,8 @@ class SetupWizard final : public rex::ui::ImGuiDialog {
     rex::cvar::SetFlagByName("async_shader_compilation",async_ ? "true" : "false");
     SaveBool("async_shader_compilation",async_);
     SaveBool("ht_show_fps",show_fps_);
+    SaveBool("ht_shader_precompile",precompile_);
+    SaveBool("ht_write_logs",write_logs_);
     SaveValue("present_effect",upscaler_==2 ? "\"fsr3\"" : upscaler_==1 ? "\"fsr\"" : "\"bilinear\"");
     const Sharpness sharp=SharpnessFor(sharpness_);
     SaveValue("ht_sharpness",std::to_string(sharpness_));
@@ -1338,7 +1351,7 @@ class SetupWizard final : public rex::ui::ImGuiDialog {
     if(StyledButton(TR("Restaurar padrão###keys_default","Restore defaults###keys_default","Restaurar valores###keys_default"),ImVec2(0,S(32)),false)&&capture_.action<0){binds_=keys::Defaults();SaveAll();}
   }
  private:
-  std::tuple<bool,bool,int,bool,int,int,int,int,bool,int,int,bool,int,int,std::array<std::string,4>> last_saved_{};
+  std::tuple<bool,bool,bool,bool,int,bool,int,int,int,int,bool,int,int,bool,int,int,std::array<std::string,4>> last_saved_{};
   bool snapshot_valid_=false;
   bool manage_install_=false,art_attempted_=false,open_user_data_modal_=false,pending_default_=false;
   int tab_=0,select_tab_=-1;
@@ -1366,6 +1379,8 @@ class SetupWizard final : public rex::ui::ImGuiDialog {
   int fps_=0,mode_=1,resolution_=0,render_quality_=1,sharpness_=7,ui_lang_=0;
   bool fxaa_=false;
   bool show_fps_=false;
+  bool precompile_=true;
+  bool write_logs_=false;
   keys::Binds binds_=keys::Load();
   keys::Capture capture_;
   bool nav_saved_=false,nav_was_on_=false;

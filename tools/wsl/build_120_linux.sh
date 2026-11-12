@@ -14,10 +14,14 @@ cp "$BK/src/filesystem/virtual_file_system.cpp" src/filesystem/virtual_file_syst
 cp "$BK/src/graphics/vulkan/command_processor.cpp" src/graphics/vulkan/command_processor.cpp
 cp "$BK/include/rex/graphics/vulkan/command_processor.h" include/rex/graphics/vulkan/command_processor.h
 cp "$BKW/threading_posix.cpp" src/core/threading_posix.cpp
+[ -f "$BK/src/ui/rex_app.cpp" ] || (cd /root/ht/sdk; cp --parents src/ui/rex_app.cpp src/graphics/vulkan/pipeline_cache.cpp "$BK/")
+cp "$BK/src/ui/rex_app.cpp" src/ui/rex_app.cpp
+cp "$BK/src/graphics/vulkan/pipeline_cache.cpp" src/graphics/vulkan/pipeline_cache.cpp
 rm -f include/rex/ht_diag_hooks.h
 python3 -I "$SRC/tools/wsl/patch_renderdoc_noload.py" /root/ht/sdk
 python3 -I "$SRC/tools/wsl/patch_waitmultiple_sleep.py" /root/ht/sdk
 python3 -I "$SRC/tools/wsl/patch_texture_set_cache.py" /root/ht/sdk
+python3 -I "$SRC/tools/wsl/patch_shader_precompile_logs.py" /root/ht/sdk
 ! grep -rq "ht_diag hooks\|ht_wm::\|ht_tq_pool_" src include
 # Launcher files come from the launcher work only when LAUNCHER=1 (they are mirrored by it).
 for f in "$SRC"/app/src/*.cpp "$SRC"/app/src/*.h; do

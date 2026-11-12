@@ -8,6 +8,8 @@
 #include "ht_boot_test.h"
 
 #include "ht_fps_overlay.h"
+#include "ht_shader_progress.h"
+#include "ht_shader_seed.h"
 #include "ht_settings_overlay.h"
 #include "ht_owned_content_labels.h"
 #include "ht_diag.h"
@@ -325,6 +327,23 @@ class HtPureApp : public HtBaseApp {
     HtBaseApp::OnPreSetup(config);
   }
 
+  // Shader pre-compilation for all tracks: merge the shipped shader LIST into the player's storage
+  // right before the SDK loads it; the game then compiles everything for this GPU (progress screen).
+  void OnPreLaunchModule() override {
+    HtBaseApp::OnPreLaunchModule();
+    if (rex::cvar::GetFlagByName("ht_shader_precompile") == "false" || !runtime() ||
+        runtime()->cache_root().empty()) {
+      return;
+    }
+    try {
+      const auto r = ht::shaderseed::Merge(rex::filesystem::GetExecutableFolder(), runtime()->cache_root());
+      REXLOG_WARN("[ht-shaders] shader list: found={} added shaders={} pipelines={} format_mismatch={}",
+                  r.seed_found, r.shaders, r.pipelines, r.format_mismatch);
+    } catch (const std::exception& e) {
+      REXLOG_WARN("[ht-shaders] shader list merge failed: {}", e.what());
+    }
+  }
+
   void OnPostLaunchModule(rex::system::XThread* thread) override {
     HtBaseApp::OnPostLaunchModule(thread);
 #if defined(HT_DIAG_BUILD) && HT_DIAG_BUILD
@@ -565,12 +584,16 @@ class HtPureApp : public HtBaseApp {
       toggle_fps(true);
     }
 
+    // "Preparando shaders… N de M" while the cached pipelines are created before the game starts.
+    ht_shader_progress_ = std::make_unique<HtShaderProgress>(drawer);
+
     HtBaseApp::OnCreateDialogs(drawer);
   }
 
  private:
   std::filesystem::path config_path_;
   std::filesystem::path user_data_root_;
+  std::unique_ptr<HtShaderProgress> ht_shader_progress_;
   std::unique_ptr<HtSettingsDialog> ht_settings_;
   std::unique_ptr<HtFpsOverlay> ht_fps_;
 };

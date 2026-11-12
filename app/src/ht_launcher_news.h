@@ -19,7 +19,20 @@ struct Entry {
   std::size_t count;
 };
 
-// ---- Next version (placeholder: final wording still to be decided) ----
+// ---- FINAL BUILD ----
+inline constexpr Text kFinalItems[] = {
+  {"Versão final do projeto. Obrigado a todos pelo carinho e pelo apoio!",
+   "The project's final release. Thank you all for the love and support!",
+   "Versión final del proyecto. ¡Gracias a todos por el cariño y el apoyo!"},
+  {"Pré-compilação dos shaders de todas as 11 pistas para a sua placa de vídeo, antes do menu, com barra de progresso: as corridas não engasgam mais compilando shaders.",
+   "Shaders of all 11 tracks are pre-compiled for your graphics card before the menu, with a progress bar: races no longer hitch while compiling shaders.",
+   "Precompilación de los shaders de las 11 pistas para tu tarjeta gráfica antes del menú, con barra de progreso: las carreras ya no dan tirones compilando shaders."},
+  {"Opção para gravar ou não os registros (logs), em Saves e registros.",
+   "Option to write log files or not, in Saves and logs.",
+   "Opción para guardar o no los registros (logs), en Partidas y registros."},
+};
+
+// ---- 1.2.0 BETA ----
 inline constexpr Text kNextItems[] = {
   {"Novo launcher: menu lateral com ícones, textos que se ajustam ao tamanho da janela (pequena, tela cheia, Steam Deck e ROG Ally) e esta página de novidades.",
    "New launcher: side menu with icons, text that adapts to the window size (small window, fullscreen, Steam Deck and ROG Ally) and this What's new page.",
@@ -62,6 +75,8 @@ inline constexpr Text k100Items[] = {
 };
 
 inline constexpr Entry kNews[] = {
+  {{"FINAL BUILD", "FINAL BUILD", "FINAL BUILD"}, {"12/11/2026", "2026-11-12", "12/11/2026"},
+   kFinalItems, std::size(kFinalItems)},
   {{"1.2.0 BETA", "1.2.0 BETA", "1.2.0 BETA"}, {"11/11/2026", "2026-11-11", "11/11/2026"},
    kNextItems, std::size(kNextItems)},
   {{"1.1.0 BETA", "1.1.0 BETA", "1.1.0 BETA"}, {"05/11/2026", "2026-11-05", "05/11/2026"},

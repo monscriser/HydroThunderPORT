@@ -184,7 +184,8 @@ class HtBaseApp : public rex::ReXApp {
 #endif
 
     const auto logs=test_mode ? exe_dir : ht::SettingsDirectory()/"logs";
-    try {
+    // Launcher option "Gravar registros" (ht_write_logs): no rex_log.txt either.
+    if (rex::cvar::GetFlagByName("ht_write_logs") == "true") try {
       std::filesystem::create_directories(logs);
       auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(rex::path_to_utf8(logs/"rex_log.txt"), true);
       file_sink->set_pattern("[%l] [%n] %v");

@@ -4,7 +4,9 @@
 
 Play Hydro Thunder Hurricane on PC with a configuration launcher, controller and keyboard support, graphics scaling options, persistent shader caches, and support for your own legally obtained game files. The Windows version uses a native executable; the Linux version is distributed as an AppImage.
 
-> **Current release: BETA 1.2 (1.2.0)**, **PGO** build (profile-guided optimization) for Windows and Linux. This project is experimental and is not affiliated with the original game's creators. **Game files, DLC, and title updates are not provided.** You must supply your own legally obtained copies.
+> **Current release: FINAL BUILD** — the project's last release, **PGO** build for Windows and Linux. **Development has ended.** Thank you all, from the bottom of my heart, for the love and support! 💙
+
+> This project is experimental and is not affiliated with the original game's creators. **Game files, DLC, and title updates are not provided.** You must supply your own legally obtained copies.
 
 > **Based on [htrecomp](https://github.com/visibou/htrecomp) by visibou.** HydroThunderPORT started from htrecomp 1.0 (the app, launcher/overlay foundations and recompilation setup) and builds on it with the work described below.
 
@@ -23,7 +25,16 @@ Play Hydro Thunder Hurricane on PC with a configuration launcher, controller and
 | Handheld targets | ROG Ally, CachyOS and Steam Deck; validation is ongoing |
 | Original game content | Required; not included in the download |
 
-## Release Highlights — BETA 1.2 (1.2.0)
+## Release Highlights — FINAL BUILD
+
+**This is the final release of HydroThunderPORT; the project will not receive further updates.** Thank you to everyone who downloaded, tested, reported and cheered it on.
+
+- **Tested on the ROG Ally across all 11 tracks:** on Area 51, the heaviest track, the lowest FPS went from **55** to **never below 70** (+27%), with a similar gain on every other track.
+- **Shaders of every track pre-compiled for your own GPU before the menu**, with a progress bar. The package carries only the list of shaders/pipelines the game uses (1,444 pipelines, 586 shaders); each PC compiles them with its own driver. No more hitches while shaders compile, even the first time on a track. The first start takes a few seconds; after that it is cached.
+- **Log files are off by default** (*Saves and logs → Write log files*).
+- Includes everything from 1.2.0 below.
+
+## Previous Highlights — BETA 1.2 (1.2.0)
 
 Tuned from **per-track telemetry**: all 11 tracks (8 base + 3 DLC) were raced on a ROG Ally at 20 W with a diagnostic build that recorded every frame, CPU per thread and per function, traced GPU frames, memory, clocks and power.
 
@@ -106,7 +117,7 @@ Lossless Scaling is **not bundled**. On Linux, the Steam application alone is in
 
 ### Windows
 
-1. Download and extract the Windows package from [Releases](https://github.com/monscriser/HydroThunderPORT/releases) (`Hydro-Thunder-1.2.0-BETA-Windows-PGO.zip`).
+1. Download and extract the Windows package from [Releases](https://github.com/monscriser/HydroThunderPORT/releases) (`Hydro-Thunder-FINAL-BUILD-Windows-PGO.zip`).
 2. Launch `Launcher-Config.exe`.
 3. Select your own Game, DLC and update files.
 4. Configure the video and input settings, then click **Play**.
@@ -134,7 +145,7 @@ Actual performance depends on hardware, drivers, settings, track and shader-cach
 
 ## Known Limitations
 
-- BETA 1.2 is a **BETA**, not a fully validated stable release. Its handheld FPS gain is estimated from 1.1.0 telemetry and has not been re-measured on ROG Ally / Steam Deck yet. Split screen with 3–4 real controllers has not been played yet (the four profiles exist and were checked). Close the game before changing credits in the save editor.
+- The FINAL BUILD is the last release and will not receive fixes. Split screen with 3–4 real controllers has not been played yet (the four profiles exist and were checked). Close the game before changing credits in the save editor.
 - ROG Ally testing is informal; broader Linux, CachyOS, Steam Deck and handheld testing is still needed.
 - Lossless Scaling frame generation needs further end-to-end validation; the in-game overlay does not independently verify generated frames.
 - Linux generated-frame counters depend on external overlays and Vulkan-layer ordering.

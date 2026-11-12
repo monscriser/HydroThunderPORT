@@ -17,11 +17,11 @@
 // Per-track telemetry build (CMake HT_DIAG=ON, app/src/ht_diag.h), PGO code.
 #define HT_BUILD_STAMP "1.1.0-beta-diag"
 #elif defined(HT_PGO_USE_BUILD) && HT_PGO_USE_BUILD
-// 1.2.0 BETA (11/11/2026): PGO only (Ian: no more Standard builds). Optimizations from the
-// ROG Ally per-track telemetry: WaitMultiple spin fix, texture descriptor set cache, RenderDoc fix.
-#define HT_BUILD_STAMP "1.2.0-beta-pgo"
+// FINAL BUILD (12/11/2026, the project's last release; 1.2.0 BETA: 11/11/2026): PGO only.
+// 1.2.0 optimizations + shader pre-compilation of every track, progress screen, log option.
+#define HT_BUILD_STAMP "final-build-pgo"
 #else
-#define HT_BUILD_STAMP "1.2.0-beta-standard"
+#define HT_BUILD_STAMP "final-build-standard"
 #endif
 
 // The name shown on the window. Set explicitly in main.cpp rather than by
