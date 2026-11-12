@@ -150,13 +150,13 @@ Actual performance depends on hardware, drivers, settings, track and shader-cach
 - Lossless Scaling frame generation needs further end-to-end validation; the in-game overlay does not independently verify generated frames.
 - Linux generated-frame counters depend on external overlays and Vulkan-layer ordering.
 - Above-refresh-rate presentation and unlimited FPS may cause uneven pacing, tearing or regressions; unlimited mode has not undergone exhaustive physics/audio checks.
-- Shader compilation can still stutter; graphics issues may remain, including colored gate lights appearing through scenery.
+- Shaders are pre-compiled before the menu for every known track; a shader that is not in the list can still hitch once. Graphics issues may remain, including colored gate lights appearing through scenery.
 - Steam shortcut export needs testing across real Steam installations; some errors remain Portuguese-only.
 - FSR 3.1 does not have the complete temporal data needed for full reconstruction quality.
 
 ## Building from Source
 
-The repository does not ship the recompiled game code (`app/generated-updated/`). Building from source requires generating that code from your **own** game copy. Build scripts are under [`tools/`](tools/) and [`tools/wsl/`](tools/wsl/). PGO builds use CMake `-DHT_PGO=USE -DHT_PGO_PROFILE=<file>` with the profiles in [`pgo/`](pgo/) (`build_pgo.sh`, `build_pgo_linux.sh`; Linux needs the profile runtime built by `build_profile_runtime.sh`); development notes are in [`AGENTS.md`](AGENTS.md) and [`CLAUDE.md`](CLAUDE.md).
+The repository does not ship the recompiled game code (`app/generated-updated/`). Building from source requires generating that code from your **own** game copy. Build scripts are under [`tools/`](tools/) and [`tools/wsl/`](tools/wsl/). PGO builds use CMake `-DHT_PGO=USE -DHT_PGO_PROFILE=<file>` with the profiles in [`pgo/`](pgo/) (`build_pgo.sh`, `build_pgo_linux.sh`; Linux needs the profile runtime built by `build_profile_runtime.sh`). Release notes of the final version: [`NOTAS-FINAL-BUILD.md`](NOTAS-FINAL-BUILD.md); notes of every release are on the [Releases page](https://github.com/monscriser/HydroThunderPORT/releases).
 
 The project uses ReXGlue for static recompilation/runtime support, Xenia-derived compatibility components, Vulkan for rendering, and Dear ImGui for configuration and overlays. Third-party software retains its own licenses; see [`licenses/`](licenses/).
 
