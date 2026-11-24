@@ -1,92 +1,83 @@
 # Hydro Thunder Hurricane PC Port — Windows & Linux | HydroThunderPORT
 
-**HydroThunderPORT** is an experimental, unofficial **Hydro Thunder Hurricane native PC port for Windows and Linux**, built using **static recompilation with ReXGlue**, a **Vulkan graphics backend**, and Xbox 360 compatibility work informed by **Xenia**.
+**English** · [Português (Brasil)](README.pt-BR.md) · [Español](README.es.md)
 
-Play Hydro Thunder Hurricane on PC with a configuration launcher, controller and keyboard support, graphics scaling options, persistent shader caches, and support for your own legally obtained game files. The Windows version uses a native executable; the Linux version is distributed as an AppImage.
+[Download](https://github.com/monscriser/HydroThunderPORT/releases) · [Project website](https://monscriser.github.io/HydroThunderPORT/) · [Issues](https://github.com/monscriser/HydroThunderPORT/issues)
 
-> **Current release: FINAL BUILD** — the project's last release, **PGO** build for Windows and Linux. **Development has ended.** Thank you all, from the bottom of my heart, for the love and support! 💙
+## Project status — FINAL BUILD and the future of HydroThunderPORT
 
-> This project is experimental and is not affiliated with the original game's creators. **Game files, DLC, and title updates are not provided.** You must supply your own legally obtained copies.
+> [!IMPORTANT]
+> The current **FINAL BUILD** is the final release of the 1.x generation, based on the current static recompilation and Xbox 360 graphics compatibility architecture. It remains the recommended stable release for Windows and Linux. **This is the end of the current technical cycle, not the end of HydroThunderPORT.**
 
-> **Based on [htrecomp](https://github.com/visibou/htrecomp) by visibou.** HydroThunderPORT started from htrecomp 1.0 (the app, launcher/overlay foundations and recompilation setup) and builds on it with the work described below.
+The next major generation, **HydroThunderPORT 2.0**, is planned around a new native Vulkan renderer. Unlike the current Vulkan backend, the proposed architecture will translate higher-level game graphics operations directly into Vulkan wherever feasible, reducing reliance on the legacy Xenos GPU compatibility path. Static CPU recompilation will remain part of the approach.
 
-[**Download the latest release**](https://github.com/monscriser/HydroThunderPORT/releases) · [**Official project website**](https://monscriser.github.io/HydroThunderPORT/) · [**Report an issue**](https://github.com/monscriser/HydroThunderPORT/issues)
+The goal is to improve graphics scalability, efficiency and performance while preserving the original game's visual effects, boat physics and gameplay. These are development goals, not features or performance results available today.
 
-## Hydro Thunder Hurricane on PC: Quick Overview
+Work on 2.0 is planned after the completion and validation of the current [UFC3MONS](https://github.com/monscriser/UFC3MONS) development cycle. **There is no release date or ETA.** No further routine 1.x releases are planned. The FINAL BUILD will remain available as the stable reference while the new architecture is developed and tested.
 
-| Feature | Status / details |
+Thank you to everyone who has played, tested, reported issues and supported this project. Your feedback helped make this release possible.
+
+## About the port
+
+HydroThunderPORT is an unofficial, experimental PC port of Hydro Thunder Hurricane for Windows and Linux. It uses ReXGlue for static recompilation and a Vulkan backend with Xbox 360 compatibility components informed by Xenia. It builds on [htrecomp](https://github.com/visibou/htrecomp) 1.0 by visibou, including its application, launcher/overlay and recompilation foundations.
+
+**Original game files, DLC and title updates are not included.** Use your own legally obtained copies.
+
+| Feature | Current FINAL BUILD |
 | --- | --- |
-| Windows PC port | Native executable and configuration launcher |
-| Linux PC port | AppImage with integrated configuration launcher |
-| Graphics API | Vulkan |
-| Input | Game controller and remappable keyboard controls; 4 local player profiles with custom names |
-| Graphics options | FSR 1, experimental FSR 3.1, FXAA, anisotropic filtering up to 16x, resolution and display settings |
-| Performance options | Shader/pipeline caches and configurable FPS limits |
-| Handheld targets | ROG Ally, CachyOS and Steam Deck; validation is ongoing |
-| Original game content | Required; not included in the download |
+| Windows | Native executable and configuration launcher |
+| Linux | AppImage with launcher |
+| Graphics | Vulkan (current legacy architecture) |
+| Input | Controllers, remappable keyboard, four named local player profiles |
+| Image options | FSR 1, experimental FSR 3.1, FXAA, up to 16x anisotropic filtering, resolution and display controls |
+| Performance | Persistent shader/pipeline caches and FPS limits |
+| Handhelds | ROG Ally tested; broader CachyOS/Steam Deck validation remains limited |
 
-## Release Highlights — FINAL BUILD
+## Release highlights
 
-**This is the final release of HydroThunderPORT; the project will not receive further updates.** Thank you to everyone who downloaded, tested, reported and cheered it on.
+### FINAL BUILD (PGO)
 
-- **Tested on the ROG Ally across all 11 tracks:** on Area 51, the heaviest track, the lowest FPS went from **55** to **never below 70** (+27%), with a similar gain on every other track.
-- **Shaders of every track pre-compiled for your own GPU before the menu**, with a progress bar. The package carries only the list of shaders/pipelines the game uses (1,444 pipelines, 586 shaders); each PC compiles them with its own driver. No more hitches while shaders compile, even the first time on a track. The first start takes a few seconds; after that it is cached.
-- **Log files are off by default** (*Saves and logs → Write log files*).
-- Includes everything from 1.2.0 below.
+- ROG Ally testing covered all 11 tracks. On Area 51, the reported minimum improved from 55 to 70 FPS or higher (about 27%); similar improvements were reported on the other tracks. Results depend on the test conditions and hardware.
+- Before the main menu, the game prepares its known track shaders for the local GPU and driver, with progress shown on screen. The manifest covers 1,444 pipelines and 586 shaders. Subsequent launches reuse the cache; an unlisted shader may still cause a first-use hitch.
+- Logs are disabled by default; enable them in Saves and logs → Write log files.
+- Includes the improvements from 1.2.0. The final release is distributed with PGO for both platforms.
 
-## Previous Highlights — BETA 1.2 (1.2.0)
+### BETA 1.2 (1.2.0)
 
-Tuned from **per-track telemetry**: all 11 tracks (8 base + 3 DLC) were raced on a ROG Ally at 20 W with a diagnostic build that recorded every frame, CPU per thread and per function, traced GPU frames, memory, clocks and power.
+- Telemetry gathered on a ROG Ally at 20 W across 8 base tracks and 3 DLC tracks included frame data, CPU threads/functions, GPU traces, memory, clocks and power.
+- Texture descriptor sets are reused within a frame (approximately 96%). The measured step previously cost 3.17 ms per frame on the limiting thread in demanding tracks such as Area 51, Tsunami Cup and City; exactness verification reported zero differences.
+- Linux audio waiting no longer busy-spins: CPU usage of the affected thread fell from 77% of a core to roughly 1% after correcting a sleep rounded to zero milliseconds.
+- Fixed unintended RenderDoc loading and its capture overlay on Steam Deck/SteamOS.
+- Launcher gained icon navigation, a What's new page, adaptive text sizing and controller/keyboard navigation. From this release onward only PGO packages are published. The 1.2.0 FPS estimate was based on telemetry, not a measured release benchmark at that time.
 
-- **Less driver work per draw:** texture descriptor sets are reused within a frame (~96% of them). On the Ally this step cost 3.17 ms per frame on the thread that limits the heavy tracks (Area 51, Tsunami Cup, City). Exact by construction; verified with 0 differences.
-- **Linux: the audio thread no longer spins** — it used 77% of a CPU core while waiting (a sleep rounded down to 0 ms). Now ~1%.
-- **Fixed the "Capturing Vulkan / F12 or Print Screen" overlay on Steam Deck/SteamOS** (the engine was loading the system's RenderDoc by itself).
-- **New launcher:** side menu with icons, *What's new* page, text that scales with the window, keyboard/controller navigation.
-- Only the **PGO** build is published from now on. The FPS gain on the Ally is estimated from the telemetry and still needs to be measured with 1.2.0.
+### BETA 1.1 (1.1.0)
 
-## Previous Highlights — BETA 1.1 (1.1.0)
+- Save editor for player names 1–4 and credits, with backups and checksum recalculation. Players 3 and 4 gained separate saves.
+- Anisotropic filtering choices: game default, 2x, 4x, 8x and 16x (default 16x); no GPU cost was measured in the reported test.
+- Exact GPU/CPU verification reported zero differences with the release libraries on Windows and Linux.
 
-- **Save editor** in the launcher (*Saves and logs → Save editor*): set the names of **players 1–4** (shown in game where a gamertag would be) and the **credits** of a save (credits unlock tracks and boats). The save is backed up first, and the editor recomputes the checksum the game uses to accept a save.
-- **Players 3 and 4** now have their own profiles (before, only players 1 and 2), each with a separate save.
-- **Anisotropic filtering up to 16x** (*Video → Image*): Game default, 2x, 4x, 8x or 16x. The default is now 16x; measured at no GPU cost.
-- All exact GPU/CPU verifiers re-run with this release's libraries on Windows and Linux: 0 differences.
+### BETA 1.0 (1.0.0)
 
-## Previous Highlights — 1.0.0 BETA
+- Standard and PGO builds had equivalent features. Uncapped Windows tests reported PGO gains of 3.5% on Asgard Invasion and 9% on a canyon track outside the initial training profile. Linux uses its own recorded profile.
+- Launcher based on the UFC3MONS layout: language selector, Home, Video, Controls, Saves and logs, Frame generation, Add to Steam and Play.
+- Configurable `user_data` location, copying existing data and retaining the old directory as backup; selection persists across updates. Xenia import locates `ht2save.dat` and backs up the current save.
+- Corrected oversized windowed mode with Windows display scaling at 125%/150%.
+- Removed a global lock from memory-page checks on the video command thread; reported CPU cost per draw on that thread fell by 2.7%.
 
-- **Two builds, same features:** **Standard** and **PGO**. The PGO build compiles the recompiled game code with a profile recorded in real races, so the CPU runs the same logic faster. Measured on Windows (uncapped): **+3.5%** on Asgard Invasion and **+9%** on a canyon track that was not part of the first profile. Linux PGO uses its own Linux-recorded profile.
-- **New launcher**, organized like the UFC3MONS launcher: header art, flag language selector (Portuguese, English, Spanish), Home / Video / Controls / Saves and logs / Frame generation tabs, and a footer with **Add to Steam** and **PLAY**.
-- **Choose where `user_data` lives:** saves, installed DLC and achievements stay next to the game by default and can be moved to any folder. Data is copied (the old folder is kept as a backup), and the choice is remembered across updates.
-- **Import saves from Xenia:** pick your Xenia folder and the launcher finds `ht2save.dat`, backing up the current save first.
-- **Fix:** windowed mode with Windows display scaling (125%/150%) opened larger than the chosen resolution; it now opens at the selected size and fits the monitor.
-- **CPU:** the video command thread checks memory pages without a global lock (−2.7% CPU per draw on that thread).
+### Revision 9.1.0
 
-## Previous Highlights — Revision 9.1.0
+- Switchable engine optimizations in `hydrothunder.toml` target CPU/GPU efficiency without reducing resolution, MSAA, effects or precision.
+- Informal ROG Ally Linux tests at 25 W across the first four tracks reported about 120 FPS most of the time and rarely below 100 FPS; not a controlled benchmark or guarantee.
+- Corrected an exit-menu crash and lighting visible through walls; remappable keyboard controls were added to the launcher.
 
-- **CPU/GPU performance:** configurable engine optimizations target improved frame rates without reducing resolution, MSAA, effects, or precision; each has a switch in `hydrothunder.toml`.
-- **ROG Ally (Linux, 25 W TDP):** first four tracks were play-tested at around 120 FPS most of the time and rarely below 100 FPS. These are informal observations, **not controlled benchmarks or guarantees**.
-- **Stability:** fixes for a crash when leaving through the in-game menu and lighting showing through walls.
-- **Controls:** the launcher includes a Controls tab with remappable keys.
+See [Releases](https://github.com/monscriser/HydroThunderPORT/releases) and [FINAL BUILD notes](NOTAS-FINAL-BUILD.md) for historical measurements, downloads and checksums.
 
-Check the [GitHub Releases page](https://github.com/monscriser/HydroThunderPORT/releases) for downloads, release notes, measurements and checksums.
+## Features and configuration
 
-## Features
-
-### Game Content and Launcher
-
-- Guided setup for Game, DLC and Title Update files, including supported extracted content and Xbox 360 content packages.
-- Game directory selection persists between launcher updates. Save data (`user_data`: saves, DLC, achievements) lives next to the game by default and can be moved to any folder from the launcher; the choice also persists between updates.
-- Import saves directly from a Xenia installation.
-- Runtime handling of supported content and translations without modifying original game source files.
-- Support for the 0.0.2.1 title update configuration.
-- Configuration launcher with display mode, resolution, language, scaling, FPS and installation details.
-- Save backup and restore, optional FPS overlay, and Steam shortcut export with artwork.
-- Save editor: player names for players 1–4 and the credits of each player's save.
-- Launcher languages: Portuguese, English and Spanish.
-
-### Controllers and Keyboard
-
-- Controller support, remappable keyboard controls and local profiles for Players 1–4, with names set in the launcher.
-- Local split-screen is supported, but still needs validation across configurations.
+- Guided installation of supported extracted Xbox 360 content and content packages (game, DLC and Title Update), including the 0.0.2.1 update configuration. Supported content and translations are handled at runtime without modifying original game source files.
+- Persistent game folder and configurable `user_data` (saves, DLC and achievements); Xenia save import, backup/restore, editor for four players' names and credits, optional FPS overlay, Steam shortcut export with artwork.
+- Launcher in English, Brazilian Portuguese and Spanish, with display mode, resolution, language, scaling, FPS and installation settings.
+- Controllers, remappable keyboard and up to four local profiles; split-screen exists but needs broader validation.
 
 | Action | Default key |
 | --- | --- |
@@ -96,80 +87,70 @@ Check the [GitHub Releases page](https://github.com/monscriser/HydroThunderPORT/
 | Brake / LT | Q |
 | Steering | A/D or arrow keys |
 
-### Vulkan Graphics, Upscaling and Performance
+### Graphics and performance
 
-- Vulkan graphics backend, FSR 1 upscaling and sharpening, experimental FSR 3.1 reconstruction, optional FXAA, anisotropic filtering up to 16x.
-- Windowed, borderless and fullscreen modes; resolution and image-quality adjustments.
-- Parallel shader compilation, persistent shader/Vulkan pipeline caches and background cache saving.
-- FPS limits: 30, 40, 60, 90 and 120; experimental unlimited presentation maintains a 60 Hz virtual clock.
+The current backend offers windowed, borderless and fullscreen modes, FSR 1 scaling/sharpening, experimental FSR 3.1 reconstruction, optional FXAA, anisotropic filtering up to 16x, parallel shader compilation, persistent caches and background cache saving. FPS limits: 30, 40, 60, 90 and 120; experimental unlimited presentation uses a 60 Hz virtual clock.
 
-**Note:** FSR 3.1 currently lacks complete in-game motion-vector inputs. FSR scaling is not the same as frame generation; selecting FSR 3.1 **does not** enable generated frames. Shader cache compatibility varies with drivers, hardware and builds.
+FSR 3.1 lacks full in-game motion-vector data. Upscaling is not frame generation; choosing FSR 3.1 does not generate frames. Cache compatibility depends on hardware, driver and build.
 
-### Optional Lossless Scaling Integration
+### Optional Lossless Scaling integration
 
-- Discovers a separately purchased Steam installation of Lossless Scaling in supported locations.
-- Offers frame-generation multiplier and Windows game-profile configuration with backups.
-- Provides Linux setup guidance for the external `lsfg-vk` Vulkan layer and an overlay reporting requested settings.
+The launcher can detect a separately purchased Steam copy, configure Windows profiles with backups and select a frame-generation multiplier. On Linux it provides setup guidance for the external `lsfg-vk` layer and reports requested settings in an overlay. Lossless Scaling is not included; Linux requires a compatible Vulkan layer in addition to the Steam app. End-to-end validation remains incomplete.
 
-Lossless Scaling is **not bundled**. On Linux, the Steam application alone is insufficient; a compatible `lsfg-vk` Vulkan layer is also required. Frame generation still requires further end-to-end testing.
-
-## How to Install Hydro Thunder Hurricane PC Port
+## Installation
 
 ### Windows
 
-1. Download and extract the Windows package from [Releases](https://github.com/monscriser/HydroThunderPORT/releases) (`Hydro-Thunder-FINAL-BUILD-Windows-PGO.zip`).
-2. Launch `Launcher-Config.exe`.
-3. Select your own Game, DLC and update files.
-4. Configure the video and input settings, then click **Play**.
+1. Extract `Hydro-Thunder-FINAL-BUILD-Windows-PGO.zip` from [Releases](https://github.com/monscriser/HydroThunderPORT/releases).
+2. Open `Launcher-Config.exe` and select your game, DLC and update files.
+3. Configure video and controls, then select Play.
 
-You can subsequently run `HydroThunder.exe` directly. Use the launcher for settings, save management and Steam shortcut export.
+After setup, `HydroThunder.exe` can be launched directly. Use the launcher for settings, saves and Steam shortcuts.
 
 ### Linux / AppImage
 
-1. Download the Linux `.AppImage` from [Releases](https://github.com/monscriser/HydroThunderPORT/releases).
-2. Grant execution permission if needed: `chmod +x HydroThunder*.AppImage`.
-3. Open the AppImage, select your legally obtained game files and finish configuration.
-4. Click **Play**. Exporting a Steam shortcut through the launcher enables direct game startup through Steam.
+1. Download the Linux AppImage from [Releases](https://github.com/monscriser/HydroThunderPORT/releases).
+2. If needed, make it executable: `chmod +x HydroThunder*.AppImage`.
+3. Open it, select your legally obtained game files, configure and select Play.
 
-### Optional Frame Generation Setup
+Export a Steam shortcut from the launcher to start the game directly through Steam.
 
-**Windows:** Install and open your purchased copy of Lossless Scaling in Steam, close it, and enable integration in the launcher. Start with a 2× multiplier. Close Lossless Scaling before changing settings that update its profile.
+### Optional frame generation
 
-**Linux:** Install the purchased Steam app, select an appropriate `lsfg-vk` Steam branch, install a compatible `lsfg-vk` 2.x Vulkan layer for your distribution, run the layer's health check, then rescan and enable integration in the launcher. Follow the layer's own installation documentation.
+- **Windows:** Install and launch your purchased Lossless Scaling Steam app, close it and enable integration in the launcher. Start with 2x. Close Lossless Scaling before changing profile settings.
+- **Linux:** Install the purchased app, select the appropriate `lsfg-vk` Steam branch, install a compatible 2.x Vulkan layer for your distribution, run its health check, then rescan and enable integration. Follow the layer's own documentation.
 
-## Saves, Updates and Compatibility
+## Saves, updates and compatibility
 
-The launcher remembers your selected game directory. Before upgrading, export a save backup, extract the new release into a different application folder, verify that the game directory is recognized, and retain the previous version until you have tested the update. Do not delete your actual game directory when removing an older launcher.
+The game directory selection persists. Back up saves before changing builds, extract into a separate application folder, verify the game path and keep the previous build until testing is complete. Never delete the actual game directory when removing an old launcher.
 
-Actual performance depends on hardware, drivers, settings, track and shader-cache state. Static recompilation does not guarantee higher performance than Xenia. Frame generation can change visual smoothness but cannot raise the underlying simulation rate or eliminate input latency.
+Performance depends on hardware, drivers, settings, track and cache state. Static recompilation does not guarantee an advantage over Xenia. Frame generation cannot increase the underlying simulation rate or remove input latency.
 
-## Known Limitations
+## Known limitations
 
-- The FINAL BUILD is the last release and will not receive fixes. Split screen with 3–4 real controllers has not been played yet (the four profiles exist and were checked). Close the game before changing credits in the save editor.
-- ROG Ally testing is informal; broader Linux, CachyOS, Steam Deck and handheld testing is still needed.
-- Lossless Scaling frame generation needs further end-to-end validation; the in-game overlay does not independently verify generated frames.
-- Linux generated-frame counters depend on external overlays and Vulkan-layer ordering.
-- Above-refresh-rate presentation and unlimited FPS may cause uneven pacing, tearing or regressions; unlimited mode has not undergone exhaustive physics/audio checks.
-- Shaders are pre-compiled before the menu for every known track; a shader that is not in the list can still hitch once. Graphics issues may remain, including colored gate lights appearing through scenery.
-- Steam shortcut export needs testing across real Steam installations; some errors remain Portuguese-only.
-- FSR 3.1 does not have the complete temporal data needed for full reconstruction quality.
+- FINAL BUILD closes the 1.x technical cycle; routine updates are not planned. The future 2.0 renderer is not included.
+- Split-screen with three or four physical controllers remains untested, although all four profiles were checked. Close the game before editing save credits.
+- Broader Linux/CachyOS/Steam Deck and handheld validation is still limited; ROG Ally observations are not universal guarantees.
+- Lossless Scaling requires further end-to-end testing. The in-game overlay does not independently verify generated frames; Linux counters depend on external overlays and layer ordering.
+- Above-refresh-rate or unlimited presentation can cause uneven pacing, tearing or regressions. Unlimited mode lacks exhaustive physics/audio validation.
+- Unlisted shaders may still hitch once; graphical issues such as colored gate lights visible through scenery may remain.
+- Steam shortcut export needs wider real-installation testing; some errors are Portuguese-only.
+- FSR 3.1 lacks complete temporal inputs.
 
-## Building from Source
+## Building from source
 
-The repository does not ship the recompiled game code (`app/generated-updated/`). Building from source requires generating that code from your **own** game copy. Build scripts are under [`tools/`](tools/) and [`tools/wsl/`](tools/wsl/). PGO builds use CMake `-DHT_PGO=USE -DHT_PGO_PROFILE=<file>` with the profiles in [`pgo/`](pgo/) (`build_pgo.sh`, `build_pgo_linux.sh`; Linux needs the profile runtime built by `build_profile_runtime.sh`). Release notes of the final version: [`NOTAS-FINAL-BUILD.md`](NOTAS-FINAL-BUILD.md); notes of every release are on the [Releases page](https://github.com/monscriser/HydroThunderPORT/releases).
+Generate the recompiled game code yourself from your own game copy: `app/generated-updated/` is not distributed here. Build scripts: [`tools/`](tools/) and [`tools/wsl/`](tools/wsl/). PGO uses CMake `-DHT_PGO=USE -DHT_PGO_PROFILE=<file>` and profiles in [`pgo/`](pgo/), with `build_pgo.sh` / `build_pgo_linux.sh`; Linux also needs the profile runtime from `build_profile_runtime.sh`.
 
-The project uses ReXGlue for static recompilation/runtime support, Xenia-derived compatibility components, Vulkan for rendering, and Dear ImGui for configuration and overlays. Third-party software retains its own licenses; see [`licenses/`](licenses/).
+The project uses ReXGlue, Xenia-derived compatibility components, Vulkan and Dear ImGui. See [`licenses/`](licenses/) and [`LICENSE-ReXGlue`](LICENSE-ReXGlue) for applicable third-party terms.
 
-## Bug Reports and Contributions
+## Issues and contributions
 
-Please open an [issue](https://github.com/monscriser/HydroThunderPORT/issues) and include the release revision, operating system, driver, CPU, GPU, RAM, display/FPS settings, whether frame generation is enabled, track and game mode, reproduction steps, relevant logs, and screenshots or video where helpful. Xenia comparisons are useful when made in the same scene and settings.
+When reporting an [issue](https://github.com/monscriser/HydroThunderPORT/issues), include the release, OS, driver, CPU/GPU/RAM, display and FPS settings, frame-generation status, track/mode, reproduction steps, relevant logs and screenshots/video when useful. Compare against Xenia under matching conditions. Reports may help inform 2.0; they do not imply a scheduled 1.x fix.
 
-**Do not upload copyrighted game files, DLC, updates or personal save data in public issues.**
+Never upload copyrighted game content, DLC, updates or personal save data to public issues.
 
-## Credits and Legal Notice
+## Credits and legal notice
 
-Special thanks to **visibou** and the **[htrecomp](https://github.com/visibou/htrecomp)** project, the Hydro Thunder Hurricane recompilation this port is based on. The save checksum format used by the save editor was first documented by htrecomp.
+Special thanks to visibou and [htrecomp](https://github.com/visibou/htrecomp), the foundation of this port and the original documentation of the save checksum format. Thanks to the contributors to ReXGlue, Xenia, Dear ImGui, FidelityFX, lsfg-vk and the graphics/emulation community. Steam artwork belongs to its SteamGridDB contributors, including Monscriser.
 
-Thanks to contributors to ReXGlue, Xenia, Dear ImGui, FidelityFX, lsfg-vk and the wider graphics/emulation community. Steam artwork belongs to its respective SteamGridDB contributors, including Monscriser.
-
-**HydroThunderPORT is an unofficial community project.** It is not affiliated with or endorsed by Microsoft, Xbox or the game's original developers/publishers. Hydro Thunder Hurricane names, artwork and assets remain the property of their respective rights holders. No original game files or proprietary Lossless Scaling files are distributed. Consult the relevant third-party licenses before reuse or redistribution.
+HydroThunderPORT is an unofficial community project, not affiliated with or endorsed by Microsoft, Xbox or the original developers/publishers. Original names, artwork and assets belong to their respective rights holders. No proprietary game or Lossless Scaling files are distributed. Respect third-party licenses when reusing or redistributing code.
