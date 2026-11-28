@@ -66,7 +66,7 @@ SessionAd SampleAd() {
   ad.filled_public = 1;
   ad.host_xuid = 0x0009000012345678ull;
   ad.contexts = {{0x8001, 3}, {0x800B, 1}};
-  ad.properties = {{0x10000001, 42, 1}, {0x20000002, 0x4045000000000000ull, 6}};
+  ad.properties = {{0x10000001, 42, 1}, {0x30000002, 0x4045000000000000ull, 3}};
   ad.qos = {1, 2, 3, 4, 5};
   ad.host_name = "Player 1";
   return ad;
@@ -158,7 +158,7 @@ void TestRoundTrip() {
   // Largest allowed ad still fits one datagram.
   SessionAd big = ad;
   big.contexts.assign(kMaxContexts, {1, 2});
-  big.properties.assign(kMaxProperties, {3, 4, 1});
+  big.properties.assign(kMaxProperties, {0x10000003, 4, 1});
   big.qos.assign(kMaxQosData, 0x5A);
   big.host_name = std::string(kMaxHostName, 'x');
   const auto big_packet = EncodeAnnounce(kTitle, big);
@@ -228,6 +228,16 @@ void TestMalformed() {
   // A query whose instance is zero is not a real sender.
   const auto zero = EncodeQuery(kTitle, 0);
   CHECK(!Decode(zero.data(), zero.size(), kTitle));
+  // Well-formed but hostile properties: text/binary values (a length and pointer the
+  // sender would choose) and a type that disagrees with the property id.
+  for (const Property& p : {Property{0x40000001, 0x0000100040000000ull, 4},
+                            Property{0x60000001, 0x0000100040000000ull, 6},
+                            Property{0x10000001, 0, 2}, Property{0x00000001, 0, 0}}) {
+    SessionAd hostile = SampleAd();
+    hostile.properties = {p};
+    const auto packet = EncodeAnnounce(kTitle, hostile);
+    CHECK(!packet.empty() && !Decode(packet.data(), packet.size(), kTitle));
+  }
   // Oversized datagram.
   std::vector<uint8_t> huge(kMaxDatagram + 1, 0);
   std::memcpy(huge.data(), good.data(), kHeaderSize);
@@ -389,8 +399,15 @@ void TestLoopback() {
   CHECK(!host.FindPeer(kLoopback));
   joiner.Hello(kLoopback, host_port);
   std::this_thread::sleep_for(300ms);
-  CHECK(host.FindPeer(kLoopback) == join_x);
-  CHECK(joiner.FindPeer(kLoopback) == host_x);
+  // The address fields (ina, inaOnline, SGADDR ina) are the sender's, whatever the
+  // packet said; the rest (MAC, ids) is kept.
+  auto pinned_to_loopback = [](XnAddr x) {
+    for (size_t at : {size_t(0), size_t(4), size_t(16)})
+      x[at] = 127, x[at + 1] = 0, x[at + 2] = 0, x[at + 3] = 1;
+    return x;
+  };
+  CHECK(host.FindPeer(kLoopback) == pinned_to_loopback(join_x));
+  CHECK(joiner.FindPeer(kLoopback) == pinned_to_loopback(host_x));
 
   // Host leaves the lobby: LEAVE removes it at once.
   host.Unadvertise(ad.session_id);
@@ -413,10 +430,55 @@ void TestLoopback() {
   }
   CloseSock(flood);
   std::this_thread::sleep_for(300ms);
-  CHECK(joiner.Snapshot().size() <= kMaxSessions);
+  CHECK(joiner.Snapshot().size() <= kMaxSessionsPerSender);  // the real host shares 127.0.0.1
   CHECK(joiner.Find(ad.session_id).has_value());
   std::this_thread::sleep_for(1200ms);  // the fakes expire; the real host keeps announcing
   CHECK(joiner.Snapshot().size() == 1);
+
+  // A hostile announce claiming a public host address: players only ever see the
+  // address the packet came from.
+  Sock evil = UdpSocket(0);
+  SessionAd liar = SampleAd();
+  liar.instance = 0xBAD;
+  liar.session_id[0] = 0x42;
+  for (size_t at : {size_t(0), size_t(4), size_t(16)}) {
+    liar.host_xnaddr[at] = 8, liar.host_xnaddr[at + 1] = 8;
+    liar.host_xnaddr[at + 2] = 8, liar.host_xnaddr[at + 3] = 8;
+  }
+  const auto lie = EncodeAnnounce(kTitle, liar);
+  SendUdp(evil, kLoopback, join_port, lie.data(), lie.size());
+  std::this_thread::sleep_for(200ms);
+  auto pinned = joiner.Find(liar.session_id);
+  CHECK(pinned && pinned->ad.host_xnaddr[0] == 127 && pinned->ad.host_xnaddr[4] == 127 &&
+        pinned->ad.host_xnaddr[16] == 127 && pinned->ad.host_xnaddr[3] == 1);
+  // ...and it cannot take over a listed session by reusing its id.
+  SessionAd hijack = liar;
+  hijack.session_id = ad.session_id;
+  hijack.host_name = "hijack";
+  const auto steal = EncodeAnnounce(kTitle, hijack);
+  SendUdp(evil, kLoopback, join_port, steal.data(), steal.size());
+  std::this_thread::sleep_for(200ms);
+  auto kept = joiner.Find(ad.session_id);
+  CHECK(kept && kept->ad.host_name == ad.host_name && kept->ad.instance == host.instance());
+
+  // A burst of queries from one sender gets few answers (one per 250 ms), so a small
+  // spoofed query cannot be turned into a stream of large announces.
+  const auto query = EncodeQuery(kTitle, 0x5151);
+  for (int i = 0; i < 20; ++i) SendUdp(evil, kLoopback, host_port, query.data(), query.size());
+  int answers = 0;
+  std::vector<uint8_t> answer;
+  while (RecvUdp(evil, answer, nullptr, nullptr) > 0) ++answers;  // until the 2 s timeout
+  CHECK(answers >= 1 && answers <= 2);
+  CloseSock(evil);
+
+  // Destinations outside the LAN are never sent to, even when listed as peers.
+  Discovery::Options outward = LoopbackOptions(47300, 47301);
+  outward.peers = {{*ParseAddress("8.8.8.8"), 47301}};
+  Discovery outside;
+  CHECK(outside.Start(outward, &error));
+  outside.Search(50ms);
+  CHECK(outside.stats().sent == 0);
+  outside.Stop();
 
   // Host stops cleanly (quits the game): Stop() sends LEAVE.
   host.Advertise(ad);

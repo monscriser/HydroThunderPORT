@@ -16,6 +16,7 @@
 #include <ifaddrs.h>
 #include <net/if.h>
 #include <netinet/in.h>
+#include <poll.h>
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <unistd.h>
@@ -42,6 +43,25 @@ void StopSockets() {}
 #endif
 
 NativeSocket Native(intptr_t s) { return static_cast<NativeSocket>(s); }
+
+}  // namespace
+
+int WaitReadable(intptr_t socket, int timeout_ms) {
+#if defined(_WIN32)
+  // Winsock's fd_set is a handle list, not a bit field: any handle value fits.
+  fd_set read_set;
+  FD_ZERO(&read_set);
+  FD_SET(Native(socket), &read_set);
+  timeval timeout{timeout_ms / 1000, (timeout_ms % 1000) * 1000};
+  return select(0, &read_set, nullptr, nullptr, &timeout);
+#else
+  // poll, not select: FD_SET on a descriptor >= FD_SETSIZE overflows the stack.
+  pollfd p{Native(socket), POLLIN, 0};
+  return poll(&p, 1, timeout_ms);
+#endif
+}
+
+namespace {
 
 constexpr uint8_t kMagic[4] = {'H', 'T', 'L', 'N'};
 // Fixed part of an ANNOUNCE payload, before the variable-length lists.
@@ -97,6 +117,17 @@ class Reader {
   size_t pos_ = 0;
   bool ok_ = true;
 };
+
+// Points an XNADDR received from `source` at `source` (ina, inaOnline and the SGADDR
+// address), whatever the packet said.
+void PinToSender(XnAddr& x, uint32_t source) {
+  for (size_t at : {size_t(0), size_t(4), size_t(16)}) {
+    x[at] = uint8_t(source >> 24);
+    x[at + 1] = uint8_t(source >> 16);
+    x[at + 2] = uint8_t(source >> 8);
+    x[at + 3] = uint8_t(source);
+  }
+}
 
 std::vector<uint8_t> Frame(uint32_t title_id, MessageType type, std::vector<uint8_t> payload) {
   Writer w;
@@ -366,6 +397,9 @@ std::optional<Message> Decode(const uint8_t* data, size_t size, uint32_t title_i
         p.id = r.U32();
         p.type = r.U8();
         p.value = r.U64();
+        // Only plain numbers: text and binary values would carry a length and a
+        // pointer into game memory chosen by the sender.
+        if (!IsNumericPropertyType(p.type) || p.type != (p.id >> 28)) return std::nullopt;
         ad.properties.push_back(p);
       }
       ad.qos.resize(qos);
@@ -443,6 +477,8 @@ void Discovery::Send(const std::vector<uint8_t>& packet,
                      std::optional<std::pair<uint32_t, uint16_t>> to) {
   if (packet.empty() || socket_ == -1) return;
   auto send_one = [&](uint32_t ip, uint16_t port) {
+    // Discovery only ever talks to the LAN (or the broadcast address).
+    if (!options_.allow_any_source && ip != 0xFFFFFFFFu && !IsLanAddress(ip)) return;
     sockaddr_in dest{};
     dest.sin_family = AF_INET;
     dest.sin_port = htons(port);
@@ -548,12 +584,7 @@ void Discovery::SetChangeCallback(std::function<void()> callback) {
 void Discovery::Run() {
   std::vector<uint8_t> buffer(kMaxDatagram + 1);
   while (running_) {
-    fd_set read_set;
-    FD_ZERO(&read_set);
-    FD_SET(Native(socket_), &read_set);
-    timeval timeout{0, 100 * 1000};
-    const int ready =
-        select(int(Native(socket_)) + 1, &read_set, nullptr, nullptr, &timeout);
+    const int ready = WaitReadable(Native(socket_), 100);
     if (ready > 0) {
       sockaddr_in from{};
       socklen_t from_len = sizeof(from);
@@ -602,18 +633,25 @@ void Discovery::Handle(const uint8_t* data, size_t size, uint32_t source, uint16
     const auto now = std::chrono::steady_clock::now();
     switch (message->type) {
       case MessageType::kQuery:
-        if (advertised_)
-          Send(EncodeAnnounce(options_.title_id, *advertised_),
-               std::make_pair(source, source_port));
+        // A QUERY is small and an ANNOUNCE is not: answer each sender at most
+        // every 250 ms, so a spoofed source cannot use this as an amplifier.
+        if (!advertised_ || !ReplyAllowed(source, now)) return;
+        Send(EncodeAnnounce(options_.title_id, *advertised_), std::make_pair(source, source_port));
         return;
       case MessageType::kAnnounce: {
+        // Players connect to the address the announce came from, never to one
+        // written inside it, so a packet cannot send them anywhere else.
+        PinToSender(message->ad.host_xnaddr, source);
         auto it = std::find_if(sessions_.begin(), sessions_.end(), [&](const auto& s) {
           return s.ad.session_id == message->ad.session_id;
         });
         if (it == sessions_.end()) {
-          if (sessions_.size() >= kMaxSessions) break;  // full: ignore new sessions
+          // Full, or this sender already lists enough: ignore new sessions.
+          const auto from_sender = std::count_if(sessions_.begin(), sessions_.end(),
+                                                 [&](const auto& s) { return s.source == source; });
+          if (sessions_.size() >= kMaxSessions || size_t(from_sender) >= kMaxSessionsPerSender) break;
           sessions_.push_back({std::move(message->ad), source, now});
-        } else {
+        } else if (it->ad.instance == message->ad.instance) {  // only its own host updates it
           it->ad = std::move(message->ad);
           it->source = source;
           it->last_seen = now;
@@ -621,6 +659,7 @@ void Discovery::Handle(const uint8_t* data, size_t size, uint32_t source, uint16
         break;
       }
       case MessageType::kHello: {
+        PinToSender(message->xnaddr, source);
         const bool known = std::any_of(peers_.begin(), peers_.end(),
                                        [&](const auto& p) { return p.first == source; });
         peers_.erase(std::remove_if(peers_.begin(), peers_.end(),
@@ -647,6 +686,18 @@ void Discovery::Handle(const uint8_t* data, size_t size, uint32_t source, uint16
   }
   changed_.notify_all();
   if (notify) notify();
+}
+
+bool Discovery::ReplyAllowed(uint32_t source, std::chrono::steady_clock::time_point now) {
+  for (auto& [ip, last] : replies_) {
+    if (ip != source) continue;
+    if (now - last < std::chrono::milliseconds(250)) return false;
+    last = now;
+    return true;
+  }
+  if (replies_.size() >= kMaxPeers) replies_.erase(replies_.begin());
+  replies_.emplace_back(source, now);
+  return true;
 }
 
 void Discovery::Expire() {

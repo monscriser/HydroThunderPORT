@@ -77,12 +77,18 @@ constexpr size_t kMaxHostName = 15;
 constexpr size_t kXnAddrSize = 36;
 constexpr size_t kMaxPeers = 64;
 constexpr size_t kMaxSessions = 64;  // a LAN flood of announces cannot grow the table further
+constexpr size_t kMaxSessionsPerSender = 4;
 
 enum class MessageType : uint8_t { kQuery = 1, kAnnounce = 2, kLeave = 3, kHello = 4 };
 
 using XnAddr = std::array<uint8_t, kXnAddrSize>;
 
 using SessionId = std::array<uint8_t, 8>;
+
+// XUSER_DATA types that are plain values: INT32 1, INT64 2, DOUBLE 3, FLOAT 5, DATETIME 7.
+inline bool IsNumericPropertyType(uint8_t type) {
+  return type == 1 || type == 2 || type == 3 || type == 5 || type == 7;
+}
 
 struct Property {
   uint32_t id = 0;
@@ -192,6 +198,7 @@ class Discovery {
   void Send(const std::vector<uint8_t>& packet, std::optional<std::pair<uint32_t, uint16_t>> to);
   void Handle(const uint8_t* data, size_t size, uint32_t source, uint16_t source_port);
   void Expire();
+  bool ReplyAllowed(uint32_t source, std::chrono::steady_clock::time_point now);
 
   Options options_;
   std::atomic<bool> running_{false};
@@ -203,10 +210,14 @@ class Discovery {
   std::vector<RemoteSession> sessions_;
   std::vector<std::pair<uint32_t, XnAddr>> peers_;  // bounded, newest last
   std::optional<XnAddr> local_xnaddr_;
+  std::vector<std::pair<uint32_t, std::chrono::steady_clock::time_point>> replies_;  // bounded
   DiscoveryStats stats_;
   std::function<void()> on_change_;
   std::chrono::steady_clock::time_point next_announce_{};
 };
+
+// > 0 when the socket has data within timeout_ms (poll on POSIX, select on Windows).
+int WaitReadable(intptr_t socket, int timeout_ms);
 
 uint64_t RandomU64();
 void RandomBytes(uint8_t* out, size_t size);

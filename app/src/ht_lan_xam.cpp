@@ -90,7 +90,13 @@ GuestFunction Original(const char* name) {
   void* runtime = dlopen("librexruntime.so", RTLD_NOW | RTLD_NOLOAD);
   auto fn = runtime ? reinterpret_cast<GuestFunction>(dlsym(runtime, name)) : nullptr;
 #endif
-  if (!fn) REXLOG_ERROR("[ht-lan] runtime export {} not found", name);
+  if (!fn) {
+    // Without the original the game would silently lose the call, even with LAN play
+    // off; this is a build mismatch, so stop rather than run wrong.
+    REXLOG_ERROR("[ht-lan] runtime export {} not found", name);
+    rex::FlushLogging();
+    std::abort();
+  }
   return fn;
 }
 
@@ -189,7 +195,9 @@ struct UserData {
 class Lan {
  public:
   static Lan& Get() {
-    static Lan lan;
+    // Never destroyed: the receive worker and discovery thread may still run while
+    // the process exits.
+    static Lan& lan = *new Lan;
     return lan;
   }
   std::mutex mutex;
@@ -255,7 +263,12 @@ class Lan {
       std::string item = peers.substr(pos, comma - pos);
       item.erase(0, item.find_first_not_of(' '));
       item.erase(item.find_last_not_of(' ') + 1);
-      if (auto ip = ht::lan::ParseAddress(item)) o.peers.emplace_back(*ip, o.port);
+      auto ip = ht::lan::ParseAddress(item);
+      if (ip && !o.allow_any_source && !ht::lan::IsLanAddress(*ip)) {
+        REXLOG_WARN("[ht-lan] ignoring ht_lan_peers entry {} (not a LAN address)", item);
+      } else if (ip) {
+        o.peers.emplace_back(*ip, o.port);
+      }
       else if (!item.empty()) REXLOG_WARN("[ht-lan] ignoring ht_lan_peers entry \"{}\"", item);
       pos = comma + 1;
     }
@@ -286,7 +299,9 @@ class Lan {
   bool IsOurOnlineXuid(uint64_t xuid) { return (xuid & ~3ull) == online_xuid_base; }
 
   void Remember(const std::array<uint8_t, kXnAddrSize>& xnaddr) {
-    addresses[Be32(&xnaddr[0])] = xnaddr;
+    const uint32_t ip = Be32(&xnaddr[0]);
+    if (addresses.size() >= ht::lan::kMaxPeers && !addresses.count(ip)) addresses.clear();
+    addresses[ip] = xnaddr;
   }
 
   Session* Find(uint32_t object) {
@@ -468,6 +483,7 @@ REX_HOOK_RAW(rex_original_NetDll_XNetQosLookup) {
   for (const auto& d : data) total += uint32_t(d.size());
   const uint32_t block = REX_KERNEL_MEMORY()->SystemHeapAlloc(std::max<uint32_t>(total, 8));
   uint8_t* q = Guest(block);
+  if (!q) return Return(ctx, 0x2747);  // WSAENOBUFS
   std::memset(q, 0, total);
   Put32(q, count);  // cxnqos
   Put32(q + 4, 0);  // cxnqosPending
@@ -572,6 +588,8 @@ void CompleteOverlapped(uint32_t overlapped, uint32_t status, uint32_t bytes) {
   uint8_t* o = Guest(overlapped);
   if (!o) return;
   Put32(o + 4, bytes);
+  // The game polls the status word; the byte count must be visible before it.
+  std::atomic_thread_fence(std::memory_order_release);
   Put32(o, status);
   SignalEvent(Be32(o + 16));
 }
@@ -594,6 +612,11 @@ std::optional<uint32_t> SendDatagram(NativeSocket s, const GuestBufferList& buff
   sockaddr_in dest{};
   sockaddr* dest_ptr = nullptr;
   if (to) {
+    // Game traffic goes to LAN addresses only, like what it accepts.
+    if (!AllowedSource(Be32(to + 4))) {
+      *error = 10065;  // WSAEHOSTUNREACH
+      return std::nullopt;
+    }
     dest.sin_family = AF_INET;
     dest.sin_port = htons(Lan::Get().Ports().ToHost(Be16(to + 2)));
     dest.sin_addr.s_addr = htonl(Be32(to + 4));
@@ -614,12 +637,10 @@ std::optional<uint32_t> ReceiveDatagram(NativeSocket s, const GuestBufferList& b
                                         uint32_t from_ptr, uint32_t fromlen_ptr,
                                         uint32_t* error) {
   static thread_local std::vector<uint8_t> data(kMaxDatagramSize);
-  for (;;) {
-    fd_set readable;
-    FD_ZERO(&readable);
-    FD_SET(s, &readable);
-    timeval now{0, 0};
-    if (select(int(s) + 1, &readable, nullptr, nullptr, &now) <= 0) {
+  // A flood from outside the LAN is dropped a bounded amount per call, so it cannot
+  // hold this thread (or the receive worker's lock) indefinitely.
+  for (int dropped = 0; dropped < 64;) {
+    if (ht::lan::WaitReadable(intptr_t(s), 0) <= 0) {
       *error = kWsaEwouldblock;
       return std::nullopt;
     }
@@ -638,6 +659,7 @@ std::optional<uint32_t> ReceiveDatagram(NativeSocket s, const GuestBufferList& b
     const uint32_t ip = ntohl(from.sin_addr.s_addr);
     if (!AllowedSource(ip)) {
       DroppedSource(ip);
+      ++dropped;
       continue;
     }
     uint32_t copied = 0;
@@ -660,6 +682,8 @@ std::optional<uint32_t> ReceiveDatagram(NativeSocket s, const GuestBufferList& b
     }
     return copied;
   }
+  *error = kWsaEwouldblock;  // only dropped datagrams so far; the caller tries again later
+  return std::nullopt;
 }
 
 GuestBufferList GuestBuffers(uint32_t wsabufs, uint32_t count) {
@@ -686,7 +710,7 @@ class PendingReceives {
     uint32_t from = 0, fromlen = 0, overlapped = 0;
   };
   static PendingReceives& Get() {
-    static PendingReceives p;
+    static PendingReceives& p = *new PendingReceives;  // never destroyed, see Lan::Get
     return p;
   }
   void Add(Op op) {
@@ -1122,9 +1146,14 @@ void WriteSearchResults(Lan& lan, const std::vector<ht::lan::RemoteSession>& fou
   }
 }
 
-std::vector<ht::lan::RemoteSession> OpenSessions(Lan& lan, uint32_t wanted) {
+// Searching waits up to 0.7 s for answers; the LAN lock is released meanwhile so the
+// game's other network calls are not held up.
+std::vector<ht::lan::RemoteSession> OpenSessions(Lan& lan, uint32_t wanted,
+                                                 std::unique_lock<std::mutex>& lock) {
   if (!lan.StartDiscovery()) return {};
+  lock.unlock();
   auto found = lan.discovery.Search(std::chrono::milliseconds(700), wanted ? wanted : 1);
+  lock.lock();
   found.erase(std::remove_if(found.begin(), found.end(),
                              [](const auto& s) {
                                return s.ad.filled_public >= s.ad.max_public &&
@@ -1178,7 +1207,7 @@ std::optional<uint32_t> HandleSession(uint32_t message, uint32_t buffer_ptr, uin
   uint8_t* b = Guest(buffer_ptr);
   if (!b) return std::nullopt;
   auto& lan = Lan::Get();
-  std::lock_guard<std::mutex> lock(lan.mutex);
+  std::unique_lock<std::mutex> lock(lan.mutex);
 
   switch (message) {
     case 0x000B0006: {  // XUserSetContext: user @0, id @16, value @20
@@ -1194,7 +1223,8 @@ std::optional<uint32_t> HandleSession(uint32_t message, uint32_t buffer_ptr, uin
     case 0x000B0007: {  // XUserSetProperty: user @0, id @16, size @20, value ptr @24
       const uint32_t user = Be32(b), id = Be32(b + 16), size = Be32(b + 20);
       const uint8_t* value = Guest(Be32(b + 24));
-      if (user < 4 && value && (size == 4 || size == 8)) {
+      if (user < 4 && value && (size == 4 || size == 8) &&
+          ht::lan::IsNumericPropertyType(uint8_t(id >> 28))) {
         ht::lan::Property p;
         p.id = id;
         p.type = uint8_t(id >> 28);  // XUSER_DATA_TYPE lives in the top nibble of the id
@@ -1209,7 +1239,7 @@ std::optional<uint32_t> HandleSession(uint32_t message, uint32_t buffer_ptr, uin
       const uint32_t max = Be32(b + 8), size = Be32(b + 24), results = Be32(b + 28);
       HT_TRACE("XSessionSearch proc={} user={} max={} props={} ctx={}", Be32(b), Be32(b + 4), max,
                Be16(b + 12), Be16(b + 14));
-      auto found = OpenSessions(lan, max);
+      auto found = OpenSessions(lan, max, lock);
       WriteSearchResults(lan, found, max, results, size);
       REXLOG_WARN("[ht-lan] search found {} LAN game(s)", std::min<size_t>(found.size(), max));
       return kSuccess;
@@ -1219,7 +1249,9 @@ std::optional<uint32_t> HandleSession(uint32_t message, uint32_t buffer_ptr, uin
       std::memcpy(id.data(), b + 4, 8);
       auto found = lan.discovery.Find(id);
       if (!found && lan.StartDiscovery()) {
+        lock.unlock();
         lan.discovery.Search(std::chrono::milliseconds(700), SIZE_MAX);
+        lock.lock();
         found = lan.discovery.Find(id);
       }
       std::vector<ht::lan::RemoteSession> list;
