@@ -10,6 +10,8 @@
 //   QUERY     a player searching for games; hosts answer with ANNOUNCE.
 //   ANNOUNCE  a hosted session; also broadcast every second while it is open.
 //   LEAVE     the host closed the session.
+//   HELLO     a player joining a host (and the host answering) gives its XNet address,
+//             which the game asks for when the first game packet arrives.
 // Every datagram starts with a fixed header (magic "HTLN", version, type, title id,
 // payload length) and is checked field by field before use. Only private and
 // link-local senders are accepted unless the player allows any address.
@@ -73,8 +75,11 @@ constexpr size_t kMaxProperties = 32;
 constexpr size_t kMaxQosData = 512;
 constexpr size_t kMaxHostName = 15;
 constexpr size_t kXnAddrSize = 36;
+constexpr size_t kMaxPeers = 64;
 
-enum class MessageType : uint8_t { kQuery = 1, kAnnounce = 2, kLeave = 3 };
+enum class MessageType : uint8_t { kQuery = 1, kAnnounce = 2, kLeave = 3, kHello = 4 };
+
+using XnAddr = std::array<uint8_t, kXnAddrSize>;
 
 using SessionId = std::array<uint8_t, 8>;
 
@@ -106,12 +111,14 @@ struct Message {
   uint64_t instance = 0;
   SessionId session_id{};  // kLeave
   SessionAd ad;            // kAnnounce
+  XnAddr xnaddr{};         // kHello
 };
 
 std::vector<uint8_t> EncodeQuery(uint32_t title_id, uint64_t instance);
 // Returns empty when the ad does not fit (too many contexts, properties or QoS bytes).
 std::vector<uint8_t> EncodeAnnounce(uint32_t title_id, const SessionAd& ad);
 std::vector<uint8_t> EncodeLeave(uint32_t title_id, uint64_t instance, const SessionId& id);
+std::vector<uint8_t> EncodeHello(uint32_t title_id, uint64_t instance, const XnAddr& xnaddr);
 // Strict: wrong magic, version, title, type, any length or count out of range, or
 // trailing bytes all reject the datagram.
 std::optional<Message> Decode(const uint8_t* data, size_t size, uint32_t title_id);
@@ -136,6 +143,7 @@ class Discovery {
  public:
   struct Options {
     uint16_t port = 36000;      // listen port, and destination port of broadcasts
+    uint32_t bind_address = 0;  // listen on this address only (0 = every interface)
     uint32_t title_id = 0;
     uint64_t instance = 0;      // 0 = pick a random one
     bool allow_any_source = false;
@@ -169,6 +177,11 @@ class Discovery {
   std::optional<RemoteSession> Find(const SessionId& id);
   std::optional<RemoteSession> FindByAddress(uint32_t source);
 
+  // Peers: our XNet address goes out in HELLO; theirs are remembered by sender address.
+  void SetLocalXnAddr(const XnAddr& xnaddr);
+  void Hello(uint32_t address, uint16_t port = 0);  // port 0: the discovery port
+  std::optional<XnAddr> FindPeer(uint32_t address);
+
   DiscoveryStats stats() const;
   // Called (on the receive thread) whenever the table changes.
   void SetChangeCallback(std::function<void()> callback);
@@ -187,6 +200,8 @@ class Discovery {
   std::condition_variable changed_;
   std::optional<SessionAd> advertised_;
   std::vector<RemoteSession> sessions_;
+  std::vector<std::pair<uint32_t, XnAddr>> peers_;  // bounded, newest last
+  std::optional<XnAddr> local_xnaddr_;
   DiscoveryStats stats_;
   std::function<void()> on_change_;
   std::chrono::steady_clock::time_point next_announce_{};

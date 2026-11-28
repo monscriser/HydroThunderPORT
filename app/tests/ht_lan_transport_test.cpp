@@ -149,6 +149,12 @@ void TestRoundTrip() {
   CHECK(m && m->type == MessageType::kLeave && m->instance == 78 &&
         m->session_id == ad.session_id);
 
+  const auto hello = EncodeHello(kTitle, 79, ad.host_xnaddr);
+  m = Decode(hello.data(), hello.size(), kTitle);
+  CHECK(m && m->type == MessageType::kHello && m->instance == 79 &&
+        m->xnaddr == ad.host_xnaddr);
+  for (size_t n = 0; n < hello.size(); ++n) CHECK(!Decode(hello.data(), n, kTitle));
+
   // Largest allowed ad still fits one datagram.
   SessionAd big = ad;
   big.contexts.assign(kMaxContexts, {1, 2});
@@ -372,6 +378,19 @@ void TestLoopback() {
   CHECK(after.rejected_malformed >= before.rejected_malformed + 290);
   CHECK(joiner.running());
   CHECK(joiner.Search(600ms, 1).size() == 1);  // still works
+
+  // Joining: the joiner's HELLO gives the host its XNet address, and the host answers
+  // with its own, so each can map the other's IP to an XNADDR.
+  XnAddr host_x{}, join_x{};
+  host_x.fill(0x11);
+  join_x.fill(0x22);
+  host.SetLocalXnAddr(host_x);
+  joiner.SetLocalXnAddr(join_x);
+  CHECK(!host.FindPeer(kLoopback));
+  joiner.Hello(kLoopback, host_port);
+  std::this_thread::sleep_for(300ms);
+  CHECK(host.FindPeer(kLoopback) == join_x);
+  CHECK(joiner.FindPeer(kLoopback) == host_x);
 
   // Host leaves the lobby: LEAVE removes it at once.
   host.Unadvertise(ad.session_id);

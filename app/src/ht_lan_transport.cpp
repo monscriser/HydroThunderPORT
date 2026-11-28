@@ -271,6 +271,13 @@ std::vector<uint8_t> EncodeLeave(uint32_t title_id, uint64_t instance, const Ses
   return Frame(title_id, MessageType::kLeave, std::move(w.data()));
 }
 
+std::vector<uint8_t> EncodeHello(uint32_t title_id, uint64_t instance, const XnAddr& xnaddr) {
+  Writer w;
+  w.U64(instance);
+  w.Bytes(xnaddr.data(), xnaddr.size());
+  return Frame(title_id, MessageType::kHello, std::move(w.data()));
+}
+
 std::vector<uint8_t> EncodeAnnounce(uint32_t title_id, const SessionAd& ad) {
   if (ad.contexts.size() > kMaxContexts || ad.properties.size() > kMaxProperties ||
       ad.qos.size() > kMaxQosData || !PrintableName(ad.host_name))
@@ -320,6 +327,10 @@ std::optional<Message> Decode(const uint8_t* data, size_t size, uint32_t title_i
     case MessageType::kLeave:
       m.type = MessageType::kLeave;
       r.Bytes(m.session_id.data(), m.session_id.size());
+      break;
+    case MessageType::kHello:
+      m.type = MessageType::kHello;
+      r.Bytes(m.xnaddr.data(), m.xnaddr.size());
       break;
     case MessageType::kAnnounce: {
       if (payload < kAnnounceFixed) return std::nullopt;
@@ -395,7 +406,7 @@ bool Discovery::Start(const Options& options, std::string* error) {
   sockaddr_in local{};
   local.sin_family = AF_INET;
   local.sin_port = htons(options_.port);
-  local.sin_addr.s_addr = htonl(INADDR_ANY);
+  local.sin_addr.s_addr = htonl(options_.bind_address ? options_.bind_address : INADDR_ANY);
   if (bind(s, reinterpret_cast<sockaddr*>(&local), sizeof(local)) != 0) {
     if (error) *error = "UDP port " + std::to_string(options_.port) + " is in use";
     CloseNative(s);
@@ -505,6 +516,25 @@ std::optional<RemoteSession> Discovery::FindByAddress(uint32_t source) {
   return std::nullopt;
 }
 
+void Discovery::SetLocalXnAddr(const XnAddr& xnaddr) {
+  std::lock_guard<std::mutex> lock(mutex_);
+  local_xnaddr_ = xnaddr;
+}
+
+void Discovery::Hello(uint32_t address, uint16_t port) {
+  std::lock_guard<std::mutex> lock(mutex_);
+  if (local_xnaddr_)
+    Send(EncodeHello(options_.title_id, options_.instance, *local_xnaddr_),
+         std::make_pair(address, port ? port : options_.port));
+}
+
+std::optional<XnAddr> Discovery::FindPeer(uint32_t address) {
+  std::lock_guard<std::mutex> lock(mutex_);
+  for (const auto& [ip, xnaddr] : peers_)
+    if (ip == address) return xnaddr;
+  return std::nullopt;
+}
+
 DiscoveryStats Discovery::stats() const {
   std::lock_guard<std::mutex> lock(mutex_);
   return stats_;
@@ -587,6 +617,20 @@ void Discovery::Handle(const uint8_t* data, size_t size, uint32_t source, uint16
           it->source = source;
           it->last_seen = now;
         }
+        break;
+      }
+      case MessageType::kHello: {
+        const bool known = std::any_of(peers_.begin(), peers_.end(),
+                                       [&](const auto& p) { return p.first == source; });
+        peers_.erase(std::remove_if(peers_.begin(), peers_.end(),
+                                    [&](const auto& p) { return p.first == source; }),
+                     peers_.end());
+        if (peers_.size() >= kMaxPeers) peers_.erase(peers_.begin());
+        peers_.emplace_back(source, message->xnaddr);
+        // Answer a new peer once with our own address, so both sides know each other.
+        if (!known && local_xnaddr_)
+          Send(EncodeHello(options_.title_id, options_.instance, *local_xnaddr_),
+               std::make_pair(source, source_port));
         break;
       }
       case MessageType::kLeave:
