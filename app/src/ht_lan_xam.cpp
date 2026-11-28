@@ -976,13 +976,15 @@ REX_HOOK_RAW(rex_original_XamUserGetSigninInfo) {
   HT_TRACE("XamUserGetSigninInfo({}, {:X}) xuid={:016X}", user, flags, Be64(info));
 }
 
-// XamUserGetXUID(user, type_mask, out): online requests get this run's online XUID.
+// XamUserGetXUID(user, type_mask, out): a LIVE-signed-in profile answers any request
+// that allows an online XUID (mask bit 2) with it, like the console does; the game
+// identifies lobby players by it.
 REX_HOOK_RAW(rex_original_XamUserGetXUID) {
   if (!Enabled()) return HT_FORWARD(rex_original_XamUserGetXUID);
   const uint32_t user = ctx.r3.u32, mask = ctx.r4.u32;
   uint8_t* out = Guest(ctx.r5.u32);
   HT_FORWARD(rex_original_XamUserGetXUID);
-  if (ctx.r3.u32 == 0 && out && UserExists(user) && mask == 2)
+  if (ctx.r3.u32 == 0 && out && UserExists(user) && (mask & 2))
     Put64(out, Lan::Get().OnlineXuid(user));
   HT_TRACE("XamUserGetXUID({}, {}) = {:016X}", user, mask, out ? Be64(out) : 0);
 }
