@@ -428,7 +428,8 @@ REX_HOOK_RAW(rex_original_NetDll_XNetQosListen) {
     lan.qos_data.assign(data, data ? data + size : data);
   }
   if (flags & 0x10) lan.qos_data.clear();  // XNET_QOS_LISTEN_RELEASE
-  HT_TRACE("XNetQosListen flags={:X} data={} bytes", flags, lan.qos_data.size());
+  HT_TRACE("XNetQosListen({:X}, {:X}, {:X}, {:X}, {:X}) data={} bytes", Arg(ctx, base, 1),
+           Arg(ctx, base, 2), Arg(ctx, base, 3), Arg(ctx, base, 4), flags, lan.qos_data.size());
   for (auto& [object, s] : lan.sessions)
     if (s.advertised) lan.Advertise(s);
   Return(ctx, kSuccess);
@@ -663,13 +664,20 @@ GuestBufferList GuestBuffers(uint32_t wsabufs, uint32_t count) {
   return out;
 }
 
+// Datagram counters, logged every 10 s with ht_lan_trace (per-packet lines would cost
+// frame time).
+struct IoCounters {
+  std::atomic<uint64_t> sends{0}, received{0}, posted{0}, completed{0};
+};
+IoCounters g_io;
+
 // Overlapped receives waiting for a datagram.
 class PendingReceives {
  public:
   struct Op {
     uint32_t socket = 0;
     GuestBufferList buffers;
-    uint32_t from = 0, fromlen = 0, bytes = 0, flags = 0, overlapped = 0;
+    uint32_t from = 0, fromlen = 0, overlapped = 0;
   };
   static PendingReceives& Get() {
     static PendingReceives p;
@@ -678,9 +686,11 @@ class PendingReceives {
   void Add(Op op) {
     std::lock_guard<std::mutex> lock(mutex_);
     ops_.push_back(std::move(op));
-    if (!worker_.joinable()) {
-      worker_ = std::thread([this] { Run(); });
-      worker_.detach();  // lives as long as the game; never joined
+    // One worker for the whole game, started on first use. (A detached std::thread is
+    // no longer joinable(), so that cannot be the "already started" test.)
+    if (!started_) {
+      started_ = true;
+      std::thread([this] { Run(); }).detach();
     }
     wake_.notify_all();
   }
@@ -718,16 +728,25 @@ class PendingReceives {
         if (native) got = ReceiveDatagram(*native, it->buffers, it->from, it->fromlen, &error);
         if (!native || got || error != kWsaEwouldblock) {
           const uint32_t status = got ? 0 : (native ? error : kWsaOperationAborted);
-          if (uint8_t* b = Guest(it->bytes)) Put32(b, got.value_or(0));
-          if (uint8_t* f = Guest(it->flags)) Put32(f, 0);
+          // Only the OVERLAPPED is written now. The byte-count and flags pointers given to
+          // WSARecvFrom usually point into the caller's stack frame, long gone by now;
+          // the game reads the result through WSAGetOverlappedResult instead.
           CompleteOverlapped(it->overlapped, status, got.value_or(0));
           it = ops_.erase(it);
           progress = true;
+          ++g_io.completed;
         } else {
           ++it;
         }
       }
       if (progress) done_.notify_all();
+      const auto now = std::chrono::steady_clock::now();
+      if (Tracing() && now >= next_stats_) {
+        next_stats_ = now + std::chrono::seconds(10);
+        REXLOG_WARN("[ht-lan] io: sent {} received {} posted {} completed {} pending {}",
+                    g_io.sends.load(), g_io.received.load(), g_io.posted.load(),
+                    g_io.completed.load(), ops_.size());
+      }
       // Game datagrams come at frame rate at most; a 1 ms poll keeps latency negligible.
       lock.unlock();
       std::this_thread::sleep_for(std::chrono::milliseconds(1));
@@ -737,7 +756,8 @@ class PendingReceives {
   std::mutex mutex_;
   std::condition_variable wake_, done_;
   std::vector<Op> ops_;
-  std::thread worker_;
+  std::chrono::steady_clock::time_point next_stats_{};
+  bool started_ = false;
 };
 
 }  // namespace
@@ -772,9 +792,7 @@ REX_HOOK_RAW(rex_original_NetDll_sendto) {
   const uint8_t* to = Guest(Arg(ctx, base, 5));
   uint32_t error = 0;
   auto sent = SendDatagram(*native, {{Arg(ctx, base, 2), Arg(ctx, base, 3)}}, to, &error);
-  HT_TRACE("sendto {} bytes to {}:{} -> {}", Arg(ctx, base, 3),
-           to ? ht::lan::AddressToString(Be32(to + 4)) : "-", to ? Be16(to + 2) : 0,
-           sent ? int64_t(*sent) : -int64_t(error));
+  ++g_io.sends;
   if (!sent) {
     rex::system::XThread::SetLastError(error);
     return Return(ctx, kSocketError);
@@ -796,8 +814,7 @@ REX_HOOK_RAW(rex_original_NetDll_WSASendTo) {
   uint32_t error = 0;
   auto sent =
       SendDatagram(*native, GuestBuffers(Arg(ctx, base, 2), Arg(ctx, base, 3)), to, &error);
-  HT_TRACE("WSASendTo to {}:{} -> {}", to ? ht::lan::AddressToString(Be32(to + 4)) : "-",
-           to ? Be16(to + 2) : 0, sent ? int64_t(*sent) : -int64_t(error));
+  ++g_io.sends;
   if (!sent) {
     rex::system::XThread::SetLastError(error);
     return Return(ctx, kSocketError);
@@ -822,7 +839,7 @@ REX_HOOK_RAW(rex_original_NetDll_recvfrom) {
     rex::system::XThread::SetLastError(error);
     return Return(ctx, kSocketError);
   }
-  HT_TRACE("recvfrom {} bytes", *got);
+  ++g_io.received;
   Return(ctx, *got);
 }
 
@@ -839,16 +856,15 @@ REX_HOOK_RAW(rex_original_NetDll_WSARecvFrom) {
   PendingReceives::Op op;
   op.socket = socket;
   op.buffers = GuestBuffers(Arg(ctx, base, 2), Arg(ctx, base, 3));
-  op.bytes = Arg(ctx, base, 4);
-  op.flags = Arg(ctx, base, 5);
   op.from = Arg(ctx, base, 6);
   op.fromlen = Arg(ctx, base, 7);
   op.overlapped = Arg(ctx, base, 8);
   uint32_t error = 0;
   auto got = ReceiveDatagram(*native, op.buffers, op.from, op.fromlen, &error);
   if (got) {
-    if (uint8_t* b = Guest(op.bytes)) Put32(b, *got);
-    if (uint8_t* f = Guest(op.flags)) Put32(f, 0);
+    ++g_io.received;
+    if (uint8_t* b = Guest(Arg(ctx, base, 4))) Put32(b, *got);
+    if (uint8_t* f = Guest(Arg(ctx, base, 5))) Put32(f, 0);
     if (op.overlapped) CompleteOverlapped(op.overlapped, 0, *got);
     return Return(ctx, 0);
   }
@@ -857,6 +873,7 @@ REX_HOOK_RAW(rex_original_NetDll_WSARecvFrom) {
     Put32(o, kStatusPending);
     Put32(o + 4, 0);
     ResetEvent(Be32(o + 16));
+    ++g_io.posted;
     PendingReceives::Get().Add(std::move(op));
     error = kWsaIoPending;
   }
