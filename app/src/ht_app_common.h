@@ -23,6 +23,7 @@
 #include "ht_version.h"
 #include "ht_library_paths.h"
 #include "ht_lossless.h"
+#include "ht_prepare.h"
 
 // Debug console, off unless the build asks for it. See where it is used.
 #ifndef HT_DEV_CONSOLE
@@ -36,6 +37,8 @@ class HtBaseApp : public rex::ReXApp {
   virtual std::string_view GetBuildTitle() const = 0;
   virtual std::string_view GetBuildStamp() const = 0;
   void OnConfigurePaths(rex::PathConfig& paths) override {
+    // RecompLauncher's first start: bring an earlier setup's settings and saves into its folder.
+    ht::prepare::AdoptOldData();
     const auto executable=rex::filesystem::GetExecutableFolder();
     library_root_=ht::LibraryRoot(executable);
     const char* testing=std::getenv("HT_BOOT_TEST");

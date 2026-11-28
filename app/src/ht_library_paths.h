@@ -9,8 +9,34 @@
 #include <windows.h>
 #endif
 namespace ht {
+// RecompLauncher's folder for everything the game writes (RECOMPLAUNCHER_DATA). Empty when the
+// game is not started by it, and then nothing below changes.
+inline std::filesystem::path LauncherDataDirectory(){
+#if defined(_WIN32)
+  if(const auto* p=_wgetenv(L"RECOMPLAUNCHER_DATA");p && *p)return std::filesystem::path(p);
+#else
+  if(const auto* p=std::getenv("RECOMPLAUNCHER_DATA");p && *p)return std::filesystem::u8path(p);
+#endif
+  return {};
+}
+inline std::filesystem::path UserSettingsDirectory();
+// Written in RecompLauncher's folder once the settings and user_data of an earlier setup have
+// been brought into it (ht::prepare::AdoptOldData). Until then the old folder stays in use.
+inline std::filesystem::path AdoptedMarker(const std::filesystem::path& launcher){
+  return launcher/"hydrothunder-adopted.txt";
+}
 inline std::filesystem::path SettingsDirectory(){
   if(const auto* p=std::getenv("HT_SETTINGS_ROOT"))return std::filesystem::u8path(p);
+  if(auto launcher=LauncherDataDirectory();!launcher.empty()){
+    std::error_code ec;
+    if(std::filesystem::exists(AdoptedMarker(launcher),ec))return launcher;
+    try{if(!std::filesystem::is_directory(UserSettingsDirectory(),ec))return launcher;}
+    catch(const std::exception&){return launcher;}
+  }
+  return UserSettingsDirectory();
+}
+// The settings folder of a game not started by RecompLauncher.
+inline std::filesystem::path UserSettingsDirectory(){
 #if defined(_WIN32)
   if(const auto* p=std::getenv("APPDATA"))return std::filesystem::u8path(p)/"HydroThunderRecompiled";
 #else
@@ -38,7 +64,10 @@ inline std::filesystem::path ShaderCacheDirectory(const std::filesystem::path& r
   const auto existing=root/"cache_linux";
 #endif
   // Reuse a compatible installed cache without copying it on launcher updates.
-  return std::filesystem::is_directory(existing) ? existing : SettingsDirectory()/"shader_cache";
+  if(std::filesystem::is_directory(existing))return existing;
+  // RecompLauncher leaves {data}/cache out of save backups.
+  if(auto launcher=LauncherDataDirectory();!launcher.empty())return launcher/"cache"/"shaders";
+  return SettingsDirectory()/"shader_cache";
 }
 // user_data (saves, DLC, achievements). Default: next to the game, <library>/user_data.
 // The player may move the whole folder; the choice lives in the settings folder, so the

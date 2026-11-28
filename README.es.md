@@ -4,6 +4,8 @@
 
 [Descargar](https://github.com/monscriser/HydroThunderPORT/releases) · [Sitio del proyecto](https://monscriser.github.io/HydroThunderPORT/) · [Incidencias](https://github.com/monscriser/HydroThunderPORT/issues)
 
+<a href="https://recomplauncher.com/game/hydrothunderport"><picture><source media="(prefers-color-scheme: dark)" srcset="https://recomplauncher.com/assets/press/launcher/badge-light.svg"><img alt="Get it on RecompLauncher" src="https://recomplauncher.com/assets/press/launcher/badge-dark.svg" height="48"></picture></a>
+
 ## Estado del proyecto — FINAL BUILD y el futuro de HydroThunderPORT
 
 > [!IMPORTANT]

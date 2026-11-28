@@ -51,7 +51,9 @@ toml = win / 'data/hydrothunder.toml'
 text = re.sub(r'(?m)^# (9\.[012]\.0|1\.[012]\.0)[^\n]*\n', '', toml.read_text())
 toml.write_text('# FINAL BUILD: to compare, set ht_texture_set_cache / ht_request_range_lockless / ht_zpd_batch / '
                 'ht_dynamic_constants / ht_cp_fast_registers / ht_async_submit to false and restart.\n' + text)
-assert sorted(p.name for p in win.iterdir()) == ['HydroThunder.exe', 'Launcher-Config.exe', 'data']
+# RecompLauncher reads recomplauncher.json from the top of the zip.
+shutil.copy2(SRC / 'recomplauncher.json', win / 'recomplauncher.json')
+assert sorted(p.name for p in win.iterdir()) == ['HydroThunder.exe', 'Launcher-Config.exe', 'data', 'recomplauncher.json']
 for need in ('data/steam_art/logo.png', 'data/steam_art/monscriser/hero.png', 'data/ui/Roboto-Medium.ttf',
              'data/libamd_fidelityfx_vk.dll', 'data/shaders/windows/5841096A.fbo.vk.xpso', 'data/shaders/windows/5841096A.xsh'):
     assert (win / need).is_file(), need
@@ -69,7 +71,8 @@ with zipfile.ZipFile(target) as z:
     names = z.namelist()
     assert not any('\\' in n or {'game_data', 'user_data', '_to_delete'} & set(Path(n).parts) for n in names)
     assert not any(n.endswith(('.xex', '.apf', 'ht2save.dat', '.profraw')) for n in names)
-    assert {n.split('/')[0] for n in names} == {'HydroThunder.exe', 'Launcher-Config.exe', 'data'}
+    assert {n.split('/')[0] for n in names} == {'HydroThunder.exe', 'Launcher-Config.exe', 'data', 'recomplauncher.json'}
+    assert z.read('recomplauncher.json') == (SRC / 'recomplauncher.json').read_bytes()
     for n in ('hydrothunder.exe', 'librexruntime.dll', 'rexgpu-xenos.dll'):
         assert hashlib.sha256(z.read('data/' + n)).hexdigest() == proof[n], n
 print(target, sha(target))

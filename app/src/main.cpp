@@ -235,6 +235,14 @@ REXCVAR_DEFINE_STRING(ht_player_name_2, "Player 2", "Hydro Thunder", "Player 2 n
 REXCVAR_DEFINE_STRING(ht_player_name_3, "Player 3", "Hydro Thunder", "Player 3 name (up to 15 letters)");
 REXCVAR_DEFINE_STRING(ht_player_name_4, "Player 4", "Hydro Thunder", "Player 4 name (up to 15 letters)");
 
+// RecompLauncher's setup step: prepare --game/--update/--dlc without a window, then exit.
+#include "ht_prepare.h"
+REXCVAR_DEFINE_BOOL(prepare, false, "Hydro Thunder",
+                    "Prepare --game, --update and --dlc into RECOMPLAUNCHER_DATA without a window, then exit");
+REXCVAR_DEFINE_STRING(game, "", "Hydro Thunder", "Your game package or folder, for --prepare");
+REXCVAR_DEFINE_STRING(update, "", "Hydro Thunder", "Your title update 0.0.2.1, for --prepare");
+REXCVAR_DEFINE_STRING(dlc, "", "Hydro Thunder", "Your DLC package or folder (optional), for --prepare");
+
 class HtPureApp : public HtBaseApp {
  public:
   using HtBaseApp::HtBaseApp;
@@ -258,6 +266,15 @@ class HtPureApp : public HtBaseApp {
 
   static std::unique_ptr<rex::ui::WindowedApp> Create(
       rex::ui::WindowedAppContext& ctx) {
+    // --prepare runs here, before any window or runtime exists, and never returns.
+    if (REXCVAR_GET(prepare)) {
+      const int code = ht::prepare::Run(std::filesystem::u8path(REXCVAR_GET(game)),
+                                        std::filesystem::u8path(REXCVAR_GET(update)),
+                                        std::filesystem::u8path(REXCVAR_GET(dlc)));
+      std::fflush(stdout);
+      std::fflush(stderr);
+      std::_Exit(code);
+    }
     return std::unique_ptr<HtPureApp>(
         new HtPureApp(ctx, "hydrothunder", PPCImageConfig));
   }

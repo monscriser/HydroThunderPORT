@@ -4,7 +4,15 @@
 # ficam em ${XDG_DATA_HOME:-~/.local/share}/HydroThunderRecompiled.
 APPDIR="${APPDIR:-$(dirname -- "$(readlink -f -- "$0")")}"
 export APPDIR
-DATA="${XDG_DATA_HOME:-$HOME/.local/share}/HydroThunderRecompiled"
+# RecompLauncher: etapa de preparacao (--prepare) sem janela, com as linhas de
+# progresso na saida padrao, e os dados na pasta dele (RECOMPLAUNCHER_DATA).
+for arg in "$@"; do
+  case "$arg" in --prepare | --prepare=true)
+    cd -- "$APPDIR/usr/bin" || exit 1
+    SDL_VIDEO_DRIVER=offscreen exec ./hydrothunder "$@" ;;
+  esac
+done
+DATA="${RECOMPLAUNCHER_DATA:-${XDG_DATA_HOME:-$HOME/.local/share}/HydroThunderRecompiled}"
 LOGDIR="$DATA/logs"
 mkdir -p "$LOGDIR" 2>/dev/null || LOGDIR="${TMPDIR:-/tmp}"
 LOG="$LOGDIR/appimage-launch.log"

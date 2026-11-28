@@ -83,6 +83,7 @@ set(HT_SOURCES
     src/ht_setup.cpp
     src/ht_setup_wizard.cpp
     src/ht_content_install.cpp
+    src/ht_prepare.cpp
 )
 
 add_executable(ht-import src/ht_import_main.cpp src/ht_setup.cpp src/ht_content_install.cpp)
