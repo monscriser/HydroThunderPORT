@@ -46,7 +46,15 @@
     "{data}/library/user_data/B13EBABEBABEBABF/5841096A/00000001",
     "{data}/library/user_data/B13EBABEBABEBAC0/5841096A/00000001",
     "{data}/library/user_data/B13EBABEBABEBAC1/5841096A/00000001",
-    "{data}/hydrothunder.toml"
+    "{data}/hydrothunder.toml",
+    "{config}/HydroThunderRecompiled/library/user_data/B13EBABEBABEBABE/5841096A/00000001",
+    "{config}/HydroThunderRecompiled/library/user_data/B13EBABEBABEBABF/5841096A/00000001",
+    "{config}/HydroThunderRecompiled/library/user_data/B13EBABEBABEBAC0/5841096A/00000001",
+    "{config}/HydroThunderRecompiled/library/user_data/B13EBABEBABEBAC1/5841096A/00000001",
+    "{local}/HydroThunderRecompiled/library/user_data/B13EBABEBABEBABE/5841096A/00000001",
+    "{local}/HydroThunderRecompiled/library/user_data/B13EBABEBABEBABF/5841096A/00000001",
+    "{local}/HydroThunderRecompiled/library/user_data/B13EBABEBABEBAC0/5841096A/00000001",
+    "{local}/HydroThunderRecompiled/library/user_data/B13EBABEBABEBAC1/5841096A/00000001"
   ],
   "folders": {
     "game": [{ "path": "{data}/library/game_data" }],
