@@ -8,6 +8,7 @@
 #include "ht_boot_test.h"
 
 #include "ht_fps_overlay.h"
+#include "ht_lan_ui.h"
 #include "ht_shader_progress.h"
 #include "ht_shader_seed.h"
 #include "ht_settings_overlay.h"
@@ -587,6 +588,9 @@ class HtPureApp : public HtBaseApp {
     // "Preparando shaders… N de M" while the cached pipelines are created before the game starts.
     ht_shader_progress_ = std::make_unique<HtShaderProgress>(drawer);
 
+    // LAN play: hold Y (player name) / hold Back (join by IP) on the Multiplayer screens.
+    ht_lan_ = ht::lan::CreateOverlay(drawer, config_path_);
+
     HtBaseApp::OnCreateDialogs(drawer);
   }
 
@@ -596,6 +600,7 @@ class HtPureApp : public HtBaseApp {
   std::unique_ptr<HtShaderProgress> ht_shader_progress_;
   std::unique_ptr<HtSettingsDialog> ht_settings_;
   std::unique_ptr<HtFpsOverlay> ht_fps_;
+  std::unique_ptr<rex::ui::ImGuiDialog> ht_lan_;
 };
 
 REX_DEFINE_APP(hydrothunder, HtPureApp::Create)

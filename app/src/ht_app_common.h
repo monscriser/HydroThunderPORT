@@ -122,7 +122,10 @@ class HtBaseApp : public rex::ReXApp {
     rex::cvar::SetFlagByName("non_seamless_cube_map", "true");
     rex::cvar::SetFlagByName("execute_unclipped_draw_vs_on_cpu", "true");
     rex::cvar::SetFlagByName("present_dither", "true");
-    rex::cvar::SetFlagByName("local_network_only", "true");
+    // Game sockets stay on loopback, except in LAN play (src/ht_lan_xam.cpp), whose
+    // own filter accepts only private and link-local addresses.
+    rex::cvar::SetFlagByName("local_network_only",
+                             rex::cvar::GetFlagByName("ht_lan_play") == "false" ? "true" : "false");
     // Avoid a busy presentation loop repeatedly displaying an unchanged guest
     // frame. The simulation's vblank remains independent of the host display.
     rex::cvar::SetFlagByName("vulkan_allow_present_mode_immediate",
