@@ -576,7 +576,14 @@ std::optional<XnAddr> Discovery::FindPeer(uint32_t address) {
 void Discovery::AddTrustedPeer(uint32_t address) {
   std::lock_guard<std::mutex> lock(mutex_);
   if (std::find(trusted_.begin(), trusted_.end(), address) == trusted_.end()) {
-    if (trusted_.size() >= kMaxPeers) trusted_.erase(trusted_.begin());
+    if (trusted_.size() >= kMaxPeers) {
+      // Forget the oldest typed address as a peer too, so the two lists stay in step.
+      const uint32_t oldest = trusted_.front();
+      trusted_.erase(trusted_.begin());
+      options_.peers.erase(std::remove_if(options_.peers.begin(), options_.peers.end(),
+                                          [&](const auto& p) { return p.first == oldest; }),
+                           options_.peers.end());
+    }
     trusted_.push_back(address);
   }
   const auto peer = std::make_pair(address, options_.port);
