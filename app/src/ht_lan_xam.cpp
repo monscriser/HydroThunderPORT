@@ -209,9 +209,14 @@ class Lan {
   bool discovery_failed = false;
   bool address_fixed = false;
 
-  // Identity and address for this run; cheap, called from every entry point.
-  void Init() {
-    if (instance) return;
+  // Identity and address for this run; cheap, called from every entry point, from
+  // any thread and with or without `mutex` held. Everything it sets is read-only after.
+  void Init() { std::call_once(init_once_, [this] { InitOnce(); }); }
+  const PortMap& Ports() { return Init(), ports; }
+
+ private:
+  std::once_flag init_once_;
+  void InitOnce() {
     instance = ht::lan::RandomU64() | 1;
     const int base = REXCVAR_GET(ht_lan_port);
     ports.base = uint16_t(ht::lan::IsUsableBasePort(base) ? base : 36000);
@@ -227,6 +232,7 @@ class Lan {
                 ports.base + PortMap::kGamePorts);
   }
 
+ public:
   // Discovery opens its port only when a multiplayer screen first needs it, so
   // single player never listens on the network.
   bool StartDiscovery() {
@@ -589,7 +595,7 @@ std::optional<uint32_t> SendDatagram(NativeSocket s, const GuestBufferList& buff
   sockaddr* dest_ptr = nullptr;
   if (to) {
     dest.sin_family = AF_INET;
-    dest.sin_port = htons(Lan::Get().ports.ToHost(Be16(to + 2)));
+    dest.sin_port = htons(Lan::Get().Ports().ToHost(Be16(to + 2)));
     dest.sin_addr.s_addr = htonl(Be32(to + 4));
     dest_ptr = reinterpret_cast<sockaddr*>(&dest);
   }
@@ -644,7 +650,7 @@ std::optional<uint32_t> ReceiveDatagram(NativeSocket s, const GuestBufferList& b
     if (uint8_t* f = Guest(from_ptr)) {
       std::memset(f, 0, 16);
       Put16(f, 2);  // AF_INET
-      Put16(f + 2, Lan::Get().ports.ToGuest(ntohs(from.sin_port)));
+      Put16(f + 2, Lan::Get().Ports().ToGuest(ntohs(from.sin_port)));
       Put32(f + 4, ip);
     }
     if (uint8_t* fl = Guest(fromlen_ptr)) Put32(fl, 16);
@@ -771,7 +777,7 @@ REX_HOOK_RAW(rex_original_NetDll_bind) {
     lan.Init();
   }
   const uint16_t guest = name ? Be16(name + 2) : 0;
-  const uint16_t host = lan.ports.ToHost(guest);
+  const uint16_t host = lan.Ports().ToHost(guest);
   const uint32_t saved_addr = name ? Be32(name + 4) : 0;
   // With a chosen ht_lan_address, "any address" binds to that address only.
   if (name && lan.address_fixed && saved_addr == 0) Put32(name + 4, lan.address);

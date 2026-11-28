@@ -76,6 +76,7 @@ constexpr size_t kMaxQosData = 512;
 constexpr size_t kMaxHostName = 15;
 constexpr size_t kXnAddrSize = 36;
 constexpr size_t kMaxPeers = 64;
+constexpr size_t kMaxSessions = 64;  // a LAN flood of announces cannot grow the table further
 
 enum class MessageType : uint8_t { kQuery = 1, kAnnounce = 2, kLeave = 3, kHello = 4 };
 

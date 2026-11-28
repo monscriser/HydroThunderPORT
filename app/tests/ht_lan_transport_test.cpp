@@ -397,6 +397,27 @@ void TestLoopback() {
   std::this_thread::sleep_for(300ms);
   CHECK(!joiner.Find(ad.session_id));
 
+  // A flood of announces with new session ids cannot grow the table without bound,
+  // and the sessions already listed stay listed.
+  host.Advertise(ad);
+  CHECK(joiner.Search(1000ms, 1).size() == 1);
+  Sock flood = UdpSocket(0);
+  for (int i = 0; i < 100; ++i) {
+    SessionAd fake = SampleAd();
+    fake.instance = 0xF000 + i;
+    fake.session_id[7] = uint8_t(i);
+    fake.session_id[6] = 0xEE;
+    const auto p = EncodeAnnounce(kTitle, fake);
+    SendUdp(flood, kLoopback, join_port, p.data(), p.size());
+    if (i % 20 == 19) std::this_thread::sleep_for(5ms);
+  }
+  CloseSock(flood);
+  std::this_thread::sleep_for(300ms);
+  CHECK(joiner.Snapshot().size() <= kMaxSessions);
+  CHECK(joiner.Find(ad.session_id).has_value());
+  std::this_thread::sleep_for(1200ms);  // the fakes expire; the real host keeps announcing
+  CHECK(joiner.Snapshot().size() == 1);
+
   // Host stops cleanly (quits the game): Stop() sends LEAVE.
   host.Advertise(ad);
   CHECK(joiner.Search(1000ms, 1).size() == 1);

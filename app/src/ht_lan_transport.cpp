@@ -611,6 +611,7 @@ void Discovery::Handle(const uint8_t* data, size_t size, uint32_t source, uint16
           return s.ad.session_id == message->ad.session_id;
         });
         if (it == sessions_.end()) {
+          if (sessions_.size() >= kMaxSessions) break;  // full: ignore new sessions
           sessions_.push_back({std::move(message->ad), source, now});
         } else {
           it->ad = std::move(message->ad);
