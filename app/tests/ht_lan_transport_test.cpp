@@ -478,6 +478,16 @@ void TestLoopback() {
   CHECK(outside.Start(outward, &error));
   outside.Search(50ms);
   CHECK(outside.stats().sent == 0);
+  // An address the player typed in (join by IP, e.g. a VPN friend) is trusted: it is
+  // queried, and only it - not other public addresses. 198.51.100.x is a documentation
+  // range, so nothing real receives this.
+  const uint32_t vpn_friend = *ParseAddress("198.51.100.7");
+  CHECK(!outside.IsTrusted(vpn_friend));
+  outside.AddTrustedPeer(vpn_friend);
+  CHECK(outside.IsTrusted(vpn_friend) && !outside.IsTrusted(*ParseAddress("8.8.8.8")));
+  const auto sent_before = outside.stats().sent;
+  outside.Search(50ms);
+  CHECK(outside.stats().sent == sent_before + 1);  // the friend, not 8.8.8.8
   outside.Stop();
 
   // Host stops cleanly (quits the game): Stop() sends LEAVE.

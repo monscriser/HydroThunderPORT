@@ -85,6 +85,7 @@ set(HT_SOURCES
     src/ht_content_install.cpp
     src/ht_lan_transport.cpp
     src/ht_lan_xam.cpp
+    src/ht_lan_panel.cpp
 )
 
 add_executable(ht-import src/ht_import_main.cpp src/ht_setup.cpp src/ht_content_install.cpp)

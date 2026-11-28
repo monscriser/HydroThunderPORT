@@ -478,7 +478,9 @@ void Discovery::Send(const std::vector<uint8_t>& packet,
   if (packet.empty() || socket_ == -1) return;
   auto send_one = [&](uint32_t ip, uint16_t port) {
     // Discovery only ever talks to the LAN (or the broadcast address).
-    if (!options_.allow_any_source && ip != 0xFFFFFFFFu && !IsLanAddress(ip)) return;
+    if (!options_.allow_any_source && ip != 0xFFFFFFFFu && !IsLanAddress(ip) &&
+        std::find(trusted_.begin(), trusted_.end(), ip) == trusted_.end())
+      return;
     sockaddr_in dest{};
     dest.sin_family = AF_INET;
     dest.sin_port = htons(port);
@@ -571,6 +573,23 @@ std::optional<XnAddr> Discovery::FindPeer(uint32_t address) {
   return std::nullopt;
 }
 
+void Discovery::AddTrustedPeer(uint32_t address) {
+  std::lock_guard<std::mutex> lock(mutex_);
+  if (std::find(trusted_.begin(), trusted_.end(), address) == trusted_.end()) {
+    if (trusted_.size() >= kMaxPeers) trusted_.erase(trusted_.begin());
+    trusted_.push_back(address);
+  }
+  const auto peer = std::make_pair(address, options_.port);
+  if (std::find(options_.peers.begin(), options_.peers.end(), peer) == options_.peers.end())
+    options_.peers.push_back(peer);
+  Send(EncodeQuery(options_.title_id, options_.instance), peer);
+}
+
+bool Discovery::IsTrusted(uint32_t address) const {
+  std::lock_guard<std::mutex> lock(mutex_);
+  return std::find(trusted_.begin(), trusted_.end(), address) != trusted_.end();
+}
+
 DiscoveryStats Discovery::stats() const {
   std::lock_guard<std::mutex> lock(mutex_);
   return stats_;
@@ -619,7 +638,8 @@ void Discovery::Handle(const uint8_t* data, size_t size, uint32_t source, uint16
   {
     std::lock_guard<std::mutex> lock(mutex_);
     ++stats_.received;
-    if (!options_.allow_any_source && !IsLanAddress(source)) {
+    if (!options_.allow_any_source && !IsLanAddress(source) &&
+        std::find(trusted_.begin(), trusted_.end(), source) == trusted_.end()) {
       ++stats_.rejected_source;
       return;
     }

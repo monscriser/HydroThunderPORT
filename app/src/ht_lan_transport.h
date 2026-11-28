@@ -189,6 +189,11 @@ class Discovery {
   void Hello(uint32_t address, uint16_t port = 0);  // port 0: the discovery port
   std::optional<XnAddr> FindPeer(uint32_t address);
 
+  // An address the player typed (join by IP): queried like a peer and accepted even
+  // outside the LAN ranges, so a VPN friend (Tailscale 100.x, Radmin 26.x) can play.
+  void AddTrustedPeer(uint32_t address);
+  bool IsTrusted(uint32_t address) const;
+
   DiscoveryStats stats() const;
   // Called (on the receive thread) whenever the table changes.
   void SetChangeCallback(std::function<void()> callback);
@@ -211,6 +216,7 @@ class Discovery {
   std::vector<std::pair<uint32_t, XnAddr>> peers_;  // bounded, newest last
   std::optional<XnAddr> local_xnaddr_;
   std::vector<std::pair<uint32_t, std::chrono::steady_clock::time_point>> replies_;  // bounded
+  std::vector<uint32_t> trusted_;  // bounded by kMaxPeers
   DiscoveryStats stats_;
   std::function<void()> on_change_;
   std::chrono::steady_clock::time_point next_announce_{};

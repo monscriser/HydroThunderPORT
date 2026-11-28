@@ -19,6 +19,7 @@
 // ht_lan_play = false (and for every message that is not ours) the game sees exactly
 // what it saw before.
 #include "ht_lan_transport.h"
+#include "ht_lan_ui.h"
 
 #include <algorithm>
 #include <array>
@@ -213,6 +214,10 @@ class Lan {
   std::map<uint32_t, uint32_t> handles;           // handle -> object
   std::map<uint32_t, std::array<uint8_t, kXnAddrSize>> addresses;  // ip -> XNADDR
   UserData users[4];
+  // The game's rich-presence value per player (5 on every Multiplayer screen) and the
+  // Join Game list state, read by the in-game LAN screens (ht_lan_panel.cpp).
+  std::atomic<uint32_t> presence[4] = {};
+  std::atomic<bool> join_list{false};
   uint32_t next_handle = 0xF1A00000;
   bool discovery_failed = false;
   bool address_fixed = false;
@@ -573,7 +578,8 @@ uint32_t NativeError() {
 #endif
 
 bool AllowedSource(uint32_t ip) {
-  return REXCVAR_GET(ht_lan_allow_any_address) || ht::lan::IsLanAddress(ip);
+  return REXCVAR_GET(ht_lan_allow_any_address) || ht::lan::IsLanAddress(ip) ||
+         Lan::Get().discovery.IsTrusted(ip);  // typed in by the player (join by IP)
 }
 
 void DroppedSource(uint32_t ip) {
@@ -1228,6 +1234,7 @@ std::optional<uint32_t> HandleSession(uint32_t message, uint32_t buffer_ptr, uin
       const uint32_t user = Be32(b);
       if (user < 4) {
         lan.users[user].contexts[Be32(b + 16)] = Be32(b + 20);
+        if (Be32(b + 16) == 0x00008001) lan.presence[user] = Be32(b + 20);  // rich presence: screen
         if (Be32(b + 16) == 0x0000800A) for (auto& [o, s] : lan.sessions) if (s.user_index == user) s.game_type = Be32(b + 20);
         if (Be32(b + 16) == 0x0000800B) for (auto& [o, s] : lan.sessions) if (s.user_index == user) s.game_mode = Be32(b + 20);
       }
@@ -1253,6 +1260,7 @@ std::optional<uint32_t> HandleSession(uint32_t message, uint32_t buffer_ptr, uin
       const uint32_t max = Be32(b + 8), size = Be32(b + 24), results = Be32(b + 28);
       HT_TRACE("XSessionSearch proc={} user={} max={} props={} ctx={}", Be32(b), Be32(b + 4), max,
                Be16(b + 12), Be16(b + 14));
+      lan.join_list = true;
       auto found = OpenSessions(lan, max, lock);
       WriteSearchResults(lan, found, max, results, size);
       REXLOG_WARN("[ht-lan] search found {} LAN game(s)", std::min<size_t>(found.size(), max));
@@ -1375,6 +1383,7 @@ std::optional<uint32_t> HandleSession(uint32_t message, uint32_t buffer_ptr, uin
       }
       if (nonce) Put64(nonce, s->nonce);
       s->created = true;
+      lan.join_list = false;
       lan.Advertise(*s);
       REXLOG_WARN("[ht-lan] session {:016X} {} (flags {:X}, {}+{} slots)", Be64(&s->info[0]),
                   s->host ? "hosted" : "joined", s->flags, s->max_public, s->max_private);
@@ -1511,4 +1520,46 @@ REX_HOOK_RAW(rex_original_XMsgInProcessCall) {
     HT_TRACE("XGI in-process message {:08X} -> runtime", ctx.r4.u32);
   }
   HT_FORWARD(rex_original_XMsgInProcessCall);
+}
+
+// --- in-game LAN screens (see ht_lan_ui.h) ---------------------------------------------
+
+namespace ht::lan {
+
+bool PlayEnabled() { return Enabled(); }
+
+bool InMultiplayerMenus() {
+  if (!Enabled()) return false;
+  auto& lan = Lan::Get();
+  // 5 on every Multiplayer screen. The second player turns 5 too once a split-screen
+  // race starts; an online lobby or race has a peer-network session.
+  if (lan.presence[0] != 5 || lan.presence[1] == 5) return false;
+  std::lock_guard<std::mutex> lock(lan.mutex);
+  for (const auto& [object, s] : lan.sessions)
+    if (s.created && !s.deleted && (s.flags & kSessionPeerNetwork)) return false;
+  return true;
+}
+
+bool OnJoinList() { return Lan::Get().join_list; }
+void LeaveJoinList() { Lan::Get().join_list = false; }
+
+void JoinAddress(uint32_t ip) {
+  auto& lan = Lan::Get();
+  std::lock_guard<std::mutex> lock(lan.mutex);
+  if (!lan.StartDiscovery()) return;
+  lan.discovery.AddTrustedPeer(ip);
+  REXLOG_WARN("[ht-lan] looking for games at {}", AddressToString(ip));
+}
+
+
+}  // namespace ht::lan
+
+// XamInputGetState(user, flags, state): X_INPUT_STATE = {be32 packet, X_INPUT_GAMEPAD}.
+// The LAN screens read the pad here and the game sees an idle one while they are open.
+REX_HOOK_RAW(rex_original_XamInputGetState) {
+  if (!Enabled()) return HT_FORWARD(rex_original_XamInputGetState);
+  const uint32_t user = ctx.r3.u32;
+  uint8_t* state = Guest(ctx.r5.u32);
+  HT_FORWARD(rex_original_XamInputGetState);
+  if (ctx.r3.u32 == 0 && state && user < 4) ht::lan::FilterPad(user, state + 4);
 }
