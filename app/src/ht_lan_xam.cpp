@@ -1077,11 +1077,18 @@ void WriteSearchResults(Lan& lan, const std::vector<ht::lan::RemoteSession>& fou
     std::array<uint8_t, kXnAddrSize> x;
     std::memcpy(x.data(), ad.host_xnaddr.data(), x.size());
     lan.Remember(x);
-    const uint32_t props = uint32_t(ad.properties.size()), ctxs = uint32_t(ad.contexts.size());
-    if (extra + props * kPropertySize + ctxs * kContextSize <= end) {
+    // The title's own properties, plus X_PROPERTY_GAMER_HOSTNAME, which LIVE adds to
+    // every result and the game shows as the host's gamertag in the match list.
+    const uint32_t props = uint32_t(ad.properties.size()) + 1;
+    const uint32_t ctxs = uint32_t(ad.contexts.size());
+    const uint32_t name_bytes = (uint32_t(ad.host_name.size()) + 1) * 2;  // UTF-16, with NUL
+    const uint32_t needed =
+        props * kPropertySize + ctxs * kContextSize + ((name_bytes + 3) & ~3u);
+    if (extra + needed <= end) {
       Put32(r + 76, props);
       Put32(r + 80, ctxs);
-      Put32(r + 84, props ? extra : 0);
+      Put32(r + 84, extra);
+      const uint32_t name_at = extra + props * kPropertySize + ctxs * kContextSize;
       for (const auto& p : ad.properties) {
         uint8_t* e = Guest(extra);
         Put32(e, p.id);
@@ -1089,12 +1096,22 @@ void WriteSearchResults(Lan& lan, const std::vector<ht::lan::RemoteSession>& fou
         Put64(e + 16, p.value);
         extra += kPropertySize;
       }
+      uint8_t* host = Guest(extra);
+      Put32(host, 0x40008109);  // X_PROPERTY_GAMER_HOSTNAME
+      host[8] = 4;              // XUSER_DATA_TYPE_UNICODE: {be32 bytes, be32 pointer}
+      Put32(host + 16, name_bytes);
+      Put32(host + 20, name_at);
+      extra += kPropertySize;
       Put32(r + 88, ctxs ? extra : 0);
       for (const auto& [id, value] : ad.contexts) {
         Put32(Guest(extra), id);
         Put32(Guest(extra) + 4, value);
         extra += kContextSize;
       }
+      uint8_t* name = Guest(name_at);
+      for (size_t c = 0; c < ad.host_name.size(); ++c) Put16(name + c * 2, uint8_t(ad.host_name[c]));
+      Put16(name + ad.host_name.size() * 2, 0);
+      extra = name_at + ((name_bytes + 3) & ~3u);
     }
   }
 }
