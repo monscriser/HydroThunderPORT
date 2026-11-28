@@ -1,0 +1,175 @@
+{
+  "$schema": "https://recomplauncher.com/schema/recomplauncher.json",
+  "format": 1,
+  "repo": "monscriser/HydroThunderPORT",
+  "name": "Hydro Thunder Hurricane",
+  "inputs": [
+    {
+      "id": "game",
+      "label": "Your Hydro Thunder Hurricane for Xbox 360: its game package (the file named with a long hex string, no extension), or the folder with default.xex and Base.apf.",
+      "formats": [{ "type": "file" }, { "type": "folder" }]
+    },
+    {
+      "id": "update",
+      "label": "Title update 0.0.2.1: its UPDATE package, default.xexp, or the extracted folder.",
+      "role": "update",
+      "formats": [{ "type": "file" }, { "type": "folder" }]
+    },
+    {
+      "id": "dlc",
+      "label": "The DLC: its package (LIVE/CON/PIRS, with or without an extension), or the folder with Pack01.apf.",
+      "role": "dlc",
+      "optional": true,
+      "formats": [{ "type": "file" }, { "type": "folder" }]
+    }
+  ],
+  "start": {
+    "program": ["data/hydrothunder.exe", "HydroThunder-FINAL-BUILD-Linux-PGO.AppImage"],
+    "args": ["--ht_direct_launch=true"]
+  },
+  "prepare": {
+    "program": ["data/hydrothunder.exe", "HydroThunder-FINAL-BUILD-Linux-PGO.AppImage"],
+    "args": ["--prepare", "--game={input:game}", "--update={input:update}", "--dlc={input:dlc}"],
+    "label": "Your game, title update and DLC, prepared to play",
+    "done": ["{data}/library/game_data/default.xex", "{data}/library/hydrothunder-prepared.txt"],
+    "keeps_copy": true
+  },
+  "config": [
+    {
+      "id": "main",
+      "format": "toml",
+      "file": [{ "path": "{data}/hydrothunder.toml" }]
+    }
+  ],
+  "saves": [
+    "{data}/library/user_data/B13EBABEBABEBABE/5841096A/00000001",
+    "{data}/library/user_data/B13EBABEBABEBABF/5841096A/00000001",
+    "{data}/library/user_data/B13EBABEBABEBAC0/5841096A/00000001",
+    "{data}/library/user_data/B13EBABEBABEBAC1/5841096A/00000001",
+    "{data}/hydrothunder.toml"
+  ],
+  "folders": {
+    "game": [{ "path": "{data}/library/game_data" }],
+    "logs": [{ "path": "{data}/logs" }],
+    "cache": [{ "path": "{data}/cache" }]
+  },
+  "actions": [
+    { "id": "logs", "label": "Logs", "help": "The game's log files. Turn on Write log files first to get the full log.", "open": "logs" },
+    { "id": "shaders", "label": "Shader cache", "help": "Shaders built for your graphics card. Clearing only helps if graphics look wrong after a driver update; they are built again on the next start.", "clear": "cache/shaders" }
+  ],
+  "system": {
+    "windows": { "version": "10", "graphics": { "vulkan": "1.0" } },
+    "linux": { "glibc": "2.38", "graphics": { "vulkan": "1.0" } }
+  },
+  "settings": [
+    {
+      "id": "language", "label": "Game language",
+      "help": "The language of the game's menus and text.",
+      "choices": [
+        { "label": "English", "set": { "user_language": "1" } },
+        { "label": "Japanese", "set": { "user_language": "2" } },
+        { "label": "German", "set": { "user_language": "3" } },
+        { "label": "French", "set": { "user_language": "4" } },
+        { "label": "Spanish", "set": { "user_language": "5" } },
+        { "label": "Italian", "set": { "user_language": "6" } },
+        { "label": "Korean", "set": { "user_language": "7" } },
+        { "label": "Chinese (Traditional)", "set": { "user_language": "8" } },
+        { "label": "Portuguese (Brazil)", "set": { "user_language": "9" } }
+      ],
+      "defaults": { "user_language": "1" }
+    },
+    {
+      "id": "display", "label": "Display mode", "group": "Video",
+      "help": "Borderless fills your screen and lets you switch apps quickly. Fullscreen gives the game the screen to itself.",
+      "choices": [
+        { "label": "Borderless", "set": { "ht_game_fullscreen": "true", "fullscreen": "true", "fullscreen_mode": "\"borderless\"" } },
+        { "label": "Fullscreen", "set": { "ht_game_fullscreen": "true", "fullscreen": "true", "fullscreen_mode": "\"exclusive\"" } },
+        { "label": "Windowed", "set": { "ht_game_fullscreen": "false", "fullscreen": "false" } }
+      ],
+      "defaults": { "ht_game_fullscreen": "true", "fullscreen": "true", "fullscreen_mode": "\"borderless\"" }
+    },
+    {
+      "id": "resolution", "label": "Output resolution", "group": "Video",
+      "help": "The size of the picture. 720p is the console's own; 4K draws the 3D at twice the console's size.",
+      "choices": [
+        { "label": "1280 x 720", "set": { "ht_output_width": "1280", "window_width": "1280", "window_height": "720", "ht_render_quality": "1", "resolution_scale": "1" } },
+        { "label": "1920 x 1080", "set": { "ht_output_width": "1920", "window_width": "1920", "window_height": "1080", "ht_render_quality": "1", "resolution_scale": "1" } },
+        { "label": "2560 x 1440", "set": { "ht_output_width": "2560", "window_width": "2560", "window_height": "1440", "ht_render_quality": "1", "resolution_scale": "1" } },
+        { "label": "3840 x 2160", "set": { "ht_output_width": "3840", "window_width": "3840", "window_height": "2160", "ht_render_quality": "1", "resolution_scale": "2" } }
+      ],
+      "defaults": { "ht_output_width": "1280", "window_width": "0", "window_height": "0", "ht_render_quality": "1", "resolution_scale": "1" }
+    },
+    {
+      "id": "fps", "label": "Frame rate", "group": "Video",
+      "help": "60 is the game's own pace. Race speed doesn't change at any rate; 90, 120 and Unlimited need a faster PC and are less tested.",
+      "choices": [
+        { "label": "60 FPS", "set": { "video_mode_refresh_rate": "60.0", "fps_limit": "60" } },
+        { "label": "30 FPS", "set": { "video_mode_refresh_rate": "30.0", "fps_limit": "30" } },
+        { "label": "40 FPS", "set": { "video_mode_refresh_rate": "40.0", "fps_limit": "40" } },
+        { "label": "90 FPS", "set": { "video_mode_refresh_rate": "90.0", "fps_limit": "90" } },
+        { "label": "120 FPS", "set": { "video_mode_refresh_rate": "120.0", "fps_limit": "120" } },
+        { "label": "Unlimited (experimental)", "set": { "video_mode_refresh_rate": "60.0", "fps_limit": "0" } }
+      ],
+      "defaults": { "video_mode_refresh_rate": "60.0", "fps_limit": "60" }
+    },
+    {
+      "id": "upscaling", "label": "Upscaling", "group": "Video",
+      "help": "How the picture is fitted to your screen. FSR 1 sharpens it; FSR 3.1 is experimental and doesn't generate frames.",
+      "choices": [
+        { "label": "Off", "set": { "present_effect": "\"bilinear\"" } },
+        { "label": "FSR 1", "set": { "present_effect": "\"fsr\"" } },
+        { "label": "FSR 3.1", "set": { "present_effect": "\"fsr3\"" } }
+      ],
+      "defaults": { "present_effect": "\"bilinear\"" }
+    },
+    {
+      "id": "fxaa", "label": "FXAA", "group": "Video",
+      "help": "Smooths jagged edges, but softens the small digits of the race HUD.",
+      "choices": [
+        { "label": "Off", "set": { "swap_post_effect": "\"\"" } },
+        { "label": "On", "set": { "swap_post_effect": "\"fxaa\"" } }
+      ],
+      "defaults": { "swap_post_effect": "\"\"" }
+    },
+    {
+      "id": "filtering", "label": "Texture filtering", "group": "Video",
+      "help": "Keeps water and track textures sharp at shallow angles. Costs next to nothing.",
+      "choices": [
+        { "label": "Game's own", "set": { "anisotropic_override": "-1" } },
+        { "label": "2x", "set": { "anisotropic_override": "2" } },
+        { "label": "4x", "set": { "anisotropic_override": "3" } },
+        { "label": "8x", "set": { "anisotropic_override": "4" } },
+        { "label": "16x", "set": { "anisotropic_override": "5" } }
+      ],
+      "defaults": { "anisotropic_override": "3" }
+    },
+    {
+      "id": "show_fps", "label": "Show FPS", "group": "Video",
+      "help": "The frame rate in a corner of the screen. F6 turns it on and off in the game.",
+      "choices": [
+        { "label": "Off", "set": { "ht_show_fps": "false" } },
+        { "label": "On", "set": { "ht_show_fps": "true" } }
+      ],
+      "defaults": { "ht_show_fps": "false" }
+    },
+    {
+      "id": "precompile", "label": "Prepare shaders before the menu", "group": "Advanced",
+      "help": "Builds the shaders of all 11 tracks for your graphics card before the menu, so races don't stutter. The first start takes longer.",
+      "choices": [
+        { "label": "On", "set": { "ht_shader_precompile": "true" } },
+        { "label": "Off", "set": { "ht_shader_precompile": "false" } }
+      ],
+      "defaults": { "ht_shader_precompile": "true" }
+    },
+    {
+      "id": "logs", "label": "Write log files", "group": "Advanced",
+      "help": "Keeps a full log in the Logs folder, for bug reports.",
+      "choices": [
+        { "label": "Off", "set": { "ht_write_logs": "false" } },
+        { "label": "On", "set": { "ht_write_logs": "true" } }
+      ],
+      "defaults": { "ht_write_logs": "false" }
+    }
+  ],
+  "groups": [{ "id": "Advanced", "advanced": true }]
+}
