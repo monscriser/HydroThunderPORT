@@ -97,6 +97,15 @@ FSR 3.1 lacks full in-game motion-vector data. Upscaling is not frame generation
 
 The launcher can detect a separately purchased Steam copy, configure Windows profiles with backups and select a frame-generation multiplier. On Linux it provides setup guidance for the external `lsfg-vk` layer and reports requested settings in an overlay. Lossless Scaling is not included; Linux requires a compatible Vulkan layer in addition to the Steam app. End-to-end validation remains incomplete.
 
+### LAN multiplayer (experimental)
+
+Pick **Multiplayer** in the main menu, then **Create Match** on one computer and **Quick Match** or **Search for Match** on the others to race over your local network. The game's Xbox LIVE screens are answered locally; no server or account is involved. Local split-screen is unchanged.
+
+- Everyone must use the same `ht_lan_port` (default 36000) in `hydrothunder.toml`. Allow UDP `ht_lan_port` to `ht_lan_port + 16` (36000-36016) through the firewall on private networks.
+- If games do not show up (some networks block broadcasts), list the other computers' addresses in `ht_lan_peers`.
+- Only private and link-local addresses are accepted. `ht_lan_play = false` restores the original Xbox LIVE messages.
+- With LAN play on, the profile counts as signed in to Xbox LIVE, so **Leaderboards** opens empty boards instead of the "connect to Xbox LIVE" message.
+
 ## Installation
 
 ### Windows

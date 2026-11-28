@@ -53,6 +53,22 @@ force_additive_depth_test = true
 # missing geometry and untextured surfaces. Leave it on.
 gpu_allow_invalid_fetch_constants = true
 
+# --- LAN multiplayer -----------------------------------------------------------
+# Multiplayer > Quick Match / Search for Match / Create Match play against other
+# copies of the game on your local network instead of Xbox LIVE. Everyone in a
+# game must use the same ht_lan_port. A firewall must let this game receive UDP
+# on ht_lan_port .. ht_lan_port+16 (36000-36016 by default) on private networks.
+# ht_lan_play = false brings back the original "Xbox LIVE" messages.
+ht_lan_play = true
+ht_lan_port = 36000
+# This computer's LAN address to give other players; empty picks it automatically.
+ht_lan_address = ""
+# Addresses to look for games at when the network blocks broadcasts, e.g.
+# "192.168.1.20, 192.168.1.21".
+ht_lan_peers = ""
+# Packets are only accepted from private and link-local addresses unless this is on.
+ht_lan_allow_any_address = false
+
 # --- Logging -----------------------------------------------------------------
 # "info" keeps the log to a few dozen lines. Raise to "debug" for a bug report.
 log_level = "info"
