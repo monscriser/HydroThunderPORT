@@ -19,9 +19,24 @@ inline std::filesystem::path LauncherDataDirectory(){
 #endif
   return {};
 }
+inline std::filesystem::path UserSettingsDirectory();
+// Written in RecompLauncher's folder once the settings and user_data of an earlier setup have
+// been brought into it (ht::prepare::AdoptOldData). Until then the old folder stays in use.
+inline std::filesystem::path AdoptedMarker(const std::filesystem::path& launcher){
+  return launcher/"hydrothunder-adopted.txt";
+}
 inline std::filesystem::path SettingsDirectory(){
   if(const auto* p=std::getenv("HT_SETTINGS_ROOT"))return std::filesystem::u8path(p);
-  if(auto launcher=LauncherDataDirectory();!launcher.empty())return launcher;
+  if(auto launcher=LauncherDataDirectory();!launcher.empty()){
+    std::error_code ec;
+    if(std::filesystem::exists(AdoptedMarker(launcher),ec))return launcher;
+    try{if(!std::filesystem::is_directory(UserSettingsDirectory(),ec))return launcher;}
+    catch(const std::exception&){return launcher;}
+  }
+  return UserSettingsDirectory();
+}
+// The settings folder of a game not started by RecompLauncher.
+inline std::filesystem::path UserSettingsDirectory(){
 #if defined(_WIN32)
   if(const auto* p=std::getenv("APPDATA"))return std::filesystem::u8path(p)/"HydroThunderRecompiled";
 #else

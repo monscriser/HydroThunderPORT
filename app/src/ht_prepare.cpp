@@ -14,10 +14,13 @@
 #include <cstdio>
 #include <cstdlib>
 #include <fstream>
+#include <iomanip>
 #include <map>
+#include <optional>
 #include <stdexcept>
 #include <string>
 #include <system_error>
+#include <utility>
 
 #if defined(_WIN32)
 #include <windows.h>
@@ -190,9 +193,116 @@ void CopyDefaultSettings(const fs::path& settings) {
   if (!fs::exists(config) && fs::exists(shipped)) fs::copy_file(shipped, config);
 }
 
+// A path remembered in the old settings folder (library-location.txt, user-data-location.txt).
+fs::path Remembered(const fs::path& file, const char* version) {
+  std::ifstream in(file, std::ios::binary);
+  std::string line, path;
+  std::getline(in, line);
+  in >> std::quoted(path);
+  return line == version && !path.empty() ? fs::u8path(path) : fs::path{};
+}
+
+// Copies a file or folder for AdoptOldData. Big files (the DLC) are hard-linked when they can
+// be: nothing rewrites them. Saves and settings are always copied, so the originals stay as
+// they were.
+void CopyForAdoption(const fs::path& from, const fs::path& to) {
+  const auto one = [](const fs::path& source, const fs::path& target) {
+    std::error_code ec;
+    if (fs::file_size(source) >= (64u << 20)) {
+      fs::create_hard_link(source, target, ec);
+      if (!ec) return;
+    }
+    fs::copy_file(source, target);
+  };
+  if (!fs::is_directory(from)) return one(from, to);
+  fs::create_directories(to);
+  for (const auto& entry : fs::recursive_directory_iterator(from)) {
+    const auto target = to / entry.path().lexically_relative(from);
+    if (entry.is_symlink()) continue;
+    if (entry.is_directory()) fs::create_directories(target);
+    else if (entry.is_regular_file()) one(entry.path(), target);
+  }
+}
+
+// Takes back what an interrupted or failed adoption put in place: exactly the names journaled.
+void UndoAdoption(const fs::path& journal) {
+  std::ifstream in(journal, std::ios::binary);
+  std::string line;
+  while (std::getline(in, line)) {
+    if (line.empty()) continue;
+    const auto path = fs::u8path(line);
+    fs::remove_all(path);
+    fs::remove_all(Beside(path, ".part"));
+  }
+  in.close();
+  fs::remove(journal);
+}
+
+}  // namespace
+
+std::string AdoptOldData() {
+  if (std::getenv("HT_SETTINGS_ROOT")) return {};
+  const auto data = LauncherDataDirectory();
+  std::error_code ec;
+  if (data.empty() || fs::exists(AdoptedMarker(data), ec)) return {};
+  const auto journal = data / "hydrothunder-adopting.txt";
+  fs::path part;  // the copy in progress, removed if it fails
+  std::optional<Lock> lock;  // held until the end: only its holder takes anything back
+  try {
+    fs::create_directories(data);
+    lock.emplace(data / "hydrothunder-prepare.lock");
+    if (fs::exists(AdoptedMarker(data))) return {};
+    UndoAdoption(journal);
+    fs::path old;
+    try { old = UserSettingsDirectory(); } catch (const std::exception&) {}
+    if (!old.empty() && fs::is_directory(old)) {
+      // The user_data the old setup used: the folder the player picked, else the one beside
+      // the game folder it remembered, else beside the default one.
+      auto library = Remembered(old / "library-location.txt", "HTH-LIBRARY-1");
+      if (library.empty())
+        library = fs::is_directory(rex::filesystem::GetExecutableFolder() / "user_data")
+                      ? rex::filesystem::GetExecutableFolder() : old / "library";
+      auto user_data = Remembered(old / "user-data-location.txt", "HTH-USERDATA-1");
+      if (user_data.empty()) user_data = DefaultUserDataRoot(library);
+      const std::pair<fs::path, fs::path> items[] = {
+          {old / "hydrothunder.toml", data / "hydrothunder.toml"},
+          {user_data, DefaultUserDataRoot(data / "library")},
+      };
+      for (const auto& [from, to] : items) {
+        if (!fs::exists(from) || fs::exists(to)) continue;  // nothing there, or never replaced
+        part = Beside(to, ".part");
+        fs::remove_all(part);
+        fs::create_directories(to.parent_path());
+        CopyForAdoption(from, part);
+        {
+          std::ofstream out(journal, std::ios::binary | std::ios::app);
+          out << rex::path_to_utf8(to) << "\n";
+          out.close();
+          Require(bool(out), "the data folder can't be written");
+        }
+        fs::rename(part, to);
+      }
+    }
+    WriteMarker(AdoptedMarker(data), {{"from", old.empty() ? std::string() : rex::path_to_utf8(old)}});
+    fs::remove(journal);
+    return {};
+  } catch (const std::exception& error) {
+    if (lock) try {
+      if (!part.empty()) fs::remove_all(part);
+      UndoAdoption(journal);
+    } catch (const std::exception&) {}
+    return error.what();
+  }
+}
+
+namespace {
+
 int Prepare(const fs::path& game, const fs::path& update, const fs::path& dlc) {
   Require(!LauncherDataDirectory().empty() || std::getenv("HT_SETTINGS_ROOT"),
           "--prepare is RecompLauncher's setup step: it needs RECOMPLAUNCHER_DATA, the game's data folder.");
+  if (const auto reason = AdoptOldData(); !reason.empty())
+    throw Failure("Your saves and settings from an earlier setup couldn't be copied into the launcher's "
+                  "folder (" + reason + "). Check the drive has free space, then set up again.");
   // The same folders the game uses when it starts with this environment.
   const auto settings = SettingsDirectory();
   fs::create_directories(settings);

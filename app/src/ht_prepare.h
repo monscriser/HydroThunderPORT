@@ -17,8 +17,17 @@
 #pragma once
 
 #include <filesystem>
+#include <string>
 
 namespace ht::prepare {
+// Once, the first time RecompLauncher starts the game or its setup step: copies the settings
+// (hydrothunder.toml) and user_data (saves, DLC) of an earlier setup into RECOMPLAUNCHER_DATA,
+// where they are used from then on. Each item is copied to "<name>.part" and renamed into place,
+// its name journaled just before; nothing already there is replaced; the originals stay. The
+// marker (AdoptedMarker) is written last: until then the game keeps using the old folder, and a
+// failed or interrupted copy is taken back. Returns the reason when it couldn't.
+std::string AdoptOldData();
+
 int Run(const std::filesystem::path& game, const std::filesystem::path& update,
         const std::filesystem::path& dlc);
 }
