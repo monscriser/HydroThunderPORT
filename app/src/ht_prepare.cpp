@@ -20,7 +20,9 @@
 #include <stdexcept>
 #include <string>
 #include <system_error>
+#include <tuple>
 #include <utility>
+#include <vector>
 
 #if defined(_WIN32)
 #include <windows.h>
@@ -224,15 +226,17 @@ void CopyForAdoption(const fs::path& from, const fs::path& to) {
   }
 }
 
-// Takes back what an interrupted or failed adoption put in place: exactly the names journaled.
+// Takes back what an interrupted or failed adoption put in place: exactly the names journaled,
+// putting back the copy of a file it replaced ("<name>.before").
 void UndoAdoption(const fs::path& journal) {
   std::ifstream in(journal, std::ios::binary);
   std::string line;
   while (std::getline(in, line)) {
     if (line.empty()) continue;
     const auto path = fs::u8path(line);
-    fs::remove_all(path);
     fs::remove_all(Beside(path, ".part"));
+    if (fs::exists(Beside(path, ".before"))) fs::rename(Beside(path, ".before"), path);
+    else fs::remove_all(path);
   }
   in.close();
   fs::remove(journal);
@@ -248,6 +252,7 @@ std::string AdoptOldData() {
   const auto journal = data / "hydrothunder-adopting.txt";
   fs::path part;  // the copy in progress, removed if it fails
   std::optional<Lock> lock;  // held until the end: only its holder takes anything back
+  std::vector<fs::path> replaced;  // copies of replaced files, removed once it is done
   try {
     fs::create_directories(data);
     lock.emplace(data / "hydrothunder-prepare.lock");
@@ -264,27 +269,32 @@ std::string AdoptOldData() {
                       ? rex::filesystem::GetExecutableFolder() : old / "library";
       auto user_data = Remembered(old / "user-data-location.txt", "HTH-USERDATA-1");
       if (user_data.empty()) user_data = DefaultUserDataRoot(library);
-      const std::pair<fs::path, fs::path> items[] = {
-          {old / "hydrothunder.toml", data / "hydrothunder.toml"},
-          {user_data, DefaultUserDataRoot(data / "library")},
+      // The old settings win over what the launcher may already have written there (it writes
+      // its own keys again before Play); user_data is never replaced.
+      const std::tuple<fs::path, fs::path, bool> items[] = {
+          {old / "hydrothunder.toml", data / "hydrothunder.toml", true},
+          {user_data, DefaultUserDataRoot(data / "library"), false},
       };
-      for (const auto& [from, to] : items) {
-        if (!fs::exists(from) || fs::exists(to)) continue;  // nothing there, or never replaced
+      for (const auto& [from, to, replace] : items) {
+        if (!fs::exists(from) || (fs::exists(to) && !replace)) continue;
         part = Beside(to, ".part");
         fs::remove_all(part);
         fs::create_directories(to.parent_path());
         CopyForAdoption(from, part);
+        if (fs::exists(to)) fs::copy_file(to, Beside(to, ".before"), fs::copy_options::overwrite_existing);
         {
           std::ofstream out(journal, std::ios::binary | std::ios::app);
           out << rex::path_to_utf8(to) << "\n";
           out.close();
           Require(bool(out), "the data folder can't be written");
         }
-        fs::rename(part, to);
+        fs::rename(part, to);  // a file replaced here is kept as <name>.before until the end
+        if (replace) replaced.push_back(Beside(to, ".before"));
       }
     }
     WriteMarker(AdoptedMarker(data), {{"from", old.empty() ? std::string() : rex::path_to_utf8(old)}});
     fs::remove(journal);
+    for (const auto& before : replaced) fs::remove(before);
     return {};
   } catch (const std::exception& error) {
     if (lock) try {
