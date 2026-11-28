@@ -83,6 +83,8 @@ set(HT_SOURCES
     src/ht_setup.cpp
     src/ht_setup_wizard.cpp
     src/ht_content_install.cpp
+    src/ht_lan_transport.cpp
+    src/ht_lan_xam.cpp
 )
 
 add_executable(ht-import src/ht_import_main.cpp src/ht_setup.cpp src/ht_content_install.cpp)
@@ -170,7 +172,8 @@ endif()
 
 if(WIN32)
     # winmm: timeBeginPeriod, used to fix guest vblank pacing (see src/main.cpp)
-    target_link_libraries(hydrothunder PRIVATE comdlg32 winhttp d3dcompiler gdiplus winmm)
+    # ws2_32, iphlpapi: LAN play discovery (src/ht_lan_transport.cpp)
+    target_link_libraries(hydrothunder PRIVATE comdlg32 winhttp d3dcompiler gdiplus winmm ws2_32 iphlpapi)
     if(MINGW)
         target_link_options(hydrothunder PRIVATE -municode)
     endif()
