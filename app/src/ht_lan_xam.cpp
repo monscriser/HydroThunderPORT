@@ -300,7 +300,21 @@ class Lan {
 
   void Remember(const std::array<uint8_t, kXnAddrSize>& xnaddr) {
     const uint32_t ip = Be32(&xnaddr[0]);
-    if (addresses.size() >= ht::lan::kMaxPeers && !addresses.count(ip)) addresses.clear();
+    if (addresses.size() >= ht::lan::kMaxPeers && !addresses.count(ip)) {
+      // Full: forget one address that is not the host of a live session or a player
+      // who said HELLO, so a flood cannot cut the players of a running race.
+      auto in_use = [&](uint32_t candidate) {
+        for (const auto& [object, s] : sessions)
+          if (s.created && !s.deleted && Be32(&s.info[8]) == candidate) return true;
+        return discovery.FindPeer(candidate).has_value();
+      };
+      for (auto it = addresses.begin(); it != addresses.end(); ++it)
+        if (!in_use(it->first)) {
+          addresses.erase(it);
+          break;
+        }
+      if (addresses.size() >= ht::lan::kMaxPeers) return;  // all in use: keep them
+    }
     addresses[ip] = xnaddr;
   }
 
